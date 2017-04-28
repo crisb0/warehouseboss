@@ -11,3 +11,7 @@ MEMBER ROLES:
 Charley: 
   - charley.wong@hotmail.com
   - 0435392280
+
+Christine:
+  - christine.tvbui@gmail.com
+  - 0416252881
