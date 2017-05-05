@@ -1,4 +1,4 @@
 
 public class State {
-	aa
+	private int a;
 }
