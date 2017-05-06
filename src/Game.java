@@ -4,6 +4,11 @@ public class Game {
 	private Player p1;
 	private int map[][];
 	
+	private static final int FREE_SPACE = 0;
+	private static final int OBSTACLE = 1;
+	private static final int BOX = 2;
+	private static final int GOAL = 3;
+	
 	public Game(MapGenerator map) {
 		this.p1 = new Player(map.getPlayerLocation());
 		this.map = map.getGrid();
@@ -16,7 +21,8 @@ public class Game {
 	 * 
 	 * @return true if Point(x,y) is free -- no obstacle or entity currently occupying space
 	 */
-	public boolean checkFreeSpace() {
+	public boolean freeSpace(Point p) {
+		if (map[(int) p.getX()][(int) p.getY()] == FREE_SPACE) return true;
 		return false;
 	}
 }

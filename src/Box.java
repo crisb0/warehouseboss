@@ -1,13 +1,13 @@
 import java.awt.Point;
 
 
-public class Box implements Entity {
+public class Box extends Entity {
 
-	public Point getLoc() {
-		return null;
+	public Box(Point curr) {
+		this.loc = curr;
 	}
-
-	public boolean move(char dir) {
+	
+		public boolean move(char dir) {
 		return false;
 	}
 
