@@ -2,15 +2,14 @@ import java.awt.Point;
 
 
 public class Player extends Entity {
-	private Point loc;
 	
 	public Player(Point curr) {
 		this.loc = curr;
 	}
 
-	public Point getLoc() {
-		return this.loc;
-	}
+//	public setPlayerLoc(Point p) {
+//		if (freeSpace(p))this.setLoc(p);
+//	}
 
 	public boolean move(char dir) {
 		switch (dir) {

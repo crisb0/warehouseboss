@@ -1,4 +1,14 @@
+import java.awt.Point;
 
-public class Entity {
 
+public abstract class Entity {
+	protected Point loc;
+		
+	public Point getLoc() {
+		return this.loc;
+	}
+	
+	protected void setLoc(Point newLoc) {
+		this.loc.setLocation(newLoc);
+	}
 }
