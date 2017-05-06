@@ -5,7 +5,7 @@ public class Game {
 	private int map[][];
 	
 	public Game(MapGenerator map) {
-		this.p1 = new Player(map.getstartLocPlayer());
+		this.p1 = new Player(map.getPlayerLocation());
 		this.map = map.getGrid();
 	}
 	
