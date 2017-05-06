@@ -1,11 +1,18 @@
 # warehouseboss
 
-MEMBER ROLES:
-  - Alen - GUI (Swing), Product Owner
+### MEMBER ROLES:
+  - Alen - GUI (Swing), Product Owner 
   - Alan - Dev
   - Charley - Tester
   - Christine - Scrum Master
   - Shyam - Dev
+
+### WHO'S DOING WHICH CLASSES
+  - Alen - Game.java
+  - Alan - State.java
+  - Charley - MapGeneration.java
+  - Christine - Entity.java
+  - Shyam - where the f r ya!??!?!?!
 
 ### Contact details ###
 Charley: 
@@ -23,3 +30,4 @@ Alan:
 Shyam:
   - 1996shyam@gmail.com
   - 0405279195
+
