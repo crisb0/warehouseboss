@@ -19,4 +19,8 @@ public class Game {
 	public boolean checkFreeSpace() {
 		return false;
 	}
+	
+	public movePlayer(Player p, char dir) {
+		
+	}
 }
