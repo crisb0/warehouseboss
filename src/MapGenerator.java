@@ -2,7 +2,6 @@ import java.awt.Point;
 import java.util.List;
 import java.util.Random;
 
-
 public class MapGenerator {
 	private Point playerLocation; //this sits in grid
 	private List<Box> boxLocs; //this sits in grid
