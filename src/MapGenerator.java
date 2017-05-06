@@ -1,12 +1,28 @@
+import java.awt.Point;
+import java.util.List;
+
 
 public class MapGenerator {
-
+	private Point startingLocPlayer;
+	private List<Box> boxLocs;
+//	private String solution;
+	
+	
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 
 	}
 
+	
+	
+	
+	public Point getstartLocPlayer() {
+		return null;
+	}
+	
+	public int[][] getGrid() {
+		return null;
+	}
 }

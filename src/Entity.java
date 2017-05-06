@@ -1,4 +1,9 @@
+import java.awt.Point;
 
-public class Entity {
 
+public interface Entity {
+	
+	public Point getLoc();
+	
+	public boolean move(char dir);
 }
