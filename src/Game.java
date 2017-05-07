@@ -1,4 +1,6 @@
+import java.awt.EventQueue;
 import java.awt.Point;
+
 // generates puzzle map, reads user input to play game and processes
 public class Game {
 	private Player p1;
@@ -15,18 +17,19 @@ public class Game {
 	}
 	
 	public static void main(String[] args) {
+		/*
 		MapGenerator grid = new MapGenerator();
 		Map map = new Map(grid);
 		Game g = new Game(map);
+		*/
 		
+		EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+            	MainUI mainUI = new MainUI();
+    			mainUI.setVisible(true);
+            }
+        });
 	}
-
-	
-	
-	
-	
-	
-	
-	
 
 }

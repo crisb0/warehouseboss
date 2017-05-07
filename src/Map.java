@@ -12,7 +12,7 @@ public class Map {
 	
 	public Map(MapGenerator grid) {
 		this.map = grid.getGrid();
-		this.length = grid.length();
+		// this.length = grid.length();
 	}
 	
 	public int[][] getMap() {
