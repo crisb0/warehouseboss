@@ -1,9 +1,12 @@
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.Ellipse2D;
 
-import javax.swing.GroupLayout;
-import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class GameUI extends JPanel{
@@ -12,43 +15,45 @@ public class GameUI extends JPanel{
 
 	public GameUI(MainUI parent){
 		this.parent = parent;
-		this.initUI();
 	}
 	
-	private void initUI(){
-		// Initialise and set the GroupLayout setting for this panel
-		GroupLayout layout = new GroupLayout(this);
-		this.setLayout(layout);
-		
-		layout.setAutoCreateGaps(true);
-		layout.setAutoCreateContainerGaps(true);
-		
-		// Create the components to form the menu
-		JLabel lblTest1 = new JLabel("Game UI Testing");
-		JLabel lblTest2 = new JLabel("This class will no longer render buttons or menu items in future.");
-		JButton btnTest1 = new JButton("Test 1");
-		
-		// Add some test data to the menu
-		btnTest1.addActionListener(new ActionListener() { 
-			public void actionPerformed(ActionEvent e) {
-				parent.changeInterface(MainUI.PanelName.MAIN_MENU);
-			} 
-		});
+	@Override
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
 
-		layout.setHorizontalGroup(
-			layout.createSequentialGroup().addGroup(
-				layout.createParallelGroup(GroupLayout.Alignment.CENTER)
-					.addComponent(lblTest1)
-					.addComponent(lblTest2)
-					.addComponent(btnTest1)
-			)
-		);
-		
-		layout.setVerticalGroup(
-			layout.createSequentialGroup()
-				.addComponent(lblTest1)
-				.addComponent(lblTest2)
-				.addComponent(btnTest1)
-		);
-	}
+        drawDonut(g);
+    }
+
+	/*
+	 * THE DRAW DONUT CODE WAS COPIED FROM THE INTERNET AT THIS ADDRESS
+	 * http://zetcode.com/tutorials/javagamestutorial/basics/
+	 */
+    private void drawDonut(Graphics g) {
+
+        Graphics2D g2d = (Graphics2D) g;
+
+        RenderingHints rh
+                = new RenderingHints(RenderingHints.KEY_ANTIALIASING,
+                        RenderingHints.VALUE_ANTIALIAS_ON);
+
+        rh.put(RenderingHints.KEY_RENDERING,
+                RenderingHints.VALUE_RENDER_QUALITY);
+
+        g2d.setRenderingHints(rh);
+
+        Dimension size = parent.getSize();
+        double w = size.getWidth();
+        double h = size.getHeight();
+
+        Ellipse2D e = new Ellipse2D.Double(0, 0, 80, 130);
+        g2d.setStroke(new BasicStroke(1));
+        g2d.setColor(Color.gray);
+
+        for (double deg = 0; deg < 360; deg += 5) {
+            AffineTransform at
+                    = AffineTransform.getTranslateInstance(w/2, h/2);
+            at.rotate(Math.toRadians(deg));
+            g2d.draw(at.createTransformedShape(e));
+        }
+    }
 }

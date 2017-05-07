@@ -11,6 +11,7 @@ public class MainUI extends JFrame{
 	private int height = 600;
 
 	public MainUI(){
+		super();
 		this.initUI();
 	}
 	
@@ -31,11 +32,9 @@ public class MainUI extends JFrame{
 		
 		JPanel menuCont = new JPanel(new GridBagLayout());
 		menuCont.add(new MenuUI(this));
-		JPanel gameCont = new JPanel(new GridBagLayout());
-		gameCont.add(new GameUI(this));
 		
 		contPanel.add(menuCont, "menu");
-		contPanel.add(gameCont, "game");
+		contPanel.add(new GameUI(this), "game");
 		
 		this.changeInterface(PanelName.MAIN_MENU);
 	}
