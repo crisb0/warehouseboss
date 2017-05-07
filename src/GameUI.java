@@ -4,19 +4,46 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.event.ActionEvent;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Ellipse2D;
 
+import javax.swing.AbstractAction;
+import javax.swing.JComponent;
 import javax.swing.JPanel;
+import javax.swing.KeyStroke;
 
+/**
+ * The GameUI holds the code for the rendering of the game. Thus, this class
+ * will perform the game loop as well. The game logic can be delegated to the
+ * game class.
+ * 
+ * @author z5115782
+ */
 public class GameUI extends JPanel{
 	private static final long serialVersionUID = -5285564050945629510L;
 	private MainUI parent;
+	private Game gameObj;
 
 	public GameUI(MainUI parent){
 		this.parent = parent;
+		this.gameObj = null;
+		
+		// --------------------------------------------------
+		// Testing code for key input. Delete in next version.
+		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW ).put(KeyStroke.getKeyStroke("K"), "doSomething");
+		this.getActionMap().put("doSomething", new TestAction(this.parent));
+		// --------------------------------------------------
 	}
 	
+	public void generateGame(Game.Difficulty diff){
+		MapGenerator mapGen = new MapGenerator(diff);
+		Map map = new Map(mapGen);
+		this.gameObj = new Game(map);
+	}
+	
+	// --------------------------------------------------------------
+	// The following code are all tests. Will delete in next version.
 	@Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -26,11 +53,15 @@ public class GameUI extends JPanel{
 
 	/*
 	 * THE DRAW DONUT CODE WAS COPIED FROM THE INTERNET AT THIS ADDRESS
+	 * It just looks cool to draw =)
 	 * http://zetcode.com/tutorials/javagamestutorial/basics/
 	 */
     private void drawDonut(Graphics g) {
 
         Graphics2D g2d = (Graphics2D) g;
+        
+        g2d.drawString("Testing out if we are able to render and use key presses here", 350, 80);
+        g2d.drawString("Press 'k' to return to the main menu", 350, 100);
 
         RenderingHints rh
                 = new RenderingHints(RenderingHints.KEY_ANTIALIASING,
@@ -56,4 +87,19 @@ public class GameUI extends JPanel{
             g2d.draw(at.createTransformedShape(e));
         }
     }
+    
+    class TestAction extends AbstractAction {
+		private static final long serialVersionUID = -8932029940888012027L;
+		
+		MainUI parent;
+		
+		public TestAction(MainUI parent){
+			this.parent = parent;
+		}
+		
+		public void actionPerformed(ActionEvent e) {
+			this.parent.changeInterface(MainUI.PanelName.MAIN_MENU);
+        }
+    }
+    // --------------------------------------------------------------
 }

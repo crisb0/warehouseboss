@@ -14,13 +14,14 @@ public class MapGenerator {
     private static final int PLAYER = 4;
 	
 	//vers 0.0.1: return predetermined grid
-	public MapGenerator	() {
+	public MapGenerator(Game.Difficulty gameDiff) {
 		/*
 		 * DUMMY GRID
 		 */
 //		Random rand = new Random();
 		this.playerLocation = new Point();
 		//this should be this.grid = generate();
+		// Should we have it as this.grid = generate(gameDiff)? - Alen
 		this.grid = new int[10][10];
 		
 	}

@@ -17,12 +17,6 @@ public class Game {
 	}
 	
 	public static void main(String[] args) {
-		/*
-		MapGenerator grid = new MapGenerator();
-		Map map = new Map(grid);
-		Game g = new Game(map);
-		*/
-		
 		EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
@@ -31,5 +25,8 @@ public class Game {
             }
         });
 	}
-
+	
+	public enum Difficulty{
+		EASY, NORMAL, HARD, WOBCKE
+	}
 }

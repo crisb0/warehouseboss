@@ -5,10 +5,15 @@ import java.awt.GridBagLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+/**
+ * The MainUI serves the main window that holds all of the user interface.
+ * @author z5115782
+ */
 public class MainUI extends JFrame{
 	private static final long serialVersionUID = -5285564050945629510L;
 	private int width = 900;
 	private int height = 600;
+	private GameUI game;
 
 	public MainUI(){
 		super();
@@ -34,7 +39,9 @@ public class MainUI extends JFrame{
 		menuCont.add(new MenuUI(this));
 		
 		contPanel.add(menuCont, "menu");
-		contPanel.add(new GameUI(this), "game");
+		
+		this.game = new GameUI(this);
+		contPanel.add(this.game, "game");
 		
 		this.changeInterface(PanelName.MAIN_MENU);
 	}

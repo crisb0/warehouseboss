@@ -26,8 +26,9 @@ public class MenuUI extends JPanel{
 		
 		// Create the components to form the menu
 		JLabel lblTest1 = new JLabel("Warehouse Boss");
-		JButton btnTest1 = new JButton("Test 1");
-		JButton btnTest2 = new JButton("Test 2");
+		JButton btnTest1 = new JButton("Start Game");
+		JButton btnTest2 = new JButton("Tutorial");
+		JButton btnTest3 = new JButton("Quit");
 		
 		// Add some test data to the menu
 		btnTest1.addActionListener(new ActionListener() { 
@@ -38,7 +39,42 @@ public class MenuUI extends JPanel{
 		
 		btnTest2.addActionListener(new ActionListener() { 
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(null, "420 Blaze It?");
+				JOptionPane.showMessageDialog(parent, "Tutorial Coming Out As DLC");
+			} 
+		});
+		
+		btnTest3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// 10/10 waste of time which i am going to delete in next push
+				// (clap) (clap) (clap) (clap) (clap) (clap) (clap) (clap) (clap) (clap)
+				String[] buttons = { "Yes", "No"};    
+				int returnValue = JOptionPane.showOptionDialog(parent, "You know you could just click the red X."
+				+ " Do you even still want to continue?", "WTF BRO",
+		        JOptionPane.WARNING_MESSAGE, 0, null, buttons, buttons[1]);
+				
+				if(returnValue == 0){
+					String[] buttons2 = { "Yes", "No"};    
+					returnValue = JOptionPane.showOptionDialog(parent,"So you want cotinue? Are you ready for a riddle first?" ,
+					"WTF BRO"
+			        ,JOptionPane.WARNING_MESSAGE, 0, null, buttons2, buttons2[1]);
+					
+					if(returnValue == 0){
+						String[] buttons3 = { "You are Heisenberg", "Fuck off"};    
+						returnValue = JOptionPane.showOptionDialog(parent, "Say my name!",
+						"WTF BRO"
+				        ,JOptionPane.WARNING_MESSAGE, 0, null, buttons3, buttons3[1]);
+						if(returnValue == 0){
+							JOptionPane.showMessageDialog(parent, "Excellent");
+							System.exit(0);
+						} else {
+							JOptionPane.showMessageDialog(parent, "Then you dont get to exit HA.");
+						}
+					} else {
+						JOptionPane.showMessageDialog(parent, "Haha GOT DEM");
+					}
+				} else {
+					JOptionPane.showMessageDialog(parent, "Excellent choice");
+				}
 			} 
 		});
 
@@ -48,6 +84,7 @@ public class MenuUI extends JPanel{
 					.addComponent(lblTest1)
 					.addComponent(btnTest1)
 					.addComponent(btnTest2)
+					.addComponent(btnTest3)
 			)
 		);
 		
@@ -56,6 +93,7 @@ public class MenuUI extends JPanel{
 				.addComponent(lblTest1)
 				.addComponent(btnTest1)
 				.addComponent(btnTest2)
+				.addComponent(btnTest3)
 		);
 	}
 }
