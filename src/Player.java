@@ -2,53 +2,38 @@ import java.awt.Point;
 
 public class Player extends Entity {
 
+	private static final int FREE_SPACE = 0;
+	private static final int OBSTACLE = 1;
+	private static final int BOX = 2;
+	private static final int GOAL = 3;
+	private static final int PLAYER = 4;
+	
 	public Player(Point startingLoc) {
 		super(startingLoc);
 	}
 
 	public boolean movePlayer(char dir, Map m) {
-		Point newLoc = this.loc;
-		switch (dir) { // which point to move to?
-		case 'w':
-			// check if space to move is occupied
-			newLoc.setLocation(this.loc.getX(), this.loc.getY() - 1);
-			break;
-		case 'a':
-			newLoc.setLocation(this.loc.getX() - 1, this.loc.getY());
-			break;
-		case 's':
-			newLoc.setLocation(this.loc.getX(), this.loc.getY() + 1);
-			break;
-		case 'd':
-			newLoc.setLocation(this.loc.getX() + 1, this.loc.getY());
-			break;
-		}
-
+		Point newLoc = this.getNewPoint(dir, this.loc);
+		
+		if (!this.isBetween(0, m.getMap().length, (int) newLoc.getX()) ||
+				!this.isBetween(0, m.getMap().length, (int)newLoc.getY())) return false;
+		
 		if (m.isFreeSpace(newLoc)) { // if free space, player moves there
+			m.updateMap(FREE_SPACE, (int) this.loc.getX(), (int) this.loc.getY());
+			m.updateMap(PLAYER,(int) newLoc.getX(), (int)newLoc.getY());
 			this.loc = newLoc;
-			//after this, remebmer to update map!!!
 		}	
 		else if (m.isBox(newLoc)) { //if box, check if point next to box is free or goal then move there
-			Point boxLoc = newLoc;
-			switch (dir) {
-			case 'w':
-				boxLoc.setLocation(newLoc.getX(), newLoc.getY()-1);
-				break;
-			case 'a':
-				boxLoc.setLocation(newLoc.getX()-1, newLoc.getY());
-				break;
-			case 's':
-				boxLoc.setLocation(newLoc.getX(), newLoc.getY()+1);
-				break;
-			case 'd':
-				boxLoc.setLocation(newLoc.getX()+1, newLoc.getY());
-				break;
-			}
+			Point boxLoc = this.getNewPoint(dir, newLoc);
+			if (!this.isBetween(0, m.getMap().length, (int) boxLoc.getX()) ||
+					!this.isBetween(0, m.getMap().length, (int) boxLoc.getY())) return false;
 			if (m.isFreeSpace(boxLoc)) {
-				//get box object
-				
-				//move box from newLoc into boxLoc
-				//move player into newLoc
+				Box b = m.getBox(newLoc);
+				b.moveBox(dir);
+				m.updateMap(FREE_SPACE, (int) this.loc.getX(), (int) this.loc.getY());
+				m.updateMap(PLAYER, (int) newLoc.getX(), (int) newLoc.getY());
+				m.updateMap(BOX, (int)boxLoc.getX(), (int)boxLoc.getY());
+				this.loc = newLoc;
 			}
 		}
 

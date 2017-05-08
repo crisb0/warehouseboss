@@ -1,4 +1,5 @@
 import java.awt.Point;
+import java.util.Iterator;
 import java.util.List;
 
 public class Map {
@@ -9,17 +10,23 @@ public class Map {
 	private static final int OBSTACLE = 1;
 	private static final int BOX = 2;
 	private static final int GOAL = 3;
+	private static final int PLAYER = 4;
 
 	public Map(MapGenerator grid) {
 		this.map = grid.getGrid();
 		this.boxLocs = grid.getBoxLocs();
-		// this.length = grid.length();
 	}
-
+	
 	public int[][] getMap() {
 		return this.map;
 	}
 	
+	/**
+	 * updates Map[x][y] to equal CODE(0,1,2,3,4)
+	 */
+	public void updateMap(int code, int x, int y) {
+		this.map[x][y] = code;
+	}
 
 	public Box getBox(Point p) {
 		//check if point has box
@@ -27,7 +34,12 @@ public class Map {
 		if (this.map[(int) p.getX()][(int) p.getY()] == BOX) {
 			//get object box
 //			b = boxLocs.get(p);
-			
+			for (Iterator<Box> i = boxLocs.iterator(); i.hasNext();) {
+				Box x = i.next();
+				if (x.getLoc().getX() == p.getX() && x.getLoc().getY() == p.getY()) {
+					b = x;
+				}
+			}
 		}
 		return b;
 	}
@@ -38,8 +50,10 @@ public class Map {
 	 *         occupying space
 	 */
 	public boolean isFreeSpace(Point p) {
-		if (this.map[(int) p.getX()][(int) p.getY()] == FREE_SPACE)
+		try {if (this.map[(int) p.getX()][(int) p.getY()] == FREE_SPACE)
 			return true;
+		}
+		catch (ArrayIndexOutOfBoundsException e) {}
 		return false;
 	}
 
@@ -49,8 +63,11 @@ public class Map {
 	 * @return true if point p is a box
 	 */
 	public boolean isBox(Point p) {
+		try {
 		if (this.map[(int) p.getX()][(int) p.getY()] == BOX)
 			return true;
+		}
+		catch (ArrayIndexOutOfBoundsException e) {}
 		return false;
 	}
 
@@ -60,23 +77,12 @@ public class Map {
 	 * @returns true if point p is a goal
 	 */
 	public boolean isGoal(Point p) {
+		try {
 		if (this.map[(int) p.getX()][(int) p.getY()] == GOAL)
 			return true;
+		}
+		catch (ArrayIndexOutOfBoundsException e) {}
 		return false;
 	}
 
-	public Point firstFreeSpace() {
-		Point p = new Point();
-		int i = 0, j = 0;
-		while (i < this.map.length) {
-			while (j < this.map.length) {
-				if (this.map[i][j] == FREE_SPACE) {
-					p.setLocation(i, j);
-				}
-				j++;
-			}
-			i++;
-		}
-		return p;
-	}
 }

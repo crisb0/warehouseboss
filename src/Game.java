@@ -10,9 +10,10 @@ public class Game {
 	private static final int OBSTACLE = 1;
 	private static final int BOX = 2;
 	private static final int GOAL = 3;
+	private static final int PLAYER = 4;
 
 	public Game(Map m) {
-		this.p1 = new Player(m.firstFreeSpace());
+		this.p1 = new Player(null);
 		this.map = m;
 	}
 
@@ -24,6 +25,9 @@ public class Game {
 				mainUI.setVisible(true);
 			}
 		});
+		
+		MapGenerator map = new MapGenerator(null);
+		Map m = new Map(map);
 	}
 
 	public enum Difficulty {
