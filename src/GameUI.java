@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.geom.AffineTransform;
@@ -27,11 +28,15 @@ public class GameUI extends JPanel implements Runnable {
 	private MainUI parent;
 	private Game gameObj;
 	private Thread gameLoop;
+	private int lastFps;
+	private TestSprite sprite;
 
 	public GameUI(MainUI parent) {
 		this.parent = parent;
 		this.gameObj = null;
 		this.initGameScreen();
+		this.lastFps = 0;
+		this.sprite = new TestSprite(10,10);
 
 		// --------------------------------------------------
 		// Testing code for key input. Delete in next version.
@@ -59,6 +64,8 @@ public class GameUI extends JPanel implements Runnable {
 		super.paintComponent(g);
 
 		drawDonut(g);
+		drawBouncingBall(g);
+		drawFPS(g);
 	}
 
 	public void testAddButton() {
@@ -110,7 +117,25 @@ public class GameUI extends JPanel implements Runnable {
 			g2d.draw(at.createTransformedShape(e));
 		}
 	}
+	
+	void drawFPS(Graphics g){
+		Graphics2D g2d = (Graphics2D) g;
 
+		Font font = new Font("Serif", Font.BOLD, 15);
+		g2d.setFont(font);
+		g2d.setColor(Color.WHITE);
+		g2d.drawString("FPS: " + this.lastFps, 0, 15);
+	}
+	
+	void drawBouncingBall(Graphics g){
+		Graphics2D g2d = (Graphics2D) g;
+		
+		Ellipse2D.Double circle = 
+				new Ellipse2D.Double(this.sprite.getX(), this.sprite.getY(), 30, 30);
+		g2d.setColor(Color.CYAN);
+		g2d.fill(circle);
+	}
+	
 	class TestAction extends AbstractAction {
 		private static final long serialVersionUID = -8932029940888012027L;
 
@@ -124,10 +149,62 @@ public class GameUI extends JPanel implements Runnable {
 			this.parent.changeInterface(MainUI.PanelName.MAIN_MENU);
 		}
 	}
+	
+
+	class TestSprite{
+		private double x;
+		private double y;
+		private double curVelY;
+		
+		public TestSprite(int x, int y){
+			this.x = x;
+			this.y = y;
+			this.curVelY = 0;
+		}
+		
+		public void setX(double x){
+			this.x = x;
+		}
+		
+		public void setY(double y){
+			this.y = y;
+		}
+		
+		public double getX(){
+			return this.x;
+		}
+		
+		public double getY(){
+			return this.y;
+		}
+		
+		public void addVelocity(double vel, double dt){
+			this.curVelY += (vel * dt);
+		}
+		
+		public void setVelocity(double vel){
+			this.curVelY = vel;
+		}
+		
+		public double getVelocity(){
+			return this.curVelY;
+		}
+		
+		public void update(double dt){
+			this.y += curVelY * dt;
+		}
+	}
+	
 	// --------------------------------------------------------------
-
-	private void GameCycle() {
-
+	
+	private void gameCycle(double dt) {
+		sprite.addVelocity(1f, dt);
+		
+		if(sprite.getY() > (this.getHeight())){
+			sprite.setVelocity(-(sprite.getVelocity() * 0.8f));
+		}
+		
+		sprite.update(dt);
 	}
 
 	@Override
@@ -140,8 +217,37 @@ public class GameUI extends JPanel implements Runnable {
 
 	@Override
 	public void run() {
+		long lastLoopTime = System.nanoTime();
+		long lastFpsTime = 0;
+		int fps = 0;
+		final int TARGET_FPS = 60;
+		final long OPTIMAL_TIME = 1000000000 / TARGET_FPS;
+		
 		while (true) {
-
+			long currentTime = System.nanoTime();
+			long updateTime = currentTime - lastLoopTime;
+			lastLoopTime = currentTime;
+			
+			double deltaTime = updateTime / ((double)OPTIMAL_TIME);
+			
+			lastFpsTime += updateTime;
+			fps++;
+			
+			if(lastFpsTime > 1000000000){
+				lastFpsTime = 0;
+				this.lastFps = fps;
+				fps = 0;
+			}
+			
+			this.gameCycle(deltaTime);
+			this.repaint();
+			
+			try{
+				Thread.sleep((lastLoopTime - System.nanoTime() + OPTIMAL_TIME)/1000000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 }

@@ -44,7 +44,7 @@ public class MainUI extends JFrame {
 		this.game = new GameUI(this);
 		contPanel.add(this.game, "game");
 
-		this.changeInterface(PanelName.MAIN_MENU);
+		this.changeInterface(PanelName.GAME_MENU);
 	}
 
 	public void changeInterface(PanelName pN) {
