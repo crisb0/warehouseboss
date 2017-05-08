@@ -198,10 +198,12 @@ public class GameUI extends JPanel implements Runnable {
 	// --------------------------------------------------------------
 	
 	private void gameCycle(double dt) {
-		sprite.addVelocity(1f, dt);
+		sprite.addVelocity(0.1f, dt);
 		
-		if(sprite.getY() > (this.getHeight())){
-			sprite.setVelocity(-(sprite.getVelocity() * 0.8f));
+		if(sprite.getY() > this.getHeight()){
+			if(sprite.getVelocity() > 0){
+				sprite.setVelocity(-(sprite.getVelocity() * 0.8f));
+			}
 		}
 		
 		sprite.update(dt);
