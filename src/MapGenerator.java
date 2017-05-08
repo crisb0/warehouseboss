@@ -1,4 +1,5 @@
 import java.awt.Point;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -23,6 +24,7 @@ public class MapGenerator {
 		// this should be this.grid = generate();
 		// Should we have it as this.grid = generate(gameDiff)? - Alen
 		this.grid = new int[10][10];
+		this.boxLocs = new ArrayList<>();
 
 	}
 

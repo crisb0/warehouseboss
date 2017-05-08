@@ -15,8 +15,8 @@ public class Map {
 
 	public Map(MapGenerator grid) {
 		this.map = grid.getGrid();
-//		this.boxLocs = grid.getBoxLocs();
-		this.boxLocs = new ArrayList<>();
+		this.boxLocs = grid.getBoxLocs();
+//		this.boxLocs = new ArrayList<>();
 	}
 	
 	public int[][] getMap() {
