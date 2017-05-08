@@ -16,7 +16,6 @@ public class Map {
 	public Map(MapGenerator grid) {
 		this.map = grid.getGrid();
 		this.boxLocs = grid.getBoxLocs();
-//		this.boxLocs = new ArrayList<>();
 	}
 	
 	public int[][] getMap() {
@@ -35,11 +34,8 @@ public class Map {
 	}
 
 	public Box getBox(Point p) {
-		//check if point has box
 		Box b = null;
 		if (this.map[(int) p.getX()][(int) p.getY()] == BOX) {
-			//get object box
-//			b = boxLocs.get(p);
 			for (Iterator<Box> i = boxLocs.iterator(); i.hasNext();) {
 				Box x = i.next();
 				if (x.getLoc().getX() == p.getX() && x.getLoc().getY() == p.getY()) {

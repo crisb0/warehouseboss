@@ -12,6 +12,12 @@ public class Player extends Entity {
 		super(startingLoc);
 	}
 
+	/**
+	 * returns true player is moved. Also updates map[][] and box loc
+	 * @param dir
+	 * @param m
+	 * @return
+	 */
 	public boolean movePlayer(char dir, Map m) {
 		Point newLoc = this.getNewPoint(dir, this.loc);
 		
