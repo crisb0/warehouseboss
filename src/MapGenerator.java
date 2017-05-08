@@ -57,6 +57,10 @@ public class MapGenerator {
 	}
 
 	public int[][] getGrid() {
-		return null;
+		return this.grid;
+	}
+	
+	public List<Box> getBoxLocs() {
+		return this.boxLocs;
 	}
 }
