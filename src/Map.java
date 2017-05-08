@@ -1,4 +1,5 @@
 import java.awt.Point;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -14,11 +15,16 @@ public class Map {
 
 	public Map(MapGenerator grid) {
 		this.map = grid.getGrid();
-		this.boxLocs = grid.getBoxLocs();
+//		this.boxLocs = grid.getBoxLocs();
+		this.boxLocs = new ArrayList<>();
 	}
 	
 	public int[][] getMap() {
 		return this.map;
+	}
+	
+	public List<Box> getBoxLocs() {
+		return this.boxLocs;
 	}
 	
 	/**

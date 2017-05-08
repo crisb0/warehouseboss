@@ -28,6 +28,7 @@ public class Game {
 		
 		MapGenerator map = new MapGenerator(null);
 		Map m = new Map(map);
+
 	}
 
 	public enum Difficulty {
