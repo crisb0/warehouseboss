@@ -6,6 +6,7 @@ import java.util.Random;
 public class MapGenerator {
 	private Point playerLocation; // this sits in grid
 	private List<Box> boxLocs; // this sits in grid
+	private List<Point> goalLocs;
 	// private String solution;
 	private int[][] grid;
 	private static final int FREE_SPACE = 0;
@@ -25,6 +26,7 @@ public class MapGenerator {
 		// Should we have it as this.grid = generate(gameDiff)? - Alen
 //		this.grid = new int[10][10];
 		this.boxLocs = new ArrayList<>();
+		this.goalLocs = new ArrayList<>();
 		this.grid = generate();
 
 
@@ -43,7 +45,8 @@ public class MapGenerator {
 		b1.setLocation(5, 3);
 		Box boxNew = new Box(b1);
 		this.boxLocs.add(boxNew);
-		g1.setLocation(8, 8);
+		g1.setLocation(7, 7);
+		this.goalLocs.add(g1);
 		for (int i = 0; i < grid.length; i++) {
 			for (int j = 0; j < grid.length; j++) {
 				if (i == 0 || i == grid.length - 1) {
@@ -75,5 +78,9 @@ public class MapGenerator {
 	
 	public List<Box> getBoxLocs() {
 		return this.boxLocs;
+	}
+	
+	public List<Point> getGoalLocs() {
+		return this.goalLocs;
 	}
 }

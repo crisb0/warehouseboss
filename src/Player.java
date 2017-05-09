@@ -24,23 +24,26 @@ public class Player extends Entity {
 		if (!this.isBetween(0, m.getMap().length, (int) newLoc.getX()) ||
 				!this.isBetween(0, m.getMap().length, (int)newLoc.getY())) return false;
 		
-		if (m.isFreeSpace(newLoc)) { // if free space, player moves there
-			m.updateMap(FREE_SPACE, (int) this.loc.getX(), (int) this.loc.getY());
-//			System.out.println(this.loc.getX().)
+		if (m.isFreeSpace(newLoc) || m.isGoal(newLoc)) { // if free space, player moves there
+			if (m.getGoalLocs().contains(this.loc))	m.updateMap(GOAL, (int) this.loc.getX(), (int) this.loc.getY());
+			else m.updateMap(FREE_SPACE, (int) this.loc.getX(), (int) this.loc.getY());
 			m.updateMap(PLAYER,(int) newLoc.getX(), (int)newLoc.getY());
 			this.loc = newLoc;
 			return true;
-		}	
+		}
 		else if (m.isBox(newLoc)) { //if box, check if point next to box is free or goal then move there
 			Point boxLoc = this.getNewPoint(dir, newLoc);
 			if (!this.isBetween(0, m.getMap().length, (int) boxLoc.getX()) ||
 					!this.isBetween(0, m.getMap().length, (int) boxLoc.getY())) return false;
-			if (m.isFreeSpace(boxLoc)) {
+			
+			if (m.isFreeSpace(boxLoc) || m.isGoal(boxLoc)) {
 				Box b = m.getBox(newLoc);
 				b.moveBox(dir);
 				m.updateMap(FREE_SPACE, (int) this.loc.getX(), (int) this.loc.getY());
 				m.updateMap(PLAYER, (int) newLoc.getX(), (int) newLoc.getY());
 				m.updateMap(BOX, (int)boxLoc.getX(), (int)boxLoc.getY());
+				
+				if (m.getGoalLocs().contains(this.loc)) m.updateMap(GOAL, (int) this.loc.getX(), (int) this.loc.getY());
 				this.loc = newLoc;
 				return true;
 			}
