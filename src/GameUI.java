@@ -121,14 +121,16 @@ public class GameUI extends JPanel implements Runnable {
 		
 		g2d.setColor(Color.GRAY);
 		g2d.fillRect(0, offset, grid.length * this.tileSize, grid.length * this.tileSize);
-		
-		// Draws shadows to the game (Mostly for fun)
+	
 		for(int x = 0; x < grid.length; x++){
 			for(int y = 0; y < grid.length; y++){
+				if (grid[x][y] == Game.GOAL){
+					g2d.drawImage(this.goalImage, x * this.tileSize, offset + y * this.tileSize, this.tileSize, this.tileSize, null);
+				}
+				
 				if(grid[x][y] == Game.OBSTACLE || grid[x][y] == Game.BOX){
 					g2d.drawImage(this.shadowImage, x * this.tileSize - this.shadowRadius, offset + y * this.tileSize - this.shadowRadius, 
 						this.tileSize + this.shadowRadius * 2, this.tileSize + this.shadowRadius * 2, null);
-					continue;
 				}
 			}
 		}
@@ -139,7 +141,8 @@ public class GameUI extends JPanel implements Runnable {
 					g2d.drawImage(this.wallImage, x * this.tileSize, offset + y * this.tileSize, this.tileSize, this.tileSize, null);
 					continue;
 				}
-				else if (grid[x][y] == Game.PLAYER){
+
+				if (grid[x][y] == Game.PLAYER){
 					if(animating && grid[x][y] == Game.PLAYER){
 						g2d.drawImage(this.playerImage, x * this.tileSize + (int)this.animOffsetX,
 							offset + y * this.tileSize + (int)this.animOffsetY, this.tileSize, this.tileSize, null);
@@ -148,12 +151,9 @@ public class GameUI extends JPanel implements Runnable {
 					}
 					continue;
 				}
-				else if (grid[x][y] == Game.BOX){
+				
+				if (grid[x][y] == Game.BOX){
 					g2d.drawImage(this.boxImage, x * this.tileSize, offset + y * this.tileSize, this.tileSize, this.tileSize, null);
-					continue;
-				}
-				else if (grid[x][y] == Game.GOAL){
-					g2d.drawImage(this.goalImage, x * this.tileSize, offset + y * this.tileSize, this.tileSize, this.tileSize, null);
 					continue;
 				}
 			}
