@@ -7,6 +7,7 @@ public class Map {
 	private Player player;
 	private int[][] map;
 	private List<Box> boxLocs;
+	private List<Point> goalLocs;
 	
 	private static final int FREE_SPACE = 0;
 	private static final int OBSTACLE = 1;
@@ -18,6 +19,7 @@ public class Map {
 		this.player = grid.getPlayer();
 		this.map = grid.getGrid();
 		this.boxLocs = grid.getBoxLocs();
+		this.goalLocs = grid.getGoalLocs();
 	}
 	
 	
@@ -40,6 +42,10 @@ public class Map {
 	
 	public Player getPlayer(){
 		return this.player;
+	}
+	
+	public List<Point> getGoalLocs() {
+		return this.goalLocs;
 	}
 	
 	/**
