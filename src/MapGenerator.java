@@ -23,16 +23,26 @@ public class MapGenerator {
 		this.playerLocation = new Point();
 		// this should be this.grid = generate();
 		// Should we have it as this.grid = generate(gameDiff)? - Alen
-		this.grid = new int[10][10];
+//		this.grid = new int[10][10];
 		this.boxLocs = new ArrayList<>();
+		this.grid = generate();
 
+
+	}
+	
+	public Player getPlayer() {
+		Player p = new Player(this.playerLocation);		
+		return p;
 	}
 
 	public int[][] generate() {
-		this.playerLocation.setLocation(1, 3);
+		int[][] grid = new int[10][10];
+ 		this.playerLocation.setLocation(1, 1);
 		Point b1 = new Point();
 		Point g1 = new Point();
 		b1.setLocation(5, 3);
+		Box boxNew = new Box(b1);
+		this.boxLocs.add(boxNew);
 		g1.setLocation(8, 8);
 		for (int i = 0; i < grid.length; i++) {
 			for (int j = 0; j < grid.length; j++) {
@@ -53,6 +63,7 @@ public class MapGenerator {
 		}
 		return grid;
 	}
+
 
 	public Point getPlayerLocation() {
 		return null;

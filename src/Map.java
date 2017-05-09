@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.List;
 
 public class Map {
+	private Player player;
 	private int[][] map;
 	private List<Box> boxLocs;
 	
@@ -14,8 +15,19 @@ public class Map {
 	private static final int PLAYER = 4;
 
 	public Map(MapGenerator grid) {
+		this.player = grid.getPlayer();
 		this.map = grid.getGrid();
 		this.boxLocs = grid.getBoxLocs();
+	}
+	
+	
+	public void printGrid() {
+		for (int i = 0; i < map.length; i++) {
+			for (int j = 0; j < map.length; j++) {
+				System.out.print(map[j][i]);
+			}
+			System.out.println();
+		}
 	}
 	
 	public int[][] getMap() {
@@ -24,6 +36,10 @@ public class Map {
 	
 	public List<Box> getBoxLocs() {
 		return this.boxLocs;
+	}
+	
+	public Player getPlayer(){
+		return this.player;
 	}
 	
 	/**

@@ -26,6 +26,7 @@ public class Player extends Entity {
 		
 		if (m.isFreeSpace(newLoc)) { // if free space, player moves there
 			m.updateMap(FREE_SPACE, (int) this.loc.getX(), (int) this.loc.getY());
+//			System.out.println(this.loc.getX().)
 			m.updateMap(PLAYER,(int) newLoc.getX(), (int)newLoc.getY());
 			this.loc = newLoc;
 		}	
@@ -45,5 +46,6 @@ public class Player extends Entity {
 
 		return false;
 	}
+
 
 }
