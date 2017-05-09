@@ -29,6 +29,7 @@ public class Player extends Entity {
 //			System.out.println(this.loc.getX().)
 			m.updateMap(PLAYER,(int) newLoc.getX(), (int)newLoc.getY());
 			this.loc = newLoc;
+			return true;
 		}	
 		else if (m.isBox(newLoc)) { //if box, check if point next to box is free or goal then move there
 			Point boxLoc = this.getNewPoint(dir, newLoc);
@@ -41,6 +42,7 @@ public class Player extends Entity {
 				m.updateMap(PLAYER, (int) newLoc.getX(), (int) newLoc.getY());
 				m.updateMap(BOX, (int)boxLoc.getX(), (int)boxLoc.getY());
 				this.loc = newLoc;
+				return true;
 			}
 		}
 

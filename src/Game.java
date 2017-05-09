@@ -37,18 +37,6 @@ public class Game {
 				mainUI.setVisible(true);
 			}
 		});
-		
-		MapGenerator map = new MapGenerator(null);
-//		map.generate();
-		Map m = new Map(map);
-		Game g = new Game(m);
-		
-//		System.out.println("hello" + g.p1.getLoc().getX() + ", " + g.p1.getLoc().getY());
-//		m.printGrid();
-//		g.p1.movePlayer('s', m);
-//		m.printGrid();
-//		System.out.println(g.p1.getLoc().getX() + ", " + g.p1.getLoc().getY());
-		
  	}
 
 	public enum Difficulty {
