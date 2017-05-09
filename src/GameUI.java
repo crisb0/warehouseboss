@@ -49,10 +49,10 @@ public class GameUI extends JPanel implements Runnable {
 		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("D"), "goRight");
 		this.getActionMap().put("goRight", new RightAction());
 		
-		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("W"), "goLeft");
+		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("A"), "goLeft");
 		this.getActionMap().put("goLeft", new LeftAction());
 		
-		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("A"), "goUp");
+		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("W"), "goUp");
 		this.getActionMap().put("goUp", new UpAction());
 		// --------------------------------------------------
 	}
@@ -142,13 +142,13 @@ public class GameUI extends JPanel implements Runnable {
 	
 	class UpAction extends AbstractAction {
 		public void actionPerformed(ActionEvent e){
-			gameObj.getPlayer().movePlayer('a', gameObj.getMap());
+			gameObj.getPlayer().movePlayer('w', gameObj.getMap());
 		}
 	}
 	
 	class LeftAction extends AbstractAction {
 		public void actionPerformed(ActionEvent e){
-			gameObj.getPlayer().movePlayer('w', gameObj.getMap());
+			gameObj.getPlayer().movePlayer('a', gameObj.getMap());
 		}
 	}
 	
