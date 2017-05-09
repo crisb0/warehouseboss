@@ -57,9 +57,9 @@ public class MapGenerator {
 				} else if (i == g1.getX() && j == g1.getY()) {
 					grid[i][j] = GOAL;
 				}
-				System.out.print(grid[i][j] + " ");
+//				System.out.print(grid[i][j] + " ");
 			}
-			System.out.println();
+//			System.out.println();
 		}
 		return grid;
 	}

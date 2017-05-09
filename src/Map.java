@@ -21,14 +21,14 @@ public class Map {
 	}
 	
 	
-	public void printGrid() {
-		for (int i = 0; i < map.length; i++) {
-			for (int j = 0; j < map.length; j++) {
-				System.out.print(map[j][i]);
-			}
-			System.out.println();
-		}
-	}
+//	public void printGrid() {
+//		for (int i = 0; i < map.length; i++) {
+//			for (int j = 0; j < map.length; j++) {
+//				System.out.print(map[j][i]);
+//			}
+//			System.out.println();
+//		}
+//	}
 	
 	public int[][] getMap() {
 		return this.map;
