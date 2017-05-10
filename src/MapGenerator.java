@@ -1,86 +1,129 @@
-import java.awt.Point;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 
-public class MapGenerator {
-	private Point playerLocation; // this sits in grid
-	private List<Box> boxLocs; // this sits in grid
-	private List<Point> goalLocs;
-	// private String solution;
-	private int[][] grid;
-	private static final int FREE_SPACE = 0;
-	private static final int OBSTACLE = 1;
-	private static final int BOX = 2;
-	private static final int GOAL = 3;
-	private static final int PLAYER = 4;
-
-	// vers 0.0.1: return predetermined grid
-	public MapGenerator(Game.Difficulty gameDiff) {
-		/*
-		 * DUMMY GRID
-		 */
-		// Random rand = new Random();
-		this.playerLocation = new Point();
-		// this should be this.grid = generate();
-		// Should we have it as this.grid = generate(gameDiff)? - Alen
-//		this.grid = new int[10][10];
-		this.boxLocs = new ArrayList<>();
-		this.goalLocs = new ArrayList<>();
-		this.grid = generate();
-
-
+public class PuzzleGenerator {
+	
+	private Block[][] puzzleB = new Block[8][8];
+	private int[][] puzzle = new int[8][8];
+	private StartingMap s = new StartingMap();
+	private ArrayList<Template> ts = new ArrayList<Template>();
+	
+	public PuzzleGenerator(){
+		this.puzzle = this.s.getMap();
+		this.puzzleB = this.s.getBlockMap();
+		createTemplates();
+		addTemplate();
+		checkNoGoal();
+		addGoal();
+		canGoTo();
 	}
 	
-	public Player getPlayer() {
-		Player p = new Player(this.playerLocation);		
-		return p;
-	}
-
-	public int[][] generate() {
-		int[][] grid = new int[10][10];
- 		this.playerLocation.setLocation(1, 1);
-		Point b1 = new Point();
-		Point g1 = new Point();
-		b1.setLocation(5, 3);
-		Box boxNew = new Box(b1);
-		this.boxLocs.add(boxNew);
-		g1.setLocation(7, 7);
-		this.goalLocs.add(g1);
-		for (int i = 0; i < grid.length; i++) {
-			for (int j = 0; j < grid.length; j++) {
-				if (i == 0 || i == grid.length - 1) {
-					grid[i][j] = OBSTACLE;
-				} else if (j == 0 || j == grid.length - 1) {
-					grid[i][j] = OBSTACLE;
-				} else if (i == playerLocation.getX() && j == playerLocation.getY()) {
-					grid[i][j] = PLAYER;
-				} else if (i == b1.getX() && j == b1.getY()) {
-					grid[i][j] = BOX;
-				} else if (i == g1.getX() && j == g1.getY()) {
-					grid[i][j] = GOAL;
-				}
-//				System.out.print(grid[i][j] + " ");
+	// Checks the vertical and horizontal lines a box can travel in given position
+	private void canGoTo() {
+		for(int i = 0; i < this.puzzleB.length; i++){
+			for(int j = 0; j < this.puzzleB[0].length; j++){
+				//this.puzzleB[i][j].
 			}
-//			System.out.println();
 		}
-		return grid;
+		
 	}
 
-
-	public Point getPlayerLocation() {
-		return null;
+	public void createTemplates(){
+		Template t1 = new Template(1);
+		Template t2 = new Template(2);
+		Template t3 = new Template(3);
+		this.ts.add(t1);
+		this.ts.add(t2);
+		this.ts.add(t3);
 	}
-
-	public int[][] getGrid() {
-		return this.grid;
+	// add templates to prototype
+	public void addTemplate(){
+		for(int s = 0; s < this.ts.size(); s++){
+			Template currT = this.ts.get(s);
+			int h = currT.getTemp().length;
+			int w = currT.getTemp()[0].length;
+			//System.out.println(h + " " + w);
+			if(s == 0){
+				for(int i = 0; i < h; i++){
+					for(int j = 0; j < w; j++){
+						this.puzzleB[1+i][1+j].setType(currT.getTemp()[i][j]);
+					}
+				}
+			} else if (s == 1) {
+				for(int i = 0; i < h; i++){
+					for(int j = 0; j < w; j++){
+						this.puzzleB[1+i][5+j].setType(currT.getTemp()[i][j]);
+					}
+				}
+			} else {
+				for(int i = 0; i < h; i++){
+					for(int j = 0; j < w; j++){
+						this.puzzleB[3+i][4+j].setType(currT.getTemp()[i][j]);
+					}
+				}
+			}
+		}
 	}
 	
-	public List<Box> getBoxLocs() {
-		return this.boxLocs;
+	// check goal-avoid
+	public void checkNoGoal(){
+		for(int i = 0; i < this.puzzleB.length; i++){
+			for(int j = 0; j < this.puzzleB[0].length; j++){
+				if(this.puzzleB[i][j].getType() == 0){
+					if(!noGoal(i, j)){
+						this.puzzleB[i][j].setType(3);
+					}
+				}
+			}
+		}
 	}
 	
-	public List<Point> getGoalLocs() {
-		return this.goalLocs;
+	private boolean noGoal(int i, int j) {
+		/* puzzle[i][j-1] puzzle[i][j-2]
+		 * puzzle[i][j+1] puzzle[i][j+2]
+		 * puzzle[i-1][j] puzzle[i-2][j]
+		 * puzzle[i+1][j] puzzle[i+2][j]
+		 */
+		if(j-1 >= 1 && this.puzzleB[i][j-1].getType() ==  0 && this.puzzleB[i][j-2].getType() == 0){
+			return true;
+		} else if(j+1 <= this.puzzleB[0].length-2 && this.puzzleB[i][j+1].getType() == 0 && this.puzzleB[i][j+2].getType() == 0){
+			return true;
+		} else if(i-1 >= 1 && this.puzzleB[i-1][j].getType() == 0 && this.puzzleB[i-2][j].getType() == 0){
+			return true;
+		} else if(i+1 <= this.puzzleB.length-2 && this.puzzleB[i+1][j].getType() == 0 && this.puzzleB[i+2][j].getType() == 0){
+			return true;
+		}
+		return false;
 	}
+
+	// add goal
+	public void addGoal(){
+		//add goals to places where puzzle[i][j] != 3 randomly 
+		//I've hard coded the goal for now to check if other programs are working
+		//Goal A
+		this.puzzleB[2][5].setType(4);
+		this.puzzleB[3][6].setType(4);
+		this.puzzleB[4][2].setType(4);
+	}
+	// check corner_goal
+	
+	// check goal_range
+	public void calculateGoalRange(){
+		
+	}
+	
+	private void calculateBoxMovementFromEachPath(){
+		
+	}
+	// place object
+	// place player
+	public void displayPuzzle() {
+		for(int i = 0; i < 8; i++){
+			for(int j = 0; j < 8; j++){
+				System.out.print(this.puzzleB[i][j].getType());
+			}
+			System.out.println();
+		}
+		
+	}
+
 }
