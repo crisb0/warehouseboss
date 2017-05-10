@@ -19,7 +19,7 @@ public class Template {
 		b = new Block[3][2];
 		for(int i = 0; i < 3; i++){
 			for(int j = 0; j < 2; j++){
-				b[i][j] = new Block(0);
+				b[i][j] = new Block(0, i, j);
 			}
 		}
 	}
@@ -30,7 +30,7 @@ public class Template {
 		b = new Block[3][2];
 		for(int i = 0; i < 2; i++){
 			for(int j = 0; j < 2; j++){
-				b[i][j] = new Block(0);
+				b[i][j] = new Block(0, i, j);
 			}
 		}
 		
@@ -43,10 +43,10 @@ public class Template {
 		b = new Block[3][3];
 		for(int i = 0; i < 3; i++){
 			for(int j = 0; j < 3; j++){
-				b[i][j] = new Block(0);
+				b[i][j] = new Block(0, i, j);
 			}
 		}
-		b[1][1] = new Block(1);
+		b[1][1] = new Block(1, 1, 1);
 	}
 	
 	public int[][] getTemp(){
