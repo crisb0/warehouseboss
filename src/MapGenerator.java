@@ -61,8 +61,8 @@ public class MapGenerator {
 			int w = currT.getTemp()[0].length;
 			if(s == 0){
 				Random randomGenerator = new Random();
-				int x = randomGenerator.nextInt(this.puzzleB.length-3-h)+1;
-				int y = randomGenerator.nextInt(this.puzzleB[0].length-3-w)+1;
+				int x = randomGenerator.nextInt(this.puzzleB.length-2-h)+1;
+				int y = randomGenerator.nextInt(this.puzzleB[0].length-2-w)+1;
 				for(int i = 0; i < h; i++){
 					for(int j = 0; j < w; j++){
 						this.puzzleB[x+i][y+j].setType(currT.getBlockTemp()[i][j].getType());
@@ -70,8 +70,8 @@ public class MapGenerator {
 				}
 			} else if (s == 1) {
 				Random randomGenerator = new Random();
-				int x = randomGenerator.nextInt(this.puzzleB.length-3-h)+1;
-				int y = randomGenerator.nextInt(this.puzzleB[0].length-3-w)+1;
+				int x = randomGenerator.nextInt(this.puzzleB.length-2-h)+1;
+				int y = randomGenerator.nextInt(this.puzzleB[0].length-2-w)+1;
 				for(int i = 0; i < h; i++){
 					for(int j = 0; j < w; j++){
 						this.puzzleB[x+i][y+j].setType(currT.getBlockTemp()[i][j].getType());
@@ -79,8 +79,8 @@ public class MapGenerator {
 				}
 			} else {
 				Random randomGenerator = new Random();
-				int x = randomGenerator.nextInt(this.puzzleB.length-3-h)+1;
-				int y = randomGenerator.nextInt(this.puzzleB[0].length-3-w)+1;
+				int x = randomGenerator.nextInt(this.puzzleB.length-2-h)+1;
+				int y = randomGenerator.nextInt(this.puzzleB[0].length-2-w)+1;
 				for(int i = 0; i < h; i++){
 					for(int j = 0; j < w; j++){
 						this.puzzleB[x+i][y+j].setType(currT.getBlockTemp()[i][j].getType());
