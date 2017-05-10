@@ -29,7 +29,13 @@ public class MapGenerator {
 	
 
 	private void addPlayer() {
-		this.playerLocation.setLocation(1,1);
+		Random randomGenerator = new Random();
+		int i = randomGenerator.nextInt(this.puzzleB.length-1);
+		int j = randomGenerator.nextInt(this.puzzleB.length-1);
+		if(this.puzzleB[i][j].getType() != 0){
+			this.playerLocation.setLocation(i,j);
+		}
+		this.puzzleB[i][j].setType(4);
 	}
 
 
@@ -63,6 +69,7 @@ public class MapGenerator {
 				Random randomGenerator = new Random();
 				int x = randomGenerator.nextInt(this.puzzleB.length-2-h)+1;
 				int y = randomGenerator.nextInt(this.puzzleB[0].length-2-w)+1;
+				System.out.println(x+" "+y);
 				for(int i = 0; i < h; i++){
 					for(int j = 0; j < w; j++){
 						this.puzzleB[x+i][y+j].setType(currT.getBlockTemp()[i][j].getType());
@@ -72,6 +79,7 @@ public class MapGenerator {
 				Random randomGenerator = new Random();
 				int x = randomGenerator.nextInt(this.puzzleB.length-2-h)+1;
 				int y = randomGenerator.nextInt(this.puzzleB[0].length-2-w)+1;
+				System.out.println(x+" "+y);
 				for(int i = 0; i < h; i++){
 					for(int j = 0; j < w; j++){
 						this.puzzleB[x+i][y+j].setType(currT.getBlockTemp()[i][j].getType());
@@ -81,6 +89,7 @@ public class MapGenerator {
 				Random randomGenerator = new Random();
 				int x = randomGenerator.nextInt(this.puzzleB.length-2-h)+1;
 				int y = randomGenerator.nextInt(this.puzzleB[0].length-2-w)+1;
+				System.out.println(x+" "+y);
 				for(int i = 0; i < h; i++){
 					for(int j = 0; j < w; j++){
 						this.puzzleB[x+i][y+j].setType(currT.getBlockTemp()[i][j].getType());
@@ -131,7 +140,7 @@ public class MapGenerator {
 			Random randomGenerator = new Random();
 			int i = randomGenerator.nextInt(8);
 			int j = randomGenerator.nextInt(8);
-			System.out.println(i + " " + j);
+			//System.out.println(i + " " + j);
 			if(this.puzzleB[i][j].getType() == 0){
 				this.puzzleB[i][j].setType(3);
 				this.goals.add(this.puzzleB[i][j]);
@@ -210,7 +219,7 @@ public class MapGenerator {
 	}
 
 	public Player getPlayer() {
-		this.playerLocation.setLocation(1,1);
+		//this.playerLocation.setLocation(1,1);
 		Player p = new Player(this.playerLocation);		
 		return p;
 	}
@@ -228,8 +237,8 @@ public class MapGenerator {
 			for(int j = 0; j < this.puzzleB[0].length; j++){
 				if(this.puzzleB[i][j].getType() != 9){
 					grid[i][j] = this.puzzleB[i][j].getType();
-				} else if(i == 1 && j == 1){
-					grid[i][j] = 4;
+				} else {
+					grid[i][j] = 0;
 				}
 			}
 		}
@@ -238,7 +247,6 @@ public class MapGenerator {
 
 
 	public List<Point> getGoalLocs() {
-		// TODO Auto-generated method stub
 		return this.goalLocs;
 	}
 
