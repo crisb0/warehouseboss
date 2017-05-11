@@ -165,7 +165,7 @@ public class GameUI extends JPanel implements Runnable {
 		double animIncrements = this.tileSize / animSpeed;
 		
 		if(this.animating){
-			if(this.animCounter <= animSpeed){
+			if(this.animCounter < animSpeed){
 				this.animCounter++;
 				if(this.animOffsetX < 0.0f)
 					this.animOffsetX += animIncrements;
