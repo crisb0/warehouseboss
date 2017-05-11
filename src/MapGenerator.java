@@ -1,13 +1,18 @@
 import java.util.ArrayList;
 
-public class PuzzleGenerator {
+public class MapGenerator {
 	
 	private Block[][] puzzleB = new Block[8][8];
 	private int[][] puzzle = new int[8][8];
 	private StartingMap s = new StartingMap();
 	private ArrayList<Template> ts = new ArrayList<Template>();
 	
-	public PuzzleGenerator(){
+	public static void main (String[] args) {
+		MapGenerator m = new MapGenerator();
+		m.displayPuzzle();
+	}
+	
+	public MapGenerator(){
 		this.puzzle = this.s.getMap();
 		this.puzzleB = this.s.getBlockMap();
 		createTemplates();
