@@ -4,6 +4,7 @@ public class Move {
 	private char dir;
 	private boolean undo;
 	private Entity entityMoved;
+	
 	public Move(char dir) {
 		this.dir = dir;
 		undo = false;
