@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class PuzzleGenerator {
+public class MapGenerator {
 	
 	private Block[][] puzzleB = new Block[8][8];
 	private StartingMap s = new StartingMap();
@@ -13,20 +13,10 @@ public class PuzzleGenerator {
 	private List<Box> boxLocs;
 	private List<Point> goalLocs;
 	
-<<<<<<< HEAD
-	public static void main (String[] args) {
-		MapGenerator m = new MapGenerator();
-		m.displayPuzzle();
-	}
-	
-	public MapGenerator(){
-		this.puzzle = this.s.getMap();
-=======
 	public MapGenerator(){
 		this.playerLocation = new Point();
 		this.boxLocs = new ArrayList<>();
 		this.goalLocs = new ArrayList<>();
->>>>>>> mapgeneration
 		this.puzzleB = this.s.getBlockMap();
 		createTemplates();
 		addTemplate();

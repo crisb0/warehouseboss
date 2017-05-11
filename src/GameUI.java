@@ -44,9 +44,9 @@ public class GameUI extends JPanel implements Runnable {
 	public GameUI(MainUI parent) {
 		this.parent = parent;
 		
-//		MapGenerator mapGen = new MapGenerator(null);
-//		Map map = new Map(mapGen);
-//		this.gameObj = new Game(map);
+		MapGenerator mapGen = new MapGenerator();
+		Map map = new Map(mapGen);
+		this.gameObj = new Game(map);
 		this.initGameScreen();
 		this.paused = true;
 		this.animating = false;
