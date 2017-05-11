@@ -8,8 +8,10 @@ public class Template {
 			template1();
 		} else if (i == 2){
 			template2();
-		} else {
+		} else if (i == 3){
 			template3();
+		} else {
+			template4();
 		}
 	}
 	
@@ -47,6 +49,33 @@ public class Template {
 			}
 		}
 		b[1][1] = new Block(1, 1, 1);
+	}
+	
+	public void template4() {
+		int[][] temp = new int[3][4];
+		temp[1][0] = 1;
+		temp[2][0] = 1;
+		temp[2][1] = 1;
+		this.t= temp;
+		b = new Block[3][4];
+		for (int i = 0; i < 3; i++) {
+			for(int j = 0; j < 4; j++) {
+				b[i][j] = new Block(0,i,j);
+//				System.out.print(b[i][j].getType());
+			}
+//			System.out.println();
+		}
+		b[0][1] = new Block(1,0,1);
+		b[0][2] = new Block(1,0,2);
+		b[1][2] = new Block(1,1,2);
+//		System.out.println(b[i][j]);
+//		for (int i = 0; i < 3; i++) {
+//			for(int j = 0; j < 4; j++) {
+////				b[i][j] = new Block(0,i,j);
+//				System.out.print(b[i][j].getType());
+//			}
+//			System.out.println();
+//		}
 	}
 	
 	public int[][] getTemp(){

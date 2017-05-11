@@ -27,10 +27,10 @@ public class MapGenerator {
 		addPlayer();
 	}
 	
-	public static void main (String[] args) {
-		MapGenerator m = new MapGenerator();
-		m.displayPuzzle();
-	}
+//	public static void main (String[] args) {
+//		MapGenerator m = new MapGenerator();
+//		m.displayPuzzle();
+//	}
 	
 	private void addPlayer() {
 		Random randomGenerator = new Random();
@@ -50,10 +50,8 @@ public class MapGenerator {
 //		}
 //		this.puzzleB[i][j].setType(4);
 		
-		
 	}
-
-
+	
 	private void placeBlock(ArrayList<Block> goalRange) {
 		Random randomGenerator = new Random();
 		int randomInt = randomGenerator.nextInt(goalRange.size());
@@ -69,9 +67,11 @@ public class MapGenerator {
 		Template t1 = new Template(1);
 		Template t2 = new Template(2);
 		Template t3 = new Template(3);
+		Template t4 = new Template(4);
 		this.ts.add(t1);
 		this.ts.add(t2);
 		this.ts.add(t3);
+//		this.ts.add(t4);
 	}
 	
 	// add templates to prototype
@@ -82,8 +82,10 @@ public class MapGenerator {
 			int w = currT.getTemp()[0].length;
 			if(s == 0){
 				Random randomGenerator = new Random();
-				int x = randomGenerator.nextInt(this.puzzleB.length-2-h)+1;
-				int y = randomGenerator.nextInt(this.puzzleB[0].length-2-w)+1;
+				int x = randomGenerator.nextInt(this.puzzleB.length-1-h)+1;
+				int y = randomGenerator.nextInt(this.puzzleB[0].length-1-w)+1;
+//				int x = 1;
+//				int y = 1;
 				System.out.println(x+" "+y);
 				for(int i = 0; i < h; i++){
 					for(int j = 0; j < w; j++){
@@ -92,8 +94,8 @@ public class MapGenerator {
 				}
 			} else if (s == 1) {
 				Random randomGenerator = new Random();
-				int x = randomGenerator.nextInt(this.puzzleB.length-2-h)+1;
-				int y = randomGenerator.nextInt(this.puzzleB[0].length-2-w)+1;
+				int x = randomGenerator.nextInt(this.puzzleB.length-1-h)+1;
+				int y = randomGenerator.nextInt(this.puzzleB[0].length-1-w)+1;
 //				System.out.println(x+" "+y);
 				for(int i = 0; i < h; i++){
 					for(int j = 0; j < w; j++){
@@ -102,8 +104,8 @@ public class MapGenerator {
 				}
 			} else {
 				Random randomGenerator = new Random();
-				int x = randomGenerator.nextInt(this.puzzleB.length-2-h)+1;
-				int y = randomGenerator.nextInt(this.puzzleB[0].length-2-w)+1;
+				int x = randomGenerator.nextInt(this.puzzleB.length-1-h)+1;
+				int y = randomGenerator.nextInt(this.puzzleB[0].length-1-w)+1;
 //				System.out.println(x+" "+y);
 				for(int i = 0; i < h; i++){
 					for(int j = 0; j < w; j++){
@@ -232,11 +234,14 @@ public class MapGenerator {
 			System.out.println();
 		}
 	}
-
-	public Player getPlayer() {
-		//this.playerLocation.setLocation(1,1);
-		Player p = new Player(this.playerLocation);		
-		return p;
+	//MapGenerator should return a point that Player.java uses
+//	public Player getPlayer() {
+//		//this.playerLocation.setLocation(1,1);
+////		Player p = new Player(this.playerLocation);		
+//		return p;
+//	}
+	public Point getStartingPlayerLoc() {
+		return playerLocation;
 	}
 
 
