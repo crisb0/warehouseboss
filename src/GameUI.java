@@ -288,13 +288,3 @@ public class GameUI extends JPanel implements Runnable {
 		}
 	}
 }
-
-<<<<<<< HEAD
-//		MapGenerator mapGen = new MapGenerator(null);
-//		Map map = new Map(mapGen);
-//		this.gameObj = new Game(map);
-=======
-		MapGenerator mapGen = new MapGenerator();
-		Map map = new Map(mapGen);
-		this.gameObj = new Game(map);
->>>>>>> mapgeneration

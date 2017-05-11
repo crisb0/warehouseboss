@@ -27,15 +27,30 @@ public class MapGenerator {
 		addPlayer();
 	}
 	
-
+	public static void main (String[] args) {
+		MapGenerator m = new MapGenerator();
+		m.displayPuzzle();
+	}
+	
 	private void addPlayer() {
 		Random randomGenerator = new Random();
 		int i = randomGenerator.nextInt(this.puzzleB.length-1);
 		int j = randomGenerator.nextInt(this.puzzleB.length-1);
-		if(this.puzzleB[i][j].getType() != 0){
+		//only add player and set location when it is a free space (?)
+		if(this.puzzleB[i][j].getType() == 0){
+//			System.out.println(i + " " + j);
 			this.playerLocation.setLocation(i,j);
+			this.puzzleB[i][j].setType(4);
+		} else {
+			addPlayer();
 		}
-		this.puzzleB[i][j].setType(4);
+		//----------original code-----------
+//		if(this.puzzleB[i][j].getType() != 0){
+//			this.playerLocation.setLocation(i,j);
+//		}
+//		this.puzzleB[i][j].setType(4);
+		
+		
 	}
 
 
@@ -79,7 +94,7 @@ public class MapGenerator {
 				Random randomGenerator = new Random();
 				int x = randomGenerator.nextInt(this.puzzleB.length-2-h)+1;
 				int y = randomGenerator.nextInt(this.puzzleB[0].length-2-w)+1;
-				System.out.println(x+" "+y);
+//				System.out.println(x+" "+y);
 				for(int i = 0; i < h; i++){
 					for(int j = 0; j < w; j++){
 						this.puzzleB[x+i][y+j].setType(currT.getBlockTemp()[i][j].getType());
@@ -89,7 +104,7 @@ public class MapGenerator {
 				Random randomGenerator = new Random();
 				int x = randomGenerator.nextInt(this.puzzleB.length-2-h)+1;
 				int y = randomGenerator.nextInt(this.puzzleB[0].length-2-w)+1;
-				System.out.println(x+" "+y);
+//				System.out.println(x+" "+y);
 				for(int i = 0; i < h; i++){
 					for(int j = 0; j < w; j++){
 						this.puzzleB[x+i][y+j].setType(currT.getBlockTemp()[i][j].getType());
