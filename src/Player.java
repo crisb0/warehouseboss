@@ -15,42 +15,57 @@ public class Player extends Entity {
 	/**
 	 * returns true player is moved. Also updates map[][] and box loc
 	 * @param dir
-	 * @param m
+	 * @param map
 	 * @return
 	 */
-	public boolean movePlayer(char dir, Map m) {
-		Point newLoc = this.getNewPoint(dir, this.loc);
-		
-		if (!this.isBetween(0, m.getMap().length, (int) newLoc.getX()) ||
-				!this.isBetween(0, m.getMap().length, (int)newLoc.getY())) return false;
-		
-		if (m.isFreeSpace(newLoc) || m.isGoal(newLoc)) { // if free space, player moves there
-			if (m.getGoalLocs().contains(this.loc))	m.updateMap(GOAL, (int) this.loc.getX(), (int) this.loc.getY());
-			else m.updateMap(FREE_SPACE, (int) this.loc.getX(), (int) this.loc.getY());
-			m.updateMap(PLAYER,(int) newLoc.getX(), (int)newLoc.getY());
+	public boolean move(Move m, Map map) {
+		Point newLoc = m.getNewPoint(this.loc); // new player location
+		// undo move
+		if (m.isUndo()) {
+			map.updateMap(PLAYER,(int) newLoc.getX(), (int) newLoc.getY());
+			if (map.getGoalLocs().contains(this.loc))	
+				map.updateMap(GOAL, (int) this.loc.getX(), (int) this.loc.getY());
+			else 
+				map.updateMap(FREE_SPACE, (int) this.loc.getX(), (int) this.loc.getY());
+			Entity e = m.getEntityMoved(); 
+			if (e != null && e instanceof Box) { // if a box was pushed with this move
+				e.move(m, map);
+			}
 			this.loc = newLoc;
 			return true;
-		}
-		else if (m.isBox(newLoc)) { //if box, check if point next to box is free or goal then move there
-			Point boxLoc = this.getNewPoint(dir, newLoc);
-			if (!this.isBetween(0, m.getMap().length, (int) boxLoc.getX()) ||
-					!this.isBetween(0, m.getMap().length, (int) boxLoc.getY())) return false;
+		// normal move
+		} else {
+			if (!this.isBetween(0, map.getMap().length, (int) newLoc.getX()) ||
+					!this.isBetween(0, map.getMap().length, (int)newLoc.getY())) return false;
 			
-			if (m.isFreeSpace(boxLoc) || m.isGoal(boxLoc)) {
-				Box b = m.getBox(newLoc);
-				b.moveBox(dir);
-				m.updateMap(FREE_SPACE, (int) this.loc.getX(), (int) this.loc.getY());
-				m.updateMap(PLAYER, (int) newLoc.getX(), (int) newLoc.getY());
-				m.updateMap(BOX, (int)boxLoc.getX(), (int)boxLoc.getY());
-				
-				if (m.getGoalLocs().contains(this.loc)) m.updateMap(GOAL, (int) this.loc.getX(), (int) this.loc.getY());
+			if (map.isFreeSpace(newLoc) || map.isGoal(newLoc)) { // if free space, player moves there
+				if (map.getGoalLocs().contains(this.loc))	
+					map.updateMap(GOAL, (int) this.loc.getX(), (int) this.loc.getY());
+				else 
+					map.updateMap(FREE_SPACE, (int) this.loc.getX(), (int) this.loc.getY());
+				map.updateMap(PLAYER,(int) newLoc.getX(), (int)newLoc.getY());
 				this.loc = newLoc;
 				return true;
+				
+			} else if (map.isBox(newLoc)) { //if box, check if point next to box is free or goal then move there
+				Point newBoxLoc = m.getNewPoint(newLoc);
+				if (!this.isBetween(0, map.getMap().length, (int) newBoxLoc.getX()) ||
+						!this.isBetween(0, map.getMap().length, (int) newBoxLoc.getY())) 
+					return false;
+				
+				if (map.isFreeSpace(newBoxLoc) || map.isGoal(newBoxLoc)) {
+					Box b = map.getBox(newLoc);
+					b.move(m, map);
+					if (map.getGoalLocs().contains(this.loc))	
+						map.updateMap(GOAL, (int) this.loc.getX(), (int) this.loc.getY());
+					else 
+						map.updateMap(FREE_SPACE, (int) this.loc.getX(), (int) this.loc.getY());
+					map.updateMap(PLAYER, (int) newLoc.getX(), (int) newLoc.getY());
+					this.loc = newLoc;
+					return true;
+				}
 			}
 		}
-
 		return false;
 	}
-
-
 }

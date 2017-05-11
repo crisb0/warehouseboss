@@ -1,58 +1,136 @@
 comp2911 project diary
-__________________________________________________
-27.04.17__________________________________________
-What did I do today?
+______________________________________________________________
+27.04.17______________________________________________________
+>> What did I do today?
 Assign roles:
 Alen - GUI (Swing), Product Owner
 Alan - Dev
 Charley - Tester
 Christine - Scrum Master
 
-What will I do tomorrow?
+>> What will I do tomorrow?
 Read through and discussed spec. Set time to meet up and work on 
 
-__________________________________________________
-28.04.17__________________________________________
-
+______________________________________________________________
+28.04.17______________________________________________________
+>> What did I do yesterday?
+>> What will I do today?
 New addition to the team! -- Shyam
 Assign role to Dev.
-________________________________________________
-29.04.17__________________________________________
+>> Is anything in my way?
+______________________________________________________________
+29.04.17______________________________________________________
+>> What did I do yesterday?
+Assigned roles of team members
 
+>> What will I do today?
 Research role as Scrum Master
-Watch Scrum lecture
+Watch Scrum lecture to understand process
 
-__________________________________________________
-30.04.17__________________________________________
+>> Is anything in my way?
 
+______________________________________________________________
+30.04.17______________________________________________________
+>> What did I do yesterday?
+Understood role as Scrum Master, created product
+backlog and drafted up 'sprints
+
+>> What did I do today?
 Compile list of things to go through on Tuesday
 02.05.17 meeting
 
-__________________________________________________
-01.05.17__________________________________________
+>> Is anything in my way?
 
+______________________________________________________________
+01.05.17______________________________________________________
+______________________________________________________________
+02.05.17______________________________________________________
+>> What did I do yesterday?
+>> What will I do today?
+Conduct groupo meeting - discuss preliminary info
+Basic collaborative uml diagram
+Set up environment for everyone to work on
+Set regular meeting time online x1, offline x1 / week
 
-
-__________________________________________________
-02.05.17__________________________________________
-
+______________________________________________________________
+03.05.17______________________________________________________
+>> What did I do yesterday?
 Group meeting -- discussed more on the preliminary things
 Ironed out any discrepancies in the spec
 Listed classes we need, basic uml diagram created
 Set up online meeting time and day (Saturday 10pm)
 Set homework for next meeting (read up on puzzle 
 generation, work on finalising classes)
-
-__________________________________________________
-03.05.17__________________________________________
-
 Decide on which tools to use as a team 
 
-__________________________________________________
-04.05.17__________________________________________
+>> What did I do today?
+>> Is anything in my way?
+______________________________________________________________
+04.05.17______________________________________________________
+______________________________________________________________
+05.05.17______________________________________________________
+______________________________________________________________
+06.05.17______________________________________________________
+>> What did I do yesterday?
+>> What will I do today?
+Figure out implementation of Entity abstract class then
+Player, Box classes
+
+>> Is anything in my way?
+Unsure of how classes interact, what function needs to be done
+where or takes care of what
+What parameters should classes take in?
+How to use abstract class optimally????
+______________________________________________________________
+07.05.17______________________________________________________
+>> What did I do yesterday?
+Figure out how to implement the entity class
+
+>> What will I do today?
+Implement the entity class
+
+>> Is anything in my way?
+How to test player class?
+______________________________________________________________
+08.05.17______________________________________________________
+>> What did I do yesterday?
+Implemented player class
+
+>> What will I do today?
+test entity/player/box
+______________________________________________________________
+09.05.17______________________________________________________
+>> What did I do yesterday?
+Test classes
+
+>> What will I do today?
+Group meeting #2: where is everyone up to?
+Dicuss anything in the way, integration of classes, how are roles
+going, etc
+Set deadline for sprint #1: game working with basic functions
+
+>> Is anything in my way?
+______________________________________________________________
+10.05.17______________________________________________________
+>> What did I do yesterday?
+Completed Entity integration with GUI -- working
+Attend group meeting
+Set deadline for sprint #1 (16.05.17)
+
+>> What will I do today?
+>> Is anything in my way?
 
 
-__________________________________________________
-05.05.17__________________________________________
+______________________________________________________________
+11.05.17______________________________________________________
+>> What did I do yesterday?
+>> What will I do today?
+>> Is anything in my way?
 
+
+______________________________________________________________
+12.05.17______________________________________________________
+>> What did I do yesterday?
+>> What will I do today?
+>> Is anything in my way?
 
