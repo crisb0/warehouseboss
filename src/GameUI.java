@@ -60,7 +60,7 @@ public class GameUI extends JPanel implements Runnable {
 		this.setBackground(Color.BLACK);
 		this.setDoubleBuffered(true);
 		this.createExitBtn();
-		
+		this.createUndoBtn();
 		try {
 			this.wallImage = ImageIO.read(new File("src/Images/wall.png"));
 			this.playerImage = ImageIO.read(new File("src/Images/player.png"));
@@ -96,6 +96,16 @@ public class GameUI extends JPanel implements Runnable {
 		});
 		
 		this.add(btnExit);
+	}
+	
+	public void createUndoBtn() {
+		JButton btnUndo = new JButton("Undo");
+		btnUndo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				gameObj.undoMove();
+			}
+		});
+		this.add(btnUndo);
 	}
 
 	public void generateGame(Game.Difficulty diff) {
@@ -161,7 +171,7 @@ public class GameUI extends JPanel implements Runnable {
 	}
 	
 	private void gameCycle(double dt) {
-		double animSpeed = 14f;
+		double animSpeed = 7f;
 		double animIncrements = this.tileSize / animSpeed;
 		
 		if(this.animating){
@@ -240,7 +250,7 @@ public class GameUI extends JPanel implements Runnable {
 
 		public void actionPerformed(ActionEvent e){
 			if(!animating){
-				if(gameObj.getPlayer().movePlayer('s', gameObj.getMap())){
+				if(gameObj.move('s')){
 					animating = true;
 					animOffsetY = -tileSize;
 				}
@@ -253,7 +263,7 @@ public class GameUI extends JPanel implements Runnable {
 
 		public void actionPerformed(ActionEvent e){
 			if(!animating){
-				if(gameObj.getPlayer().movePlayer('d', gameObj.getMap())){
+				if(gameObj.move('d')) {
 					animating = true;
 					animOffsetX = -tileSize;
 				}
@@ -267,7 +277,7 @@ public class GameUI extends JPanel implements Runnable {
 
 		public void actionPerformed(ActionEvent e){
 			if(!animating){
-				if(gameObj.getPlayer().movePlayer('w', gameObj.getMap())){
+				if(gameObj.move('w')) {
 					animating = true;
 					animOffsetY = tileSize;
 				}
@@ -280,7 +290,7 @@ public class GameUI extends JPanel implements Runnable {
 
 		public void actionPerformed(ActionEvent e){
 			if(!animating){
-				if(gameObj.getPlayer().movePlayer('a', gameObj.getMap())){
+				if(gameObj.move('a')) {
 					animating = true;
 					animOffsetX = tileSize;
 				}
