@@ -43,7 +43,7 @@ public class GameUI extends JPanel{
 	public GameUI(MainUI parent) {
 		this.parent = parent;
 		
-		MapGenerator mapGen = new MapGenerator(null);
+		MapGenerator mapGen = new MapGenerator();
 		Map map = new Map(mapGen);
 		this.gameObj = new Game(map);
 		this.initGameScreen();
