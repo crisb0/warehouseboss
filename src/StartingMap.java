@@ -1,14 +1,14 @@
 public class StartingMap {
 
-	private Block[][] blocks = new Block[8][8];
+	private Block[][] blocks = new Block[10][10];
 	
 	public StartingMap(){
 		createPrototype();
 	}
 	
 	public void createPrototype(){
-		for(int i = 0; i < 8; i++){
-			for(int j = 0; j < 8; j++){
+		for(int i = 0; i < 10; i++){
+			for(int j = 0; j < 10; j++){
 				if(i <= 1 || i >= 5){
 					this.blocks[i][j] = new Block(1, i ,j);
 				} else {

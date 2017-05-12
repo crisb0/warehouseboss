@@ -16,22 +16,22 @@ public class Template {
 	}
 	
 	public void template1(){
-		int[][] temp = new int[3][2];
+		int[][] temp = new int[3][4];
 		this.t = temp;
-		b = new Block[3][2];
+		b = new Block[3][4];
 		for(int i = 0; i < 3; i++){
-			for(int j = 0; j < 2; j++){
+			for(int j = 0; j < 4; j++){
 				b[i][j] = new Block(0, i, j);
 			}
 		}
 	}
 	
 	public void template2(){
-		int[][] temp = new int[2][2];
+		int[][] temp = new int[3][3];
 		this.t = temp;
-		b = new Block[3][2];
-		for(int i = 0; i < 2; i++){
-			for(int j = 0; j < 2; j++){
+		b = new Block[3][3];
+		for(int i = 0; i < 3; i++){
+			for(int j = 0; j < 3; j++){
 				b[i][j] = new Block(0, i, j);
 			}
 		}
@@ -41,6 +41,7 @@ public class Template {
 	public void template3(){
 		int[][] temp = new int[3][3];
 		temp[1][1] = 1;
+		temp[2][2] = 1;
 		this.t = temp;
 		b = new Block[3][3];
 		for(int i = 0; i < 3; i++){
@@ -49,6 +50,7 @@ public class Template {
 			}
 		}
 		b[1][1] = new Block(1, 1, 1);
+		b[2][2] = new Block(1, 2, 2);
 	}
 	
 	public void template4() {
@@ -61,21 +63,11 @@ public class Template {
 		for (int i = 0; i < 3; i++) {
 			for(int j = 0; j < 4; j++) {
 				b[i][j] = new Block(0,i,j);
-//				System.out.print(b[i][j].getType());
 			}
-//			System.out.println();
 		}
 		b[0][1] = new Block(1,0,1);
 		b[0][2] = new Block(1,0,2);
 		b[1][2] = new Block(1,1,2);
-//		System.out.println(b[i][j]);
-//		for (int i = 0; i < 3; i++) {
-//			for(int j = 0; j < 4; j++) {
-////				b[i][j] = new Block(0,i,j);
-//				System.out.print(b[i][j].getType());
-//			}
-//			System.out.println();
-//		}
 	}
 	
 	public int[][] getTemp(){
