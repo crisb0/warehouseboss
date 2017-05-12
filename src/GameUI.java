@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
@@ -11,6 +12,7 @@ import javax.imageio.ImageIO;
 import javax.swing.AbstractAction;
 import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 
@@ -21,14 +23,12 @@ import javax.swing.KeyStroke;
  * 
  * @author z5115782
  */
-public class GameUI extends JPanel implements Runnable {
+public class GameUI extends JPanel{
 	private static final long serialVersionUID = -5285564050945629510L;
 	private final int tileSize = 48;
 	private final int shadowRadius = 8;
 	private MainUI parent;
 	private Game gameObj;
-	private Thread gameLoop;
-	private boolean paused;
 	private boolean animating;
 	
 	private BufferedImage wallImage;
@@ -39,7 +39,6 @@ public class GameUI extends JPanel implements Runnable {
 	
 	private double animOffsetX;
 	private double animOffsetY;
-	private int animCounter;
 
 	public GameUI(MainUI parent) {
 		this.parent = parent;
@@ -48,12 +47,10 @@ public class GameUI extends JPanel implements Runnable {
 		Map map = new Map(mapGen);
 		this.gameObj = new Game(map);
 		this.initGameScreen();
-		this.paused = true;
 		this.animating = false;
 		
 		this.animOffsetX = 0.0f;
 		this.animOffsetY = 0.0f;
-		this.animCounter = 0;
 	}
 
 	private void initGameScreen() {
@@ -90,7 +87,6 @@ public class GameUI extends JPanel implements Runnable {
 		
 		btnExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				paused = true;
 				parent.changeInterface(MainUI.PanelName.MAIN_MENU);
 			}
 		});
@@ -170,81 +166,6 @@ public class GameUI extends JPanel implements Runnable {
 		}
 	}
 	
-	private void gameCycle(double dt) {
-		double animSpeed = 7f;
-		double animIncrements = this.tileSize / animSpeed;
-		
-		if(this.animating){
-			if(this.animCounter <= animSpeed){
-				this.animCounter++;
-				if(this.animOffsetX < 0.0f)
-					this.animOffsetX += animIncrements;
-				else if(this.animOffsetX > 0.0f)
-					this.animOffsetX -= animIncrements;
-				else if(this.animOffsetY < 0.0f)
-					this.animOffsetY += animIncrements;
-				else if(this.animOffsetY > 0.0f)
-					this.animOffsetY -= animIncrements;
-			} else {
-				this.animating = false;
-				this.animOffsetX = 0.0f;
-				this.animOffsetY = 0.0f;
-				this.animCounter = 0;
-			}
-		}
-	}
-	
-	public void setPauseState(boolean paused){
-		this.paused = paused;
-	}
-
-	@Override
-	public void addNotify() {
-		super.addNotify();
-
-		this.gameLoop = new Thread(this);
-		this.gameLoop.start();
-	}
-
-	@Override
-	public void run() {
-		long lastLoopTime = System.nanoTime();
-		long lastFpsTime = 0;
-		final int TARGET_FPS = 60;
-		final long OPTIMAL_TIME = 1000000000 / TARGET_FPS;
-		
-		while (true) {
-			if(!this.paused){
-				long currentTime = System.nanoTime();
-				long updateTime = currentTime - lastLoopTime;
-				lastLoopTime = currentTime;
-				
-				double deltaTime = updateTime / ((double)OPTIMAL_TIME);
-				
-				lastFpsTime += updateTime;
-				
-				if(lastFpsTime > 1000000000){
-					lastFpsTime = 0;
-				}
-				
-				this.gameCycle(deltaTime);
-				this.repaint();
-				
-				try{
-					Thread.sleep((lastLoopTime - System.nanoTime() + OPTIMAL_TIME)/1000000);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-			} else {
-				try {
-					Thread.sleep(1000);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-	}
-	
 	class DownAction extends AbstractAction {
 		private static final long serialVersionUID = 6929552707401993275L;
 
@@ -253,6 +174,7 @@ public class GameUI extends JPanel implements Runnable {
 				if(gameObj.move('s')){
 					animating = true;
 					animOffsetY = -tileSize;
+					repaint();
 				}
 			}
 		}
@@ -266,6 +188,7 @@ public class GameUI extends JPanel implements Runnable {
 				if(gameObj.move('d')) {
 					animating = true;
 					animOffsetX = -tileSize;
+					repaint();
 				}
 				
 			}
@@ -280,6 +203,7 @@ public class GameUI extends JPanel implements Runnable {
 				if(gameObj.move('w')) {
 					animating = true;
 					animOffsetY = tileSize;
+					repaint();
 				}
 			}
 		}
@@ -293,8 +217,9 @@ public class GameUI extends JPanel implements Runnable {
 				if(gameObj.move('a')) {
 					animating = true;
 					animOffsetX = tileSize;
+					repaint();
 				}
 			}
 		}
-	}
+}
 }
