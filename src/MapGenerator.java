@@ -9,6 +9,7 @@ public class MapGenerator {
 	private StartingMap s = new StartingMap();
 	private ArrayList<Template> ts = new ArrayList<Template>();
 	private ArrayList<Block> goals = new ArrayList<Block>();
+	private ArrayList<Block> boxes = new ArrayList<Block>();
 	private Point playerLocation;
 	private List<Box> boxLocs;
 	private List<Point> goalLocs;
@@ -23,7 +24,9 @@ public class MapGenerator {
 		checkNoGoal();
 		addGoal();
 		canGoTo();
-		placeBlock(calculateGoalRange());
+		for(int i = 0; i < 3; i++){
+			placeBlock(calculateGoalRange(i));
+		}
 		addPlayer();
 	}
 	
@@ -38,18 +41,11 @@ public class MapGenerator {
 		int j = randomGenerator.nextInt(this.puzzleB.length-1);
 		//only add player and set location when it is a free space (?)
 		if(this.puzzleB[i][j].getType() == 0){
-//			System.out.println(i + " " + j);
 			this.playerLocation.setLocation(i,j);
 			this.puzzleB[i][j].setType(4);
 		} else {
 			addPlayer();
 		}
-		//----------original code-----------
-//		if(this.puzzleB[i][j].getType() != 0){
-//			this.playerLocation.setLocation(i,j);
-//		}
-//		this.puzzleB[i][j].setType(4);
-		
 	}
 	
 	private void placeBlock(ArrayList<Block> goalRange) {
@@ -179,30 +175,32 @@ public class MapGenerator {
 		this.goals.add(this.puzzleB[3][6]);
 		this.puzzleB[4][2].setType(3);
 		this.goals.add(this.puzzleB[4][2]);*/
-		int accepted = 0;
-		while(accepted == 0){
-			Random randomGenerator = new Random();
-			int i = randomGenerator.nextInt(8);
-			int j = randomGenerator.nextInt(8);
-			//System.out.println(i + " " + j);
-			if(this.puzzleB[i][j].getType() == 0){
-				this.puzzleB[i][j].setType(3);
-				this.goals.add(this.puzzleB[i][j]);
-				Point g = new Point();
-				g.setLocation(i, j);
-				this.goalLocs.add(g);
-				accepted = 1;
-			}		
+		for(int f = 0; f < 3; f++){
+			int accepted = 0;
+			while(accepted == 0){
+				Random randomGenerator = new Random();
+				int i = randomGenerator.nextInt(8);
+				int j = randomGenerator.nextInt(8);
+				//System.out.println(i + " " + j);
+				if(this.puzzleB[i][j].getType() == 0){
+					this.puzzleB[i][j].setType(3);
+					this.goals.add(this.puzzleB[i][j]);
+					Point g = new Point();
+					g.setLocation(i, j);
+					this.goalLocs.add(g);
+					accepted = 1;
+				}		
+			}
 		}
 	}
 	
 	// check goal_range
-	public ArrayList<Block> calculateGoalRange(){
+	public ArrayList<Block> calculateGoalRange(int index){
 		ArrayList<Block> blocks = new ArrayList<Block>();
 		for(int i = 0; i < this.puzzleB.length; i++){
 			for(int j = 0; j < this.puzzleB[0].length; j++){
 				if(this.puzzleB[i][j].getType() != 1){
-					AStar a = new AStar(this.puzzleB[i][j], this.goals.get(0));
+					AStar a = new AStar(this.puzzleB[i][j], this.goals.get(index));
 					if(a.aStarSearch()){
 						if(this.puzzleB[i][j].getType() != 3){
 							//this.puzzleB[i][j].setType(5);
