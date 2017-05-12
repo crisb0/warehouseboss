@@ -16,7 +16,7 @@ public class Map {
 	private static final int PLAYER = 4;
 
 	public Map(MapGenerator grid) {
-		this.player = grid.getPlayer();
+		this.player = new Player(grid.getStartingPlayerLoc());
 		this.map = grid.getGrid();
 		this.boxLocs = grid.getBoxLocs();
 		this.goalLocs = grid.getGoalLocs();

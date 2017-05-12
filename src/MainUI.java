@@ -12,8 +12,8 @@ import javax.swing.JPanel;
  */
 public class MainUI extends JFrame {
 	private static final long serialVersionUID = -5285564050945629510L;
-	private int width = 1200;
-	private int height = this.width * 9 / 16;
+	private int width = 600;
+	private int height = 600;
 	private GameUI game;
 
 	public MainUI() {
@@ -56,7 +56,6 @@ public class MainUI extends JFrame {
 			c.show(contPanel, "menu");
 			break;
 		case GAME_MENU:
-			this.game.setPauseState(false);
 			c.show(contPanel, "game");
 			break;
 		}

@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
@@ -11,6 +12,7 @@ import javax.imageio.ImageIO;
 import javax.swing.AbstractAction;
 import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 
@@ -21,14 +23,12 @@ import javax.swing.KeyStroke;
  * 
  * @author z5115782
  */
-public class GameUI extends JPanel implements Runnable {
+public class GameUI extends JPanel{
 	private static final long serialVersionUID = -5285564050945629510L;
 	private final int tileSize = 48;
 	private final int shadowRadius = 8;
 	private MainUI parent;
 	private Game gameObj;
-	private Thread gameLoop;
-	private boolean paused;
 	private boolean animating;
 	
 	private BufferedImage wallImage;
@@ -39,21 +39,18 @@ public class GameUI extends JPanel implements Runnable {
 	
 	private double animOffsetX;
 	private double animOffsetY;
-	private int animCounter;
 
 	public GameUI(MainUI parent) {
 		this.parent = parent;
 		
-		MapGenerator mapGen = new MapGenerator(null);
+		MapGenerator mapGen = new MapGenerator();
 		Map map = new Map(mapGen);
 		this.gameObj = new Game(map);
 		this.initGameScreen();
-		this.paused = true;
 		this.animating = false;
 		
 		this.animOffsetX = 0.0f;
 		this.animOffsetY = 0.0f;
-		this.animCounter = 0;
 	}
 
 	private void initGameScreen() {
@@ -90,7 +87,6 @@ public class GameUI extends JPanel implements Runnable {
 		
 		btnExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				paused = true;
 				parent.changeInterface(MainUI.PanelName.MAIN_MENU);
 			}
 		});
@@ -170,6 +166,7 @@ public class GameUI extends JPanel implements Runnable {
 		}
 	}
 	
+<<<<<<< HEAD
 	private void gameCycle(double dt) {
 		double animSpeed = 7f;
 		double animIncrements = this.tileSize / animSpeed;
@@ -245,6 +242,8 @@ public class GameUI extends JPanel implements Runnable {
 		}
 	}
 	
+=======
+>>>>>>> b1358fcdd40aa54aecc05b5c830b3cda7e573392
 	class DownAction extends AbstractAction {
 		private static final long serialVersionUID = 6929552707401993275L;
 
@@ -253,6 +252,7 @@ public class GameUI extends JPanel implements Runnable {
 				if(gameObj.move('s')){
 					animating = true;
 					animOffsetY = -tileSize;
+					repaint();
 				}
 			}
 		}
@@ -266,6 +266,7 @@ public class GameUI extends JPanel implements Runnable {
 				if(gameObj.move('d')) {
 					animating = true;
 					animOffsetX = -tileSize;
+					repaint();
 				}
 				
 			}
@@ -280,6 +281,7 @@ public class GameUI extends JPanel implements Runnable {
 				if(gameObj.move('w')) {
 					animating = true;
 					animOffsetY = tileSize;
+					repaint();
 				}
 			}
 		}
@@ -293,8 +295,9 @@ public class GameUI extends JPanel implements Runnable {
 				if(gameObj.move('a')) {
 					animating = true;
 					animOffsetX = tileSize;
+					repaint();
 				}
 			}
 		}
-	}
+}
 }
