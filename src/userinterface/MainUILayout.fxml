@@ -14,7 +14,7 @@
    <children>
       <ImageView fitHeight="431.0" fitWidth="480.0" layoutX="235.0" layoutY="181.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../Images/whboss0.png" />
+            <Image url="@../Images/whboss3.png" />
          </image>
       </ImageView>
       <Label layoutX="14.0" layoutY="575.0" text="Version 0.0.1">
