@@ -7,8 +7,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class MainUI extends Application{
-	public static final int WIDTH = 900;
-	public static final int HEIGHT = 600;
 	
 	@Override
 	public void start(Stage primaryStage) {
@@ -16,7 +14,7 @@ public class MainUI extends Application{
 			Parent root = FXMLLoader.load(getClass().getResource("MainUILayout.fxml"));
 			
 			Scene scene = new Scene(root, MainUI.WIDTH, MainUI.HEIGHT);
-			
+
 			primaryStage.setResizable(false);
 			primaryStage.setScene(scene);
 			primaryStage.show();
