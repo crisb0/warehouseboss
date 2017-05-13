@@ -1,3 +1,5 @@
+package map;
+import entity.Block;
 
 public class Template {
 	private int[][] t;

@@ -1,5 +1,9 @@
+package map;
 import java.util.ArrayList;
 import java.util.PriorityQueue;
+
+import entity.Block;
+import entity.State;
 
 // The AStar class runs a A* search on the Map given edges and required jobs
 // using a priority queue of States called 'queue'

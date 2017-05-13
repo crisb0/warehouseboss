@@ -1,3 +1,4 @@
+package entity;
 import java.awt.Point;
 
 public class Move {

@@ -1,4 +1,7 @@
+package entity;
 import java.awt.Point;
+
+import map.Map;
 
 public class Box extends Entity {
 	private static final int FREE_SPACE = 0;
