@@ -7,6 +7,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class MainUI extends Application{
+	public static final int WIDTH = 900;
+	public static final int HEIGHT = 600;
 	
 	@Override
 	public void start(Stage primaryStage) {
