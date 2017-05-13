@@ -6,28 +6,50 @@
     -fx-background-color: #af5508;
 }
 
+#startbtn{
+    -fx-background-color: none;
+    -fx-background-image: url('../Images/btn-ui/whbossButtons-start.png');
+    -fx-background-size: 200px 40px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;   
+}
+
+#startbtn:hover{
+    -fx-background-color: none;
+    -fx-background-image: url('../Images/btn-ui/whbossButtons-start.png');
+    -fx-background-size: 200px 40px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;   
+}
+
+#tutbtn{
+    -fx-background-color: none;
+    -fx-background-image: url('../Images/btn-ui/whbossButtons-tutorial.png');
+    -fx-background-size: 200px 40px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;   
+}
+
+#tutbtn:hover{
+    -fx-background-color: none;
+    -fx-background-image: url('../Images/btn-ui/whbossButtons-tutorial.png');
+    -fx-background-size: 200px 40px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;   
+}
+
 #exitbtn{
     -fx-background-color: none;
-    -fx-background-image: url('../Images/btn-ui/close-idle-256.png');
-    -fx-background-size: 24px 24px;
+    -fx-background-image: url('../Images/btn-ui/whbossButtons-quit.png');
+    -fx-background-size: 200px 40px;
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;   
 }
 
 #exitbtn:hover{
     -fx-background-color: none;
-    -fx-background-image: url('../Images/btn-ui/close-hover-256.png');
-    -fx-background-size: 24px 24px;
+    -fx-background-image: url('../Images/btn-ui/whbossButtons-quit.png');
+    -fx-background-size: 200px 40px;
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;   
-}
-
-.btn{
-    -fx-border-color: #ad5000;
-    -fx-border-width: 2px;
-    -fx-background-color: #ffb270;
-}
-
-.btn:hover{
-    -fx-background-color: #ad5000;
 }
