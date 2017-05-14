@@ -83,8 +83,8 @@ public class MapGenerator {
 			Template currT = this.ts.get(s);
 			int h = currT.getTemp().length;
 			int w = currT.getTemp()[0].length;
-			int x;
-			int y;
+			int x = 0;
+			int y = 0;
 			if(s == 0){
 //				Random randomGenerator = new Random();
 //				int x = randomGenerator.nextInt(this.puzzleB.length-2-h)+1;
