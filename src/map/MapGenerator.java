@@ -9,7 +9,7 @@ import entity.Box;
 
 public class MapGenerator {
 	
-	private Block[][] puzzleB = new Block[8][8];
+	private Block[][] puzzleB = new Block[10][10];
 	private StartingMap s = new StartingMap();
 	private ArrayList<Template> ts = new ArrayList<Template>();
 	private ArrayList<Block> goals = new ArrayList<Block>();
@@ -34,10 +34,10 @@ public class MapGenerator {
 		addPlayer();
 	}
 	
-//	public static void main (String[] args) {
-//		MapGenerator m = new MapGenerator();
-//		m.displayPuzzle();
-//	}
+	public static void main (String[] args) {
+		MapGenerator m = new MapGenerator();
+		m.displayPuzzle();
+	}
 	
 	private void addPlayer() {
 		Random randomGenerator = new Random();
@@ -68,20 +68,12 @@ public class MapGenerator {
 		//create a template with this number
 		//add this template to ts
 		//total of 4 templates
-		for (int i = 0; i < 3; i++) {
+		for (int i = 0; i < 4; i++) {
 			Random rand = new Random();
-			int randNum = rand.nextInt(4);
+			int randNum = rand.nextInt(4) + 1;
 			Template t = new Template(randNum);
 			this.ts.add(t);
 		}
-// 		Template t1 = new Template(1);
-//		Template t2 = new Template(2);
-//		Template t3 = new Template(3);
-//		Template t4 = new Template(4);
-//		this.ts.add(t1);
-//		this.ts.add(t2);
-//		this.ts.add(t3);
-//		this.ts.add(t4);
 	}
 	
 	// add templates to prototype
@@ -91,53 +83,40 @@ public class MapGenerator {
 			Template currT = this.ts.get(s);
 			int h = currT.getTemp().length;
 			int w = currT.getTemp()[0].length;
+			int x = 0;
+			int y = 0;
 			if(s == 0){
-				Random randomGenerator = new Random();
+//				Random randomGenerator = new Random();
 //				int x = randomGenerator.nextInt(this.puzzleB.length-2-h)+1;
 //				int y = randomGenerator.nextInt(this.puzzleB[0].length-2-w)+1;
-				int x = 1;
-				int y = 1;
+				x = 1;
+				y = 1;
 //				System.out.println(x+" "+y);
-				for(int i = 0; i < h; i++){
-					for(int j = 0; j < w; j++){
-						this.puzzleB[x+i][y+j].setType(currT.getBlockTemp()[i][j].getType());
-					}
-				}
 			} else if (s == 1) {
-				Random randomGenerator = new Random();
+//				Random randomGenerator = new Random();
 //				int x = randomGenerator.nextInt(this.puzzleB.length-2-h)+1;
 //				int y = randomGenerator.nextInt(this.puzzleB[0].length-2-w)+1;
-				int x = this.puzzleB.length-h-2;
-				int y = 1;
+				x = this.puzzleB.length-h-1;
+				y = 1;
 //				System.out.println(x+" "+y);
-				for(int i = 0; i < h; i++){
-					for(int j = 0; j < w; j++){
-						this.puzzleB[x+i][y+j].setType(currT.getBlockTemp()[i][j].getType());
-					}
-				}
 			} else if (s == 2) {
-				Random randomGenerator = new Random();
+//				Random randomGenerator = new Random();
 //				int x = randomGenerator.nextInt(this.puzzleB.length-2-h)+1;
 //				int y = randomGenerator.nextInt(this.puzzleB[0].length-2-w)+1;
-				int x = this.puzzleB.length-h-2;
-				int y = this.puzzleB[0].length-w-2;
+				x = this.puzzleB.length-h-1;
+				y = this.puzzleB[0].length-w-1;
 //				System.out.println(x+" "+y);
-				for(int i = 0; i < h; i++){
-					for(int j = 0; j < w; j++){
-						this.puzzleB[x+i][y+j].setType(currT.getBlockTemp()[i][j].getType());
-					}
-				}
-			} else {
-				Random randomGenerator = new Random();
+			} else if (s == 3){
+//				Random randomGenerator = new Random();
 //				int x = randomGenerator.nextInt(this.puzzleB.length-2-h)+1;
 //				int y = randomGenerator.nextInt(this.puzzleB[0].length-2-w)+1;
-				int x = 1;
-				int y = this.puzzleB[0].length-w-2;
+				x = 1;
+				y = this.puzzleB[0].length-w-1;
 //				System.out.println(x+" "+y);
-				for(int i = 0; i < h; i++){
-					for(int j = 0; j < w; j++){
-						this.puzzleB[x+i][y+j].setType(currT.getBlockTemp()[i][j].getType());
-					}
+			}
+			for(int i = 0; i < h; i++){
+				for(int j = 0; j < w; j++){
+					this.puzzleB[x+i][y+j].setType(currT.getBlockTemp()[i][j].getType());
 				}
 			}
 		}
@@ -183,8 +162,8 @@ public class MapGenerator {
 			int accepted = 0;
 			while(accepted == 0){
 				Random randomGenerator = new Random();
-				int i = randomGenerator.nextInt(8);
-				int j = randomGenerator.nextInt(8);
+				int i = randomGenerator.nextInt(10);
+				int j = randomGenerator.nextInt(10);
 				//System.out.println(i + " " + j);
 				if(this.puzzleB[i][j].getType() == 0){
 					this.puzzleB[i][j].setType(3);
@@ -256,19 +235,14 @@ public class MapGenerator {
 	
 	
 	public void displayPuzzle() {
-		for(int i = 0; i < 8; i++){
-			for(int j = 0; j < 8; j++){
-				System.out.print(this.puzzleB[i][j].getType());
+		for(int i = 0; i < 10; i++){
+			for(int j = 0; j < 10; j++){
+				System.out.print(this.puzzleB[i][j].getType() + " ");
 			}
 			System.out.println();
 		}
 	}
 	//MapGenerator should return a point that Player.java uses
-//	public Player getPlayer() {
-//		//this.playerLocation.setLocation(1,1);
-////		Player p = new Player(this.playerLocation);		
-//		return p;
-//	}
 	public Point getStartingPlayerLoc() {
 		return playerLocation;
 	}
@@ -281,7 +255,7 @@ public class MapGenerator {
 
 
 	public int[][] getGrid() {
-		int[][] grid = new int[8][8];
+		int[][] grid = new int[10][10];
 		for(int i = 0; i < this.puzzleB.length; i++){
 			for(int j = 0; j < this.puzzleB[0].length; j++){
 				if(this.puzzleB[i][j].getType() != 9){
