@@ -197,6 +197,25 @@ public class Template {
 		}
 	}
 	
+	/*
+	 * 0 0 0 0
+	 * 1 1 0 0
+	 * 0 0 0 0
+	 * 0 0 0 0
+	 */
+	public void template11() {
+		int[][] temp = new int[4][4];
+		temp[0][1] = 1;
+		temp[1][1] = 1;
+		this.t = temp;
+		b = new Block[4][4];
+		for (int i = 0; i < 4; i++) {
+			for(int j = 0; j < 4; j++) {
+				b[i][j] = new Block(0,i,j);
+			}
+		}
+	}
+	
 	public int[][] getTemp(){
 		return this.t;
 	}
