@@ -71,7 +71,7 @@ public class MapGenerator {
 		for (int i = 0; i < 4; i++) {
 			Random rand = new Random();
 			int randNum = rand.nextInt(11)+1;
-//			System.out.println(randNum);
+			System.out.println(randNum);
 //			int randNum = 11;
 			Template t = new Template(randNum);
 			this.ts.add(t);
@@ -86,8 +86,8 @@ public class MapGenerator {
 		//add template to each corner
 		for(int s = 0; s < this.ts.size(); s++){
 			Template currT = this.ts.get(s);
-			int h = currT.getTemp().length;
-			int w = currT.getTemp()[0].length;
+			int h = currT.getBlockTemp().length;
+			int w = currT.getBlockTemp()[0].length;
 //			Random randomGenerator = new Random();
 			int x=0;
 			int y=0;
