@@ -27,36 +27,37 @@ public class MainUI {
 	
 	@FXML
 	public void initialize(){
-		backgroundAnim = new Timeline(
-                new KeyFrame(Duration.ZERO, new KeyValue(backgroundImg.imageProperty(), new Image("/Images/s_whboss0.png"))),
-                new KeyFrame(Duration.millis(200), new KeyValue(backgroundImg.imageProperty(), new Image("/Images/s_whboss1.png"))),
-                new KeyFrame(Duration.millis(400), new KeyValue(backgroundImg.imageProperty(), new Image("/Images/s_whboss2.png"))),
-                new KeyFrame(Duration.millis(600), new KeyValue(backgroundImg.imageProperty(), new Image("/Images/s_whboss3.png"))),
-                new KeyFrame(Duration.millis(800), new KeyValue(backgroundImg.imageProperty(), new Image("/Images/s_whboss4.png")))
+		this.backgroundAnim = new Timeline(
+                new KeyFrame(Duration.ZERO, new KeyValue(this.backgroundImg.imageProperty(), new Image("/Images/s_whboss0.png"))),
+                new KeyFrame(Duration.millis(200), new KeyValue(this.backgroundImg.imageProperty(), new Image("/Images/s_whboss1.png"))),
+                new KeyFrame(Duration.millis(400), new KeyValue(this.backgroundImg.imageProperty(), new Image("/Images/s_whboss2.png"))),
+                new KeyFrame(Duration.millis(600), new KeyValue(this.backgroundImg.imageProperty(), new Image("/Images/s_whboss3.png"))),
+                new KeyFrame(Duration.millis(800), new KeyValue(this.backgroundImg.imageProperty(), new Image("/Images/s_whboss4.png")))
                 );
-		backgroundAnim.setCycleCount(Timeline.INDEFINITE);
-		backgroundAnim.play();
+		this.backgroundAnim.setCycleCount(Timeline.INDEFINITE);
+		this.backgroundAnim.play();
 	}
 	
 	@FXML
 	private void onButtonClick(ActionEvent event) throws IOException{
-		backgroundAnim.stop();
+		this.backgroundAnim.stop();
+		this.backgroundAnim = null;
 		
-		if(event.getSource() == startBtn){
+		if(event.getSource() == this.startBtn){
 			Parent gameUIRoot = FXMLLoader.load(getClass().getResource("GameUILayout.fxml"));
 			Scene gameUIScene = new Scene(gameUIRoot, MainApplication.WIDTH, MainApplication.HEIGHT);
-			Stage stage = (Stage) startBtn.getScene().getWindow();
+			Stage stage = (Stage) this.startBtn.getScene().getWindow();
 			stage.setScene(gameUIScene);
 			
 			stage.show();
-		} else if (event.getSource() == tutBtn){
+		} else if (event.getSource() == this.tutBtn){
 			Parent tutUIRoot = FXMLLoader.load(getClass().getResource("TutorialUILayout.fxml"));
 			Scene tutUIScene = new Scene(tutUIRoot, MainApplication.WIDTH, MainApplication.HEIGHT);
-			Stage stage = (Stage) startBtn.getScene().getWindow();
+			Stage stage = (Stage) this.startBtn.getScene().getWindow();
 			stage.setScene(tutUIScene);
 			
 			stage.show();
-		} else if (event.getSource() == exitBtn){
+		} else if (event.getSource() == this.exitBtn){
 			Platform.exit();
 		}
 	}
