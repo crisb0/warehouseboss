@@ -66,8 +66,9 @@ public class MapGenerator {
 		//total of 4 templates
 		for (int i = 0; i < 4; i++) {
 			Random rand = new Random();
-			int randNum = rand.nextInt(4)+1;
-			System.out.println(randNum);
+			int randNum = rand.nextInt(11)+1;
+//			System.out.println(randNum);
+//			int randNum = 6;
 			Template t = new Template(randNum);
 			this.ts.add(t);
 		}
@@ -81,8 +82,8 @@ public class MapGenerator {
 			int h = currT.getTemp().length;
 			int w = currT.getTemp()[0].length;
 			Random randomGenerator = new Random();
-			int x;
-			int y;
+			int x=0;
+			int y=0;
 			if(s == 0){
 //				int x = randomGenerator.nextInt(this.puzzleB.length-2-h)+1;
 //				int y = randomGenerator.nextInt(this.puzzleB[0].length-2-w)+1;
@@ -116,20 +117,21 @@ public class MapGenerator {
 //						this.puzzleB[x+i][y+j].setType(currT.getBlockTemp()[i][j].getType());
 //					}
 //				}
-			} else {
+			} else if (s == 3){
 //				int x = randomGenerator.nextInt(this.puzzleB.length-2-h)+1;
 //				int y = randomGenerator.nextInt(this.puzzleB[0].length-2-w)+1;
 				x = 1;
 				y = this.puzzleB[0].length-w-1;
 //				System.out.println(x+" "+y);
 			}
-			System.out.println(x + " " + y + " " + h + " " + w);
+//			System.out.println(x + " " + y + " " + h + " " + w);
 			for(int i = 0; i < h; i++){
 				for(int j = 0; j < w; j++){
 					this.puzzleB[x+i][y+j].setType(currT.getBlockTemp()[i][j].getType());
 				}
 			}
 		}
+		
 	}
 	
 	// check goal-avoid checks places in map where goal can't be reached
