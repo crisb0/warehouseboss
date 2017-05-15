@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -11,6 +12,11 @@
 
 <AnchorPane id="mainbg" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" stylesheets="@mainui.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="userinterface.MainUI">
    <children>
+      <ImageView fitHeight="628.0" fitWidth="933.0" layoutX="-23.0" layoutY="-11.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Images/bg.png" />
+         </image>
+      </ImageView>
       <Label layoutX="14.0" layoutY="575.0" text="Version 0.0.1">
          <font>
             <Font name="Baskerville Old Face" size="18.0" />

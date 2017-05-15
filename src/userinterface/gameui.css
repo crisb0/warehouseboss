@@ -1,3 +1,7 @@
+.bg{
+    -fx-background-color: #000000;
+}
+
 #undobtn{
     -fx-background-color: none;
     -fx-background-image: url('../Images/btn-ui/undo/whbossButtons-undo.png');
