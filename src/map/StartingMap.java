@@ -1,3 +1,6 @@
+package map;
+import entity.Block;
+
 public class StartingMap {
 
 	private Block[][] blocks = new Block[10][10];

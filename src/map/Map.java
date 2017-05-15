@@ -1,7 +1,11 @@
+package map;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
+import entity.Box;
+import entity.Player;
 
 public class Map {
 	private Player player;

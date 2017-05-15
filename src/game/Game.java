@@ -1,7 +1,10 @@
-import java.awt.EventQueue;
-import java.awt.Point;
+package game;
 import java.util.ArrayDeque;
 import java.util.Deque;
+
+import entity.Move;
+import entity.Player;
+import map.Map;
 
 // generates puzzle map, reads user input to play game and processes
 public class Game {
@@ -52,16 +55,6 @@ public class Game {
 	return false;
 	}
 	
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				MainUI mainUI = new MainUI();
-				mainUI.setVisible(true);
-			}
-		});
- 	}
-
 	public enum Difficulty {
 		EASY, NORMAL, HARD, WOBCKE
 	}
