@@ -2,12 +2,19 @@
 
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#onKeyPress" prefHeight="600.0" prefWidth="900.0" styleClass="bg" stylesheets="@gameui.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="userinterface.GameUI">
    <children>
       <Canvas fx:id="mainCanvas" height="531.0" layoutX="21.0" layoutY="14.0" width="859.0" />
       <Button id="backbtn" fx:id="backBtn" layoutX="350.0" layoutY="550.0" mnemonicParsing="false" onAction="#onButtonClick" prefHeight="40.0" prefWidth="200.0" />
       <Button id="undobtn" fx:id="undoBtn" layoutX="560.0" layoutY="554.0" mnemonicParsing="false" onAction="#onButtonClick" prefHeight="32.0" prefWidth="32.0" />
+      <Label fx:id="lblDiff" layoutX="14.0" layoutY="550.0" text="Label" textFill="WHITE">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

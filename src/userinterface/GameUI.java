@@ -13,6 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -21,8 +22,11 @@ import map.Map;
 import map.MapGenerator;
 
 public class GameUI extends AnimationTimer{
+	private final int SPRITE_SIZE = 48;
+	private final int TILE_SIZE = 48;
+	
 	private Game game;
-	private int tileSize;
+	private Game.Difficulty diff;
 	
 	private Image imgWall;
 	private Image imgPlayer;
@@ -36,28 +40,35 @@ public class GameUI extends AnimationTimer{
 	private double animStepsY;
 	private int maxAnimCounter;
 	private int animCounter;
+	private int animDir;
 	private Point prevPPos;
 	
 	@FXML private Canvas mainCanvas;
 	@FXML private Button backBtn;
 	@FXML private Button undoBtn;
+	@FXML private Label lblDiff;
 	
 	@FXML
 	public void initialize(){
 		MapGenerator mp = new MapGenerator();
 		Map nm = new Map(mp);
 		this.game = new Game(nm);
-		this.tileSize = 48;
 		this.animating = false;
 		this.xAnimOffset = 0;
 		this.yAnimOffset = 0;
 		this.animStepsX = 0;
 		this.animStepsY = 0;
 		this.animCounter = 0;
-		this.maxAnimCounter = 8;
+		this.animDir = 0;
+		this.maxAnimCounter = 20;
 		
 		this.loadResources();
 		this.displayMap();
+	}
+	
+	public void setDifficulty(Game.Difficulty diff){
+		this.diff = diff;
+		this.lblDiff.setText(diff.toString());
 	}
 	
 	private void loadResources(){
@@ -84,17 +95,17 @@ public class GameUI extends AnimationTimer{
 		for(int x = 0; x < 10; x++){
 			for(int y = 0; y < 10; y++){
 				if(grid[x][y] == Game.OBSTACLE){
-					gc.drawImage(this.imgWall, x * this.tileSize, y * this.tileSize, this.tileSize, this.tileSize);
+					gc.drawImage(this.imgWall, x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
 					continue;
 				}
 				
 				if(grid[x][y] == Game.BOX){
-					gc.drawImage(this.imgBox, x * this.tileSize, y * this.tileSize, this.tileSize, this.tileSize);
+					gc.drawImage(this.imgBox, x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
 					continue;
 				}
 				
 				if(grid[x][y] == Game.GOAL){
-					gc.drawImage(this.imgGoal, x * this.tileSize, y * this.tileSize, this.tileSize, this.tileSize);
+					gc.drawImage(this.imgGoal, x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
 					continue;
 				}
 			}
@@ -103,16 +114,22 @@ public class GameUI extends AnimationTimer{
 	
 	private void drawPlayer(GraphicsContext gc){
 		Point pPost = this.game.getPlayer().getLoc();
-		gc.drawImage(this.imgPlayer, pPost.getX() * this.tileSize + this.xAnimOffset,
-				pPost.getY() * this.tileSize + this.yAnimOffset, this.tileSize, this.tileSize);
+		gc.drawImage(this.imgPlayer, 
+				SPRITE_SIZE * this.animDir, 
+				SPRITE_SIZE * ((this.animCounter/5) % 4),
+				SPRITE_SIZE, SPRITE_SIZE, 
+				pPost.getX() * TILE_SIZE + this.xAnimOffset,
+				pPost.getY() * TILE_SIZE + this.yAnimOffset, 
+				TILE_SIZE, TILE_SIZE);
 	}
 	
-	private void startAnimation(){
+	private void startAnimation(int dir){
 		this.animating = true;
+		this.animDir = dir;
 		
 		Point curPPos = this.game.getPlayer().getLoc();
-		this.xAnimOffset = (this.prevPPos.getX() - curPPos.getX()) * this.tileSize;
-		this.yAnimOffset = (this.prevPPos.getY() - curPPos.getY()) * this.tileSize;
+		this.xAnimOffset = (this.prevPPos.getX() - curPPos.getX()) * TILE_SIZE;
+		this.yAnimOffset = (this.prevPPos.getY() - curPPos.getY()) * TILE_SIZE;
 		this.animStepsX = (double)this.xAnimOffset / (double)this.maxAnimCounter;
 		this.animStepsY = (double)this.yAnimOffset / (double)this.maxAnimCounter;
 		
@@ -154,18 +171,18 @@ public class GameUI extends AnimationTimer{
 	private void onKeyPress(KeyEvent event){
 		if(!this.animating){
 			this.prevPPos = this.game.getPlayer().getLoc();
-			if(event.getCode() == KeyCode.W){
-				if(this.game.move('w')) this.startAnimation();
-				
-			} else if (event.getCode() == KeyCode.A){
-				if(this.game.move('a')) this.startAnimation();
-				
-			} else if (event.getCode() == KeyCode.S){
-				if(this.game.move('s')) this.startAnimation();
-				
-			} else if (event.getCode() == KeyCode.D){
-				if(this.game.move('d')) this.startAnimation();
-			}
+			
+			if(event.getCode() == KeyCode.W)
+				if(this.game.move('w')) this.startAnimation(2);
+			
+			else if (event.getCode() == KeyCode.A)
+				if(this.game.move('a')) this.startAnimation(1);
+			
+			else if (event.getCode() == KeyCode.S)
+				if(this.game.move('s')) this.startAnimation(0);
+			
+			else if (event.getCode() == KeyCode.D)
+				if(this.game.move('d')) this.startAnimation(3);
 		}
 	}
 }

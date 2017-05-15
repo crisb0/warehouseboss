@@ -56,6 +56,6 @@ public class Game {
 	}
 	
 	public enum Difficulty {
-		EASY, NORMAL, HARD, WOBCKE
+		EASY, NORMAL, HARD, NIGHTMARE
 	}
 }
