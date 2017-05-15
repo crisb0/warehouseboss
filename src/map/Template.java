@@ -127,15 +127,15 @@ public class Template {
 	 * 1 0 0 0
 	 */
 	public void template7() {
-		b = new Block[4][3];
+		b = new Block[4][4];
 		for (int i = 0; i < 4; i++) {
-			for(int j = 0; j < 3; j++) {
+			for(int j = 0; j < 4; j++) {
 				b[i][j] = new Block(0,i,j);
 			}
 		}
 		b[0][2] = new Block(1,0,2);
 		b[3][0] = new Block(1,3,0);
-		b[0][1] = new Block(1, 1, 1);
+		b[0][1] = new Block(1,0,1);
 	}
 	
 	/*
