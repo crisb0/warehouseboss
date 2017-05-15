@@ -34,10 +34,10 @@ public class MapGenerator {
 		addPlayer();
 	}
 	
-	public static void main (String[] args) {
-		MapGenerator m = new MapGenerator();
-		m.displayPuzzle();
-	}
+//	public static void main (String[] args) {
+//		MapGenerator m = new MapGenerator();
+//		m.displayPuzzle();
+//	}
 	
 	private void addPlayer() {
 		Random randomGenerator = new Random();
@@ -70,7 +70,9 @@ public class MapGenerator {
 		//total of 4 templates
 		for (int i = 0; i < 4; i++) {
 			Random rand = new Random();
-			int randNum = rand.nextInt(4) + 1;
+			int randNum = rand.nextInt(11)+1;
+//			System.out.println(randNum);
+//			int randNum = 11;
 			Template t = new Template(randNum);
 			this.ts.add(t);
 		}
@@ -78,36 +80,36 @@ public class MapGenerator {
 	
 	// add templates to prototype
 	public void addTemplate(){
+		//lil problem we should make templates that when integrated, will not create something like that
+		//https://puu.sh/vQsmF/7faa808af9.png
+		//can we work on this tgr tomorrow? @ christine
 		//add template to each corner
 		for(int s = 0; s < this.ts.size(); s++){
 			Template currT = this.ts.get(s);
 			int h = currT.getTemp().length;
 			int w = currT.getTemp()[0].length;
-			int x = 0;
-			int y = 0;
+//			Random randomGenerator = new Random();
+			int x=0;
+			int y=0;
 			if(s == 0){
-//				Random randomGenerator = new Random();
 //				int x = randomGenerator.nextInt(this.puzzleB.length-2-h)+1;
 //				int y = randomGenerator.nextInt(this.puzzleB[0].length-2-w)+1;
 				x = 1;
 				y = 1;
 //				System.out.println(x+" "+y);
 			} else if (s == 1) {
-//				Random randomGenerator = new Random();
 //				int x = randomGenerator.nextInt(this.puzzleB.length-2-h)+1;
 //				int y = randomGenerator.nextInt(this.puzzleB[0].length-2-w)+1;
 				x = this.puzzleB.length-h-1;
 				y = 1;
 //				System.out.println(x+" "+y);
 			} else if (s == 2) {
-//				Random randomGenerator = new Random();
 //				int x = randomGenerator.nextInt(this.puzzleB.length-2-h)+1;
 //				int y = randomGenerator.nextInt(this.puzzleB[0].length-2-w)+1;
 				x = this.puzzleB.length-h-1;
 				y = this.puzzleB[0].length-w-1;
 //				System.out.println(x+" "+y);
 			} else if (s == 3){
-//				Random randomGenerator = new Random();
 //				int x = randomGenerator.nextInt(this.puzzleB.length-2-h)+1;
 //				int y = randomGenerator.nextInt(this.puzzleB[0].length-2-w)+1;
 				x = 1;
@@ -120,6 +122,7 @@ public class MapGenerator {
 				}
 			}
 		}
+		
 	}
 	
 	// check goal-avoid checks places in map where goal can't be reached
@@ -237,12 +240,17 @@ public class MapGenerator {
 	public void displayPuzzle() {
 		for(int i = 0; i < 10; i++){
 			for(int j = 0; j < 10; j++){
-				System.out.print(this.puzzleB[i][j].getType() + " ");
+				System.out.print(this.puzzleB[j][i].getType());
 			}
 			System.out.println();
 		}
 	}
 	//MapGenerator should return a point that Player.java uses
+//	public Player getPlayer() {
+//		//this.playerLocation.setLocation(1,1);
+////		Player p = new Player(this.playerLocation);		
+//		return p;
+//	}
 	public Point getStartingPlayerLoc() {
 		return playerLocation;
 	}
@@ -274,3 +282,4 @@ public class MapGenerator {
 	}
 
 }
+
