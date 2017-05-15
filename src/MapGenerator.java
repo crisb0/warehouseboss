@@ -68,7 +68,7 @@ public class MapGenerator {
 			Random rand = new Random();
 			int randNum = rand.nextInt(11)+1;
 //			System.out.println(randNum);
-//			int randNum = 6;
+//			int randNum = 11;
 			Template t = new Template(randNum);
 			this.ts.add(t);
 		}
@@ -76,12 +76,15 @@ public class MapGenerator {
 	
 	// add templates to prototype
 	public void addTemplate(){
+		//lil problem we should make templates that when integrated, will not create something like that
+		//https://puu.sh/vQsmF/7faa808af9.png
+		//can we work on this tgr tomorrow? @ christine
 		//add template to each corner
 		for(int s = 0; s < this.ts.size(); s++){
 			Template currT = this.ts.get(s);
 			int h = currT.getTemp().length;
 			int w = currT.getTemp()[0].length;
-			Random randomGenerator = new Random();
+//			Random randomGenerator = new Random();
 			int x=0;
 			int y=0;
 			if(s == 0){
@@ -90,33 +93,18 @@ public class MapGenerator {
 				x = 1;
 				y = 1;
 //				System.out.println(x+" "+y);
-//				for(int i = 0; i < h; i++){
-//					for(int j = 0; j < w; j++){
-//						this.puzzleB[x+i][y+j].setType(currT.getBlockTemp()[i][j].getType());
-//					}
-//				}
 			} else if (s == 1) {
 //				int x = randomGenerator.nextInt(this.puzzleB.length-2-h)+1;
 //				int y = randomGenerator.nextInt(this.puzzleB[0].length-2-w)+1;
 				x = this.puzzleB.length-h-1;
 				y = 1;
 //				System.out.println(x+" "+y);
-//				for(int i = 0; i < h; i++){
-//					for(int j = 0; j < w; j++){
-//						this.puzzleB[x+i][y+j].setType(currT.getBlockTemp()[i][j].getType());
-//					}
-//				}
 			} else if (s == 2) {
 //				int x = randomGenerator.nextInt(this.puzzleB.length-2-h)+1;
 //				int y = randomGenerator.nextInt(this.puzzleB[0].length-2-w)+1;
 				x = this.puzzleB.length-h-1;
 				y = this.puzzleB[0].length-w-1;
 //				System.out.println(x+" "+y);
-//				for(int i = 0; i < h; i++){
-//					for(int j = 0; j < w; j++){
-//						this.puzzleB[x+i][y+j].setType(currT.getBlockTemp()[i][j].getType());
-//					}
-//				}
 			} else if (s == 3){
 //				int x = randomGenerator.nextInt(this.puzzleB.length-2-h)+1;
 //				int y = randomGenerator.nextInt(this.puzzleB[0].length-2-w)+1;
@@ -124,7 +112,6 @@ public class MapGenerator {
 				y = this.puzzleB[0].length-w-1;
 //				System.out.println(x+" "+y);
 			}
-//			System.out.println(x + " " + y + " " + h + " " + w);
 			for(int i = 0; i < h; i++){
 				for(int j = 0; j < w; j++){
 					this.puzzleB[x+i][y+j].setType(currT.getBlockTemp()[i][j].getType());
