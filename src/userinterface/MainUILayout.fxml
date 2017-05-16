@@ -17,7 +17,7 @@
             <Image url="@../Images/bg.png" />
          </image>
       </ImageView>
-      <Label layoutX="14.0" layoutY="575.0" text="Version 0.0.1">
+      <Label layoutX="14.0" layoutY="575.0" text="Version 0.5.1">
          <font>
             <Font name="Baskerville Old Face" size="18.0" />
          </font>

@@ -20,6 +20,11 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+/**
+ * This class handles the main menu and any action needed to make it work.
+ * @author RobustProgram
+ *
+ */
 public class MainUI {
 	private Timeline backgroundAnim;
 	private FadeTransition mainMFadeOut;
@@ -39,8 +44,18 @@ public class MainUI {
 	@FXML private GridPane mainMenu;
 	@FXML private GridPane diffMenu;
 	
+	/**
+	 * This function is called after all of the FXML elements are loaded into
+	 * the class. As a result, we are able to set up the FXML elements. The
+	 * initial variable states are also called in this function for convenience
+	 * as the class functionality doesn't start in the constructor.
+	 */
 	@FXML
 	public void initialize(){
+		/*
+		 * We load up all of the type of fades that are to be used by
+		 * the two button menus.
+		 */
 		this.mainMFadeOut = new FadeTransition(Duration.millis(250));
 		this.mainMFadeOut.setNode(mainMenu);
 		this.mainMFadeOut.setFromValue(1.0);
@@ -69,20 +84,41 @@ public class MainUI {
 		this.diffMFadeIn.setCycleCount(1);
 		this.diffMFadeIn.setAutoReverse(false);
 		
+		/*
+		 * We kickstart the animation that is suppose to run in the background
+		 */
 		this.backgroundAnim = new Timeline(
-                new KeyFrame(Duration.ZERO, new KeyValue(this.backgroundImg.imageProperty(), new Image("/Images/s_whboss0.png"))),
-                new KeyFrame(Duration.millis(200), new KeyValue(this.backgroundImg.imageProperty(), new Image("/Images/s_whboss1.png"))),
-                new KeyFrame(Duration.millis(400), new KeyValue(this.backgroundImg.imageProperty(), new Image("/Images/s_whboss2.png"))),
-                new KeyFrame(Duration.millis(600), new KeyValue(this.backgroundImg.imageProperty(), new Image("/Images/s_whboss3.png"))),
-                new KeyFrame(Duration.millis(800), new KeyValue(this.backgroundImg.imageProperty(), new Image("/Images/s_whboss4.png")))
+                new KeyFrame(Duration.ZERO, new KeyValue(this.backgroundImg.imageProperty(), 
+                		new Image("/Images/s_whboss0.png"))),
+                new KeyFrame(Duration.millis(200), new KeyValue(this.backgroundImg.imageProperty(), 
+                		new Image("/Images/s_whboss1.png"))),
+                new KeyFrame(Duration.millis(400), new KeyValue(this.backgroundImg.imageProperty(), 
+                		new Image("/Images/s_whboss2.png"))),
+                new KeyFrame(Duration.millis(600), new KeyValue(this.backgroundImg.imageProperty(), 
+                		new Image("/Images/s_whboss3.png"))),
+                new KeyFrame(Duration.millis(800), new KeyValue(this.backgroundImg.imageProperty(), 
+                		new Image("/Images/s_whboss4.png"))),
+                new KeyFrame(Duration.millis(1000), new KeyValue(this.backgroundImg.imageProperty(), 
+                		new Image("/Images/s_whboss0.png")))
                 );
 		this.backgroundAnim.setCycleCount(Timeline.INDEFINITE);
 		this.backgroundAnim.play();
 	}
 	
+	/**
+	 * Handles the buttons in the main buttons menu
+	 * 
+	 * @precondition event is not null
+	 * @param event The action used to kick start this function
+	 * @throws IOException
+	 */
 	@FXML
 	private void onStandardBtnClick(ActionEvent event) throws IOException{
 		if(event.getSource() == this.startBtn){
+			/*
+			 * If the start button is called, we will fade in the
+			 * difficulty menu.
+			 */
 			this.mainMenu.setDisable(true);
 			this.diffMenu.setDisable(false);
 			this.diffMenu.setVisible(true);
@@ -90,12 +126,21 @@ public class MainUI {
 			this.diffMFadeIn.playFromStart();
 			
 		} else if (event.getSource() == this.returnBtn){
+			/*
+			 * If the return button is called, we will fade back to
+			 * the main menu
+			 */
 			this.mainMenu.setDisable(false);
 			this.diffMenu.setDisable(true);
 			this.mainMFadeIn.playFromStart();
 			this.diffMFadeOut.playFromStart();
 			
 		} else if (event.getSource() == this.tutBtn){
+			/*
+			 * We must always stop the animation for the background or else
+			 * it will cause a memory leak due to the fact that it is set
+			 * to run forever and forever.
+			 */
 			this.backgroundAnim.stop();
 			this.backgroundAnim = null;
 			Parent tutUIRoot = FXMLLoader.load(getClass().getResource("TutorialUILayout.fxml"));
@@ -109,8 +154,20 @@ public class MainUI {
 		}
 	}
 	
+	/**
+	 * Handles the buttons in the difficulty buttons menu
+	 * 
+	 * @precondition event is not null
+	 * @param event The action used to kick start this function
+	 * @throws IOException
+	 */
 	@FXML
 	private void onDiffBtnClick(ActionEvent event) throws IOException{
+		/*
+		 * We must always stop the animation for the background or else
+		 * it will cause a memory leak due to the fact that it is set
+		 * to run forever and forever.
+		 */
 		this.backgroundAnim.stop();
 		this.backgroundAnim = null;
 		

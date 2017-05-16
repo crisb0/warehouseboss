@@ -1,19 +1,35 @@
 package userinterface;
 
 import java.awt.Point;
+import java.io.IOException;
+import java.util.ArrayList;
 
 import game.Game;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.shape.Rectangle;
+import javafx.util.Duration;
 import map.Map;
 import map.TutorialMap;
 
+/**
+ * This class essentially extends off the GameUI class and as such
+ * there is a working gameloop as well as ui management. A lot of
+ * scripted elements have being added ontop of this, allowing for
+ * a tutorial to take place.
+ * 
+ * @author z5115782
+ *
+ */
 public class TutorialUI extends GameUI{
 	/*
 	 * tutorialStage is what keeps track of the player's progress
@@ -48,12 +64,15 @@ public class TutorialUI extends GameUI{
 	private boolean canMove;
 	
 	private Image imgTutGoal;
+	private Timeline flashingArrowAnim;
 	
 	private Point stage2Goal;
 	private Point stage4Goal;
+	private Point stage9Goal;
 	
 	@FXML private Rectangle bgCover;
 	@FXML private ImageView popUp;
+	@FXML private ImageView flashingArrow;
 	@FXML private Button contBtn;
 	@FXML private Button undoBtn;
 	
@@ -61,7 +80,7 @@ public class TutorialUI extends GameUI{
 	 * This function is called after all of the FXML elements are loaded into
 	 * the class. As a result, we are able to set up the FXML elements. The
 	 * initial variable states are also called in this function for convenience
-	 * as the class purpose doesn't technically start in the constructor.
+	 * as the class functionality doesn't start in the constructor.
 	 */
 	@FXML
 	public void initialize(){
@@ -96,8 +115,9 @@ public class TutorialUI extends GameUI{
 		 *  Load up the location of where the player needs to be to
 		 *  advance the tutorial.
 		 */
-		this.stage2Goal = new Point(1,1);
-		this.stage4Goal = new Point(3,1);
+		this.stage2Goal = new Point(1,2);
+		this.stage4Goal = new Point(3,2);
+		this.stage9Goal = new Point(5,2);
 		
 		this.loadResources();
 		this.loadTutResources();
@@ -133,15 +153,20 @@ public class TutorialUI extends GameUI{
 	private void drawTutGoal(GraphicsContext gc){
 		if(this.tutorialStage == TutorialStage.S2_MOVEMENT_TUT){
 			gc.drawImage(this.imgTutGoal, 
-					this.stage2Goal.getX() * TILE_SIZE, 
-					this.stage2Goal.getY() * TILE_SIZE,
-					TILE_SIZE, TILE_SIZE);
+					this.stage2Goal.getX() * this.tileSize, 
+					this.stage2Goal.getY() * this.tileSize,
+					this.tileSize, this.tileSize);
 			
 		} else if(this.tutorialStage == TutorialStage.S4_PUSH_TUT){
 			gc.drawImage(this.imgTutGoal, 
-					this.stage4Goal.getX() * TILE_SIZE, 
-					this.stage4Goal.getY() * TILE_SIZE,
-					TILE_SIZE, TILE_SIZE);
+					this.stage4Goal.getX() * this.tileSize, 
+					this.stage4Goal.getY() * this.tileSize,
+					this.tileSize, this.tileSize);
+		} else if(this.tutorialStage == TutorialStage.S9_MOVE_OUT){
+			gc.drawImage(this.imgTutGoal, 
+					this.stage9Goal.getX() * this.tileSize, 
+					this.stage9Goal.getY() * this.tileSize,
+					this.tileSize, this.tileSize);
 		}
 	}
 	
@@ -157,6 +182,11 @@ public class TutorialUI extends GameUI{
 	private void showPopUp(boolean show, Image img){
 		if(img != null)
 			this.popUp.setImage(img);
+		
+		if(show)
+			this.mainCanvas.setEffect(new GaussianBlur(10));
+		else
+			this.mainCanvas.setEffect(null);
 		
 		this.contBtn.setDisable(!show);
 		this.contBtn.setVisible(show);
@@ -194,23 +224,121 @@ public class TutorialUI extends GameUI{
 			}
 			
 		} else if (this.tutorialStage == TutorialStage.S4_PUSH_TUT){
+			ArrayList<Point> boxPts = (ArrayList<Point>) this.game.getBoxLocs();
+			
+			for(Point pt : boxPts){
+				if(pt.getX() == this.stage4Goal.getX() && pt.getY() == this.stage2Goal.getY()){
+					this.tutorialStage = TutorialStage.S5_BLOCK_MSG;
+					this.showPopUp(true, new Image("/Images/pop-up/tut3.png"));
+					break;
+				}
+			}
+		} else if (this.tutorialStage == TutorialStage.S8_CHANGE_MSG){
 			/*
-			 * ======================== IMPORTANT ==========================
-			 * THIS SHOULD ONLY BE TEMPORARY CODE. This code is a extremely 
-			 * cheap as we are assuming the player should be in the position
-			 * of the box only because the map design allows for it. This
-			 * needs to be changed as it makes changing the tutorial level
-			 * a major hassle.
-			 * 
-			 * To change it, we need the game class to return the location of
-			 * all the boxes.
+			 * Since this particular tutorial stage required a special change
+			 * to the animation process. We just need to revert it back to the
+			 * original value.
 			 */
+			this.maxAnimCounter = 20;
+			this.showPopUp(true, new Image("/Images/pop-up/tut5.png"));
+			
+		} else if (this.tutorialStage == TutorialStage.S9_MOVE_OUT){
 			Point pLoc = this.game.getPlayer().getLoc();
 			
-			if(pLoc.getX() == this.stage4Goal.getX() - 1 && pLoc.getY() == this.stage2Goal.getY()){
-				this.tutorialStage = TutorialStage.S5_BLOCK_MSG;
-				this.showPopUp(true, new Image("/Images/pop-up/tut3.png"));
+			if(pLoc.getX() == this.stage9Goal.getX() && pLoc.getY() == this.stage9Goal.getY()){
+				this.tutorialStage = TutorialStage.S10_VICTORY_MSG;
+				this.showPopUp(true, new Image("/Images/pop-up/tut6.png"));
 			}
+			
+		} else if (this.tutorialStage == TutorialStage.S11_VICTORY_TUT){
+			ArrayList<Point> boxPts = (ArrayList<Point>) this.game.getBoxLocs();
+			ArrayList<Point> goalPts = (ArrayList<Point>) this.game.getGoalLocs();
+			
+			int numOnGoal = 0;
+			int numOfGoals = goalPts.size();
+			
+			for(Point gPt : goalPts){
+				for(Point bPt : boxPts){
+					if(gPt.getX() == bPt.getX() && gPt.getY() == bPt.getY()){
+						numOnGoal++;
+						break;
+					}
+				}
+			}
+			
+			if(numOnGoal == numOfGoals){
+				this.tutorialStage = TutorialStage.S12_FINISH;
+				this.showPopUp(true, new Image("/Images/pop-up/tut7.png"));
+			}
+		}
+	}
+	
+	/**
+	 * Essentially allows for the player to go back to the main menu. This
+	 * is overridden to make sure that the animation for the flashing arrow
+	 * is properly deleted.
+	 */
+	@Override
+	protected void goBackMain() throws IOException{
+		/*
+		 *  The timeline object can cause memory leaks if not stopped before
+		 *  changing menus. Thus, it must be forcibly stopped.
+		 */
+		if(this.flashingArrowAnim != null){
+			this.flashingArrowAnim.stop();
+			this.flashingArrowAnim = null;
+		}
+		
+		super.goBackMain();
+	}
+	
+	/**
+	 * This function is specially used to detect when the undo button is
+	 * pressed. This because we have tied the tutorial to it.
+	 * 
+	 * @param event The button used to fire this function
+	 * @throws IOException If we are unable to access the FXML elements
+	 * (IO as its a separate FXML file)
+	 */
+	@FXML
+	protected void onUndoClick(ActionEvent event) throws IOException{
+		/*
+		 * As the undo button will result in an instantaneous result when
+		 * clicked. There will be no pause between the pop up showing and
+		 * the clicking of the undo button, resulting in the player not
+		 * seeing the undo effects. Since animations essentially pause the
+		 * game, we can 'hack' it to be used a timer. This is what the
+		 * following body of code does.
+		 */
+		if(this.tutorialStage == TutorialStage.S7_UNDO_TUT){
+			this.tutorialStage = TutorialStage.S8_CHANGE_MSG;
+			/*
+			 * Before we move onto modifying the animations, we need to now
+			 * stop the animation timeline.
+			 */
+			this.flashingArrowAnim.stop();
+			this.flashingArrowAnim = null;
+			this.flashingArrow.setVisible(false);
+			
+			/*
+			 * maxAnimCounter controls the speed at which the animation will
+			 * play. The default count is too slow for the delay and thus
+			 * has being set to be double the default count.
+			 */
+			this.maxAnimCounter = 40;
+			this.game.undoMove();
+			this.displayMap();
+			/*
+			 * We launch the animation with a special code. Normally the code
+			 * will indicate which direction the player is going to provide
+			 * the correct animation. However, we can input a special code here
+			 * which will tell the animation function to not animate. Thus,
+			 * the animation process has being converted into a timer.
+			 */
+			this.startAnimation(ANIM_NONE);
+		} else {
+			this.game.undoMove();
+			this.displayMap();
 		}
 	}
 	
@@ -228,6 +356,11 @@ public class TutorialUI extends GameUI{
 		 *  before running the appropriate code.
 		 */
 		
+		/*
+		 * The following code will essentially check which stage
+		 * the tutorial is in and will then run the necessary instructions
+		 * to end the stage.
+		 */
 		switch(this.tutorialStage){
 		case S0_OPENING_MSG:
 			this.tutorialStage = TutorialStage.S1_MOVEMENT_MSG;
@@ -248,13 +381,69 @@ public class TutorialUI extends GameUI{
 			this.tutorialStage = TutorialStage.S6_UNDO_MSG;
 			this.popUp.setImage(new Image("/Images/pop-up/tut4.png"));
 			break;
+		
+		case S6_UNDO_MSG:
+			this.tutorialStage = TutorialStage.S7_UNDO_TUT;
+			this.showPopUp(false, null);
+			this.undoBtn.setVisible(true);
+			this.undoBtn.setDisable(false);
+			
+			// Show the flashing arrow
+			this.flashingArrow.setVisible(true);
+			this.flashingArrowAnim = new Timeline(
+	                new KeyFrame(Duration.ZERO, new KeyValue(this.flashingArrow.imageProperty(), 
+	                		new Image("/Images/btn-ui/flash-arrow/flash-arrow-0.png"))),
+	                new KeyFrame(Duration.millis(200), new KeyValue(this.flashingArrow.imageProperty(), 
+	                		new Image("/Images/btn-ui/flash-arrow/flash-arrow-1.png"))),
+	                new KeyFrame(Duration.millis(400), new KeyValue(this.flashingArrow.imageProperty(), 
+	                		new Image("/Images/btn-ui/flash-arrow/flash-arrow-2.png"))),
+	                new KeyFrame(Duration.millis(600), new KeyValue(this.flashingArrow.imageProperty(), 
+	                		new Image("/Images/btn-ui/flash-arrow/flash-arrow-3.png"))),
+	                new KeyFrame(Duration.millis(800), new KeyValue(this.flashingArrow.imageProperty(), 
+	                		new Image("/Images/btn-ui/flash-arrow/flash-arrow-4.png"))),
+	                new KeyFrame(Duration.millis(1000), new KeyValue(this.flashingArrow.imageProperty(), 
+	                		new Image("/Images/btn-ui/flash-arrow/flash-arrow-0.png")))
+	                );
+			this.flashingArrowAnim.setCycleCount(Timeline.INDEFINITE);
+			this.flashingArrowAnim.play();
+			
+			
+			this.canMove = false;
+			break;
+			
+		case S8_CHANGE_MSG:
+			this.tutorialStage = TutorialStage.S9_MOVE_OUT;
+			this.game.purgeUndos();
+			this.game.updateMap(Game.FREE_SPACE, 4, 2);
+			this.showPopUp(false, null);
+			break;
+			
+		case S10_VICTORY_MSG:
+			this.tutorialStage = TutorialStage.S11_VICTORY_TUT;
+			this.game.addBox(11, 2);
+			this.game.updateMap(Game.BOX,11, 2);
+			this.showPopUp(false, null);
+			break;
+			
+		case S12_FINISH:
+			try {
+				this.goBackMain();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			break;
+			
 		default:
 			break;
 		}
 	}
 	
+	/**
+	 * These are flags to indicate which stage the tutorial has advanced to.
+	 */
 	private enum TutorialStage{
 		S0_OPENING_MSG, S1_MOVEMENT_MSG, S2_MOVEMENT_TUT, S3_PUSH_MSG, S4_PUSH_TUT,
-		S5_BLOCK_MSG, S6_UNDO_MSG
+		S5_BLOCK_MSG, S6_UNDO_MSG, S7_UNDO_TUT, S8_CHANGE_MSG, S9_MOVE_OUT,
+		S10_VICTORY_MSG, S11_VICTORY_TUT, S12_FINISH
 	}
 }
