@@ -38,8 +38,9 @@ public class Game {
 	
 	public boolean move(char dir) {
 		Move newMove = new Move(dir);
-		if(p.move(newMove, map)) {
-			prevMoves.push(newMove);
+		if (p.move(newMove, map)) {
+			if (newMove.getEntityMoved() != null)
+				prevMoves.push(newMove);
 			return true;
 		}
 		return false;
@@ -47,7 +48,7 @@ public class Game {
 	}
 	
 	public boolean undoMove() {
-		if(!prevMoves.isEmpty()) {
+		if (!prevMoves.isEmpty()) {
 			Move undoMove = prevMoves.pop();
 			undoMove.setUndo();
 			p.move(undoMove, map);
