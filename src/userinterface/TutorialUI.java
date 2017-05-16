@@ -1,6 +1,7 @@
 package userinterface;
 
 import java.awt.Point;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -16,6 +17,8 @@ import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
@@ -277,6 +280,9 @@ public class TutorialUI extends GameUI{
 			
 			if(numOnGoal == numOfGoals){
 				this.tutorialStage = TutorialStage.S12_FINISH;
+				Media sound = new Media(new File("test.mp3").toURI().toString());
+				MediaPlayer mediaPlayer = new MediaPlayer(sound);
+				mediaPlayer.play();
 				this.showPopUp(true, new Image("/Images/pop-up/tut7.png"));
 			}
 		}
