@@ -22,48 +22,50 @@ public class Player extends Entity {
 	 * @return
 	 */
 	public boolean move(Move m, Map map) {
-		Point newLoc = m.getNewPoint(this.loc); // new player location
 		// undo move
 		if (m.isUndo()) {
-			map.updateMap(PLAYER,(int) newLoc.getX(), (int) newLoc.getY());
+			Point savedLoc = m.getSavedPoint();
+			map.updateMap(PLAYER, savedLoc.x, savedLoc.y);
 			if (map.getGoalLocs().contains(this.loc))	
-				map.updateMap(GOAL, (int) this.loc.getX(), (int) this.loc.getY());
+				map.updateMap(GOAL, this.loc.x, this.loc.y);
 			else 
-				map.updateMap(FREE_SPACE, (int) this.loc.getX(), (int) this.loc.getY());
+				map.updateMap(FREE_SPACE, this.loc.x, this.loc.y);
 			Entity e = m.getEntityMoved(); 
 			if (e != null && e instanceof Box) { // if a box was pushed with this move
 				e.move(m, map);
 			}
-			this.loc = newLoc;
+			this.loc = savedLoc;
 			return true;
 		// normal move
 		} else {
-			if (!this.isBetween(0, map.getMap().length, (int) newLoc.getX()) ||
-					!this.isBetween(0, map.getMap().length, (int)newLoc.getY())) return false;
+			m.setSavedPoint(new Point(this.loc));
+			Point newLoc = m.getNewPoint(this.loc); // new player location
+			if (!this.isBetween(0, map.getMap().length, newLoc.x) ||
+					!this.isBetween(0, map.getMap().length, newLoc.y)) return false;
 			
 			if (map.isFreeSpace(newLoc) || map.isGoal(newLoc)) { // if free space, player moves there
 				if (map.getGoalLocs().contains(this.loc))	
-					map.updateMap(GOAL, (int) this.loc.getX(), (int) this.loc.getY());
+					map.updateMap(GOAL, this.loc.x, this.loc.y);
 				else 
-					map.updateMap(FREE_SPACE, (int) this.loc.getX(), (int) this.loc.getY());
-				map.updateMap(PLAYER,(int) newLoc.getX(), (int)newLoc.getY());
+					map.updateMap(FREE_SPACE, this.loc.x, this.loc.y);
+				map.updateMap(PLAYER, newLoc.x, newLoc.y);
 				this.loc = newLoc;
 				return true;
 				
 			} else if (map.isBox(newLoc)) { //if box, check if point next to box is free or goal then move there
 				Point newBoxLoc = m.getNewPoint(newLoc);
-				if (!this.isBetween(0, map.getMap().length, (int) newBoxLoc.getX()) ||
-						!this.isBetween(0, map.getMap().length, (int) newBoxLoc.getY())) 
+				if (!this.isBetween(0, map.getMap().length, newBoxLoc.x) ||
+						!this.isBetween(0, map.getMap().length, newBoxLoc.y)) 
 					return false;
 				
 				if (map.isFreeSpace(newBoxLoc) || map.isGoal(newBoxLoc)) {
 					Box b = map.getBox(newLoc);
 					b.move(m, map);
 					if (map.getGoalLocs().contains(this.loc))	
-						map.updateMap(GOAL, (int) this.loc.getX(), (int) this.loc.getY());
+						map.updateMap(GOAL, this.loc.x, this.loc.y);
 					else 
-						map.updateMap(FREE_SPACE, (int) this.loc.getX(), (int) this.loc.getY());
-					map.updateMap(PLAYER, (int) newLoc.getX(), (int) newLoc.getY());
+						map.updateMap(FREE_SPACE, this.loc.x, this.loc.y);
+					map.updateMap(PLAYER, newLoc.x, newLoc.y);
 					this.loc = newLoc;
 					return true;
 				}
