@@ -16,6 +16,7 @@ import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 import map.Map;
@@ -104,6 +105,13 @@ public class TutorialUI extends GameUI{
 		this.tutorialStage = TutorialStage.S0_OPENING_MSG;
 		this.canMove = false;
 		
+		this.tileSize = 48;
+		/*
+		 * The sprite size refers to the size of the sprites draw in
+		 * the player's sprite sheet.
+		 */
+		this.spriteSize = 48;
+		
 		/*
 		 * Initially, we are going to hide the undo button and then
 		 * show it to the player later.
@@ -133,6 +141,7 @@ public class TutorialUI extends GameUI{
 	@Override
 	protected void displayMap(){
 		GraphicsContext gc = mainCanvas.getGraphicsContext2D();
+		
 		this.clearMap(gc);
 		this.drawTutGoal(gc);
 		this.drawMap(gc);
