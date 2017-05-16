@@ -22,31 +22,31 @@ import map.Map;
 import map.MapGenerator;
 
 public class GameUI extends AnimationTimer{
-	private final int SPRITE_SIZE = 48;
-	private final int TILE_SIZE = 48;
+	protected final int SPRITE_SIZE = 48;
+	protected final int TILE_SIZE = 48;
 	
-	private Game game;
-	private Game.Difficulty diff;
+	protected Game game;
+	protected Game.Difficulty diff;
 	
-	private Image imgWall;
-	private Image imgPlayer;
-	private Image imgBox;
-	private Image imgGoal;
+	protected Image imgWall;
+	protected Image imgPlayer;
+	protected Image imgBox;
+	protected Image imgGoal;
 	
-	private boolean animating;
-	private double xAnimOffset;
-	private double yAnimOffset;
-	private double animStepsX;
-	private double animStepsY;
-	private int maxAnimCounter;
-	private int animCounter;
-	private int animDir;
-	private Point prevPPos;
+	protected boolean animating;
+	protected double xAnimOffset;
+	protected double yAnimOffset;
+	protected double animStepsX;
+	protected double animStepsY;
+	protected int maxAnimCounter;
+	protected int animCounter;
+	protected int animDir;
+	protected Point prevPPos;
 	
-	@FXML private Canvas mainCanvas;
-	@FXML private Button backBtn;
-	@FXML private Button undoBtn;
-	@FXML private Label lblDiff;
+	@FXML protected Canvas mainCanvas;
+	@FXML protected Button backBtn;
+	@FXML protected Button undoBtn;
+	@FXML protected Label lblDiff;
 	
 	@FXML
 	public void initialize(){
@@ -71,25 +71,25 @@ public class GameUI extends AnimationTimer{
 		this.lblDiff.setText(diff.toString());
 	}
 	
-	private void loadResources(){
+	protected void loadResources(){
 		this.imgWall = new Image("/Images/wall.png");
 		this.imgPlayer = new Image("/Images/player.png");
 		this.imgBox = new Image("/Images/crate.png");
 		this.imgGoal = new Image("/Images/goal.png");
 	}
 	
-	private void displayMap(){
+	protected void displayMap(){
 		GraphicsContext gc = mainCanvas.getGraphicsContext2D();
 		this.clearMap(gc);
 		this.drawMap(gc);
 		this.drawPlayer(gc);
 	}
 	
-	private void clearMap(GraphicsContext gc){
+	protected void clearMap(GraphicsContext gc){
 		gc.clearRect(0, 0, 500, 500);
 	}
 	
-	private void drawMap(GraphicsContext gc){
+	protected void drawMap(GraphicsContext gc){
 		int[][] grid = this.game.getGrid();
 		
 		for(int x = 0; x < 10; x++){
@@ -112,7 +112,7 @@ public class GameUI extends AnimationTimer{
 		}
 	}
 	
-	private void drawPlayer(GraphicsContext gc){
+	protected void drawPlayer(GraphicsContext gc){
 		Point pPost = this.game.getPlayer().getLoc();
 		gc.drawImage(this.imgPlayer, 
 				SPRITE_SIZE * this.animDir, 
@@ -123,7 +123,7 @@ public class GameUI extends AnimationTimer{
 				TILE_SIZE, TILE_SIZE);
 	}
 	
-	private void startAnimation(int dir){
+	protected void startAnimation(int dir){
 		this.animating = true;
 		this.animDir = dir;
 		
@@ -134,6 +134,15 @@ public class GameUI extends AnimationTimer{
 		this.animStepsY = (double)this.yAnimOffset / (double)this.maxAnimCounter;
 		
 		this.start();
+	}
+	
+	protected void finishAnimation(){
+		/*
+		 * This function is used when anything is needed to be done
+		 * after an animation is finished. The tutorialui class
+		 * overrides this class, making it useful.
+		 */
+		return;
 	}
 	
 	@Override
@@ -147,6 +156,7 @@ public class GameUI extends AnimationTimer{
 			this.animating = false;
 			this.xAnimOffset = 0.0f;
 			this.yAnimOffset = 0.0f;
+			this.finishAnimation();
 			this.stop();
 		}
 		
@@ -154,7 +164,7 @@ public class GameUI extends AnimationTimer{
 	}
 	
 	@FXML
-	private void onButtonClick(ActionEvent event) throws IOException{
+	protected void onButtonClick(ActionEvent event) throws IOException{
 		if(event.getSource() == backBtn){
 			Parent gameUIRoot = FXMLLoader.load(getClass().getResource("MainUILayout.fxml"));
 			Scene gameUIScene = new Scene(gameUIRoot, MainApplication.WIDTH, MainApplication.HEIGHT);
@@ -168,21 +178,19 @@ public class GameUI extends AnimationTimer{
 	}
 	
 	@FXML
-	private void onKeyPress(KeyEvent event){
+	protected void onKeyPress(KeyEvent event){
 		if(!this.animating){
 			this.prevPPos = this.game.getPlayer().getLoc();
 			
-			if(event.getCode() == KeyCode.W)
+			if(event.getCode() == KeyCode.W){
 				if(this.game.move('w')) this.startAnimation(2);
-			
-			else if (event.getCode() == KeyCode.A)
+			} else if (event.getCode() == KeyCode.A) {
 				if(this.game.move('a')) this.startAnimation(1);
-			
-			else if (event.getCode() == KeyCode.S)
+			} else if (event.getCode() == KeyCode.S) {
 				if(this.game.move('s')) this.startAnimation(0);
-			
-			else if (event.getCode() == KeyCode.D)
+			} else if (event.getCode() == KeyCode.D) {
 				if(this.game.move('d')) this.startAnimation(3);
+			}
 		}
 	}
 }

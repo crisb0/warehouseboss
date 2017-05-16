@@ -21,6 +21,12 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class MainUI {
+	private Timeline backgroundAnim;
+	private FadeTransition mainMFadeOut;
+	private FadeTransition mainMFadeIn;
+	private FadeTransition diffMFadeOut;
+	private FadeTransition diffMFadeIn;
+	
 	@FXML private ImageView backgroundImg;
 	@FXML private Button startBtn;
 	@FXML private Button tutBtn;
@@ -32,12 +38,6 @@ public class MainUI {
 	@FXML private Button returnBtn;
 	@FXML private GridPane mainMenu;
 	@FXML private GridPane diffMenu;
-	
-	private Timeline backgroundAnim;
-	private FadeTransition mainMFadeOut;
-	private FadeTransition mainMFadeIn;
-	private FadeTransition diffMFadeOut;
-	private FadeTransition diffMFadeIn;
 	
 	@FXML
 	public void initialize(){
@@ -111,6 +111,9 @@ public class MainUI {
 	
 	@FXML
 	private void onDiffBtnClick(ActionEvent event) throws IOException{
+		this.backgroundAnim.stop();
+		this.backgroundAnim = null;
+		
 		FXMLLoader gameUILoader = new FXMLLoader(getClass().getResource("GameUILayout.fxml"));
 		Scene gameUIScene = new Scene(gameUILoader.load(), MainApplication.WIDTH, MainApplication.HEIGHT);
 		GameUI gameUIController = gameUILoader.getController();

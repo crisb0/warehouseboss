@@ -11,6 +11,7 @@ public class Game {
 	private Player p;
 	private Map map;
 	private Deque<Move> prevMoves;
+	
 	public static final int FREE_SPACE = 0;
 	public static final int OBSTACLE = 1;
 	public static final int BOX = 2;
