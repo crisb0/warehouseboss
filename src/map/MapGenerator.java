@@ -13,7 +13,7 @@ public class MapGenerator {
 	private StartingMap s = new StartingMap();
 	private ArrayList<Template> ts = new ArrayList<Template>();
 	private ArrayList<Block> goals = new ArrayList<Block>();
-	private ArrayList<Block> boxes = new ArrayList<Block>();
+//	private ArrayList<Block> boxes = new ArrayList<Block>();
 	private Point playerLocation;
 	private List<Box> boxLocs;
 	private List<Point> goalLocs;
