@@ -1,4 +1,5 @@
 package map;
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.PriorityQueue;
 
@@ -11,10 +12,10 @@ import entity.State;
 public class AStar {
 
 	private Block start;
-	private Block end;
+	private Point end;
 	private PriorityQueue<State> queue = new PriorityQueue<State>();
 	
-	public AStar(Block start, Block end) {
+	public AStar(Block start, Point end) {
 		this.start = start;
 		this.end = end;
 	}
@@ -51,3 +52,4 @@ public class AStar {
 		this.queue.add(newState);
 	}
 }
+
