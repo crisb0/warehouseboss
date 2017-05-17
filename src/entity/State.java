@@ -1,7 +1,6 @@
 package entity;
 import java.awt.Point;
 import java.util.ArrayList;
-import java.awt.Point;
 
 public class State implements Comparable<State> {
 	
@@ -32,7 +31,10 @@ public class State implements Comparable<State> {
 
 
 	public boolean isEndState() {
-		return this.path.contains(end);
+		if(this.path.get(this.path.size()-1).getI() == (int) this.end.getX() && this.path.get(this.path.size()-1).getJ() == (int) this.end.getY()){
+			return true;
+		}
+		return false;
 	}
 
 
@@ -90,9 +92,7 @@ public class State implements Comparable<State> {
 
 
 	public void printState() {
-		//for(int i = 0; i < this.path.size(); i++){
-			this.path.get(0).print();
-		//}
+		this.path.get(0).print();
 	}	
 }
 
