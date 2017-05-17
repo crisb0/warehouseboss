@@ -2,7 +2,6 @@ package map;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.PriorityQueue;
-
 import entity.Block;
 import entity.State;
 
@@ -28,15 +27,14 @@ public class AStar {
 		// Get the best State from priority queue and expand it and add it to queue
 		// and keep repeating until the best state reaches the goal. 
 		while(!this.queue.isEmpty()){
-		State bestState = this.queue.poll();
-		if(!bestState.isEndState()){
-			expandState(bestState);	
-		} else {
-			return true;
-		}
+			State bestState = this.queue.poll();
+			if(!bestState.isEndState()){
+				expandState(bestState);	
+			} else {
+				return true;
+			}
 		}
 		return false;
-		
 	}
 	
 	private void expandState(State bestState) {
