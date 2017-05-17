@@ -4,7 +4,25 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import entity.Block;
+import entity.Box;
 public class FindSolution {
+
+	public Block[][] getPuzzle() {
+		return puzzle;
+	}
+
+	public Point getPlayerLocation() {
+		return playerLocation;
+	}
+
+	public List<Box> getBoxLocs() {
+		return boxLocs;
+	}
+
+	public List<Point> getGoalLocs() {
+		return goalLocs;
+	}
 
 	private Block[][] puzzle;// = new Block[DIMESTIONS][DIMESTIONS];	
 	private Point playerLocation;
