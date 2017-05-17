@@ -71,7 +71,7 @@ public class MapGenerator {
 		for (int i = 0; i < 6; i++) {
 			Random rand = new Random();
 			int randNum = rand.nextInt(11)+1;
-			System.out.println(randNum);
+//			System.out.println(randNum);
 //			int randNum = 11;
 			Template t = new Template(randNum);
 			this.ts.add(t);
@@ -91,16 +91,20 @@ public class MapGenerator {
 			int h = currT.getBlockTemp().length;
 			int w = currT.getBlockTemp()[0].length;
 			Random randomGenerator = new Random();
-//			System.out.println(x + " " + y);
-//			System.out.println(h+ " " + w);
-			if (x >= this.puzzleB.length-4) {
+			System.out.println(x + " " + y);
+			System.out.println(h+ " " + w);
+			if (x >= this.puzzleB.length-3) {
 				x = 1;
-				y+=4;
+//				if ((y >= this.puzzleB[0].length-3)) {
+					y+=3;
+//				}
+				
 			}
-			if (y >= this.puzzleB[0].length-4) {
-				break;
+			if ((y >= (this.puzzleB[0].length-3)) && (x >= (this.puzzleB.length-4))) {
+				System.out.println("break");
+				continue;
 			}
-//			System.out.println(x + " " + y + "\n");
+			System.out.println(x + " " + y + "\n");
 //			int x=1;
 //			int y=1;
 //			if(s == 0){
@@ -129,7 +133,13 @@ public class MapGenerator {
 ////				System.out.println(x+" "+y);
 //			} else if (s == 4) 
 			for(int i = 0; i < h; i++){
+				if ((x+i) == this.puzzleB.length-1) {
+					break;
+				}
 				for(int j = 0; j < w; j++){
+					if ((y+j) == this.puzzleB[0].length-1) {
+						break;
+					}
 					this.puzzleB[x+i][y+j].setType(currT.getBlockTemp()[i][j].getType());
 				}
 			}

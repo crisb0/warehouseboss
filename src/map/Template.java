@@ -101,9 +101,9 @@ public class Template {
 		b[0][0] = new Block(1,0,0);
 		b[0][1] = new Block(1,0,1);
 		b[0][2] = new Block(1,0,2);
-		b[2][0] = new Block(1,0,0);
-		b[0][1] = new Block(1,0,1);
-		b[0][2] = new Block(1,0,2);
+		b[3][0] = new Block(1,3,0);
+		b[1][1] = new Block(1,1,1);
+		b[1][2] = new Block(1,1,2);
 	}
 	
 	/*
