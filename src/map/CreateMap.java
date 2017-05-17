@@ -1,71 +1,28 @@
 package map;
+
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 import entity.Block;
-import entity.Box;
 
-public class MapGenerator {
-	
-//	private Block[][] puzzleB = new Block[10][10];
-//	private StartingMap s = new StartingMap();
-//	private ArrayList<Template> ts = new ArrayList<Template>();
+public class CreateMap {
+	private Block[][] puzzleB = new Block[10][10];
+	private StartingMap s = new StartingMap();
+	private ArrayList<Template> ts = new ArrayList<Template>();
 //	private ArrayList<Block> goals = new ArrayList<Block>();
-//	private ArrayList<Block> boxes = new ArrayList<Block>();
-//	private Point playerLocation;
-//	private List<Box> boxLocs;
-//	private List<Point> goalLocs;
 	
-	public MapGenerator(){
-		CreateMap cm  = new CreateMap();
-		FindSoln fs = new FindSoln(cm.getPuzzleB(), cm.getGoalLocs());
-		
-//		this.playerLocation = new Point();
-//		this.boxLocs = new ArrayList<>();
-//		this.goalLocs = new ArrayList<>();
-//		this.puzzleB = this.s.getBlockMap();
-//		createTemplates();
-//		addTemplate();
-//		checkNoGoal();
-//		addGoal();
-//		canGoTo();
-//		for(int i = 0; i < 3; i++){
-//			placeBlock(calculateGoalRange(i));
-//		}
-//		addPlayer();
+	private List<Point> goalLocs;
+	
+	public CreateMap() {
+		this.goalLocs = new ArrayList<>();
+		this.puzzleB = this.s.getBlockMap();
+		createTemplates();
+		addTemplate();
+		checkNoGoal();
+		addGoal();
 	}
-	
-//	public static void main (String[] args) {
-//		MapGenerator m = new MapGenerator();
-//		m.displayPuzzle();
-//	}
-	
-	private void addPlayer() {
-		Random randomGenerator = new Random();
-		int i = randomGenerator.nextInt(this.puzzleB.length-1);
-		int j = randomGenerator.nextInt(this.puzzleB.length-1);
-		//only add player and set location when it is a free space (?)
-		if(this.puzzleB[i][j].getType() == 0){
-			this.playerLocation.setLocation(i,j);
-			this.puzzleB[i][j].setType(4);
-		} else {
-			addPlayer();
-		}
-	}
-	
-	private void placeBlock(ArrayList<Block> goalRange) {
-		Random randomGenerator = new Random();
-		int randomInt = randomGenerator.nextInt(goalRange.size());
-		goalRange.get(randomInt).setType(2);
-		Point b = new Point();
-		b.setLocation(goalRange.get(randomInt).getI(), goalRange.get(randomInt).getJ());
-		Box box = new Box(b);
-		this.boxLocs.add(box);
-	}
-
-
 	public void createTemplates(){
 		//randomly generate a number between 1 and 10
 		//create a template with this number
@@ -152,7 +109,6 @@ public class MapGenerator {
 		
 	}
 	
-	// check goal-avoid checks places in map where goal can't be reached
 	public void checkNoGoal(){
 		for(int i = 0; i < this.puzzleB.length; i++){
 			for(int j = 0; j < this.puzzleB[0].length; j++){
@@ -197,7 +153,9 @@ public class MapGenerator {
 				//System.out.println(i + " " + j);
 				if(this.puzzleB[i][j].getType() == 0){
 					this.puzzleB[i][j].setType(3);
-					this.goals.add(this.puzzleB[i][j]);
+					Point p = new Point(i,j);
+//					this.goalLocs.add(this.puzzleB[i][j]);
+					this.goalLocs.add(p);
 					Point g = new Point();
 					g.setLocation(i, j);
 					this.goalLocs.add(g);
@@ -207,106 +165,19 @@ public class MapGenerator {
 		}
 	}
 	
-	// check goal_range
-	public ArrayList<Block> calculateGoalRange(int index){
-		ArrayList<Block> blocks = new ArrayList<Block>();
-		for(int i = 0; i < this.puzzleB.length; i++){
-			for(int j = 0; j < this.puzzleB[0].length; j++){
-				if(this.puzzleB[i][j].getType() != 1){
-					AStar a = new AStar(this.puzzleB[i][j], this.goals.get(index));
-					if(a.aStarSearch()){
-						if(this.puzzleB[i][j].getType() != 3){
-							//this.puzzleB[i][j].setType(5);
-						}
-						blocks.add(this.puzzleB[i][j]);
-					}	
-				}
-			}
-		}
-		
-		return blocks;
+	public Block[][] getPuzzleB() {
+		return puzzleB;
 	}
-	
-	//Checks where to go from current block
-	public void canGoTo(){
-		for(int i = 0; i < this.puzzleB.length; i++){
-			for(int j = 0; j < this.puzzleB[0].length; j++){
-				if(this.puzzleB[i][j].getType() != 1){
-					canGoToV(i, j);
-					canGoToH(i, j);
-				}
-			}
-		}
+	public StartingMap getS() {
+		return s;
 	}
-	
-	// Checks horizontally
-	private void canGoToH(int i, int j) {
-		if(j >= 1 || j+1 <= this.puzzleB[0].length-1){
-			if(this.puzzleB[i][j+1].getType() != 1 && this.puzzleB[i][j-1].getType() != 1){
-				this.puzzleB[i][j].addCanGoTo(this.puzzleB[i][j+1]);
-				this.puzzleB[i][j].addCanGoTo(this.puzzleB[i][j-1]);
-			}
-		}
+	public ArrayList<Template> getTs() {
+		return ts;
 	}
-
-	// Check vertically
-	private void canGoToV(int i, int j) {
-		if(i >= 1 || i+1 <= this.puzzleB.length-1){
-			if(this.puzzleB[i+1][j].getType() != 1 && this.puzzleB[i-1][j].getType() != 1){
-				this.puzzleB[i][j].addCanGoTo(this.puzzleB[i+1][j]);
-				this.puzzleB[i][j].addCanGoTo(this.puzzleB[i-1][j]);
-			}
-		}
-	}
-
-	// place object
-	
-	// place player
-	
-	
-	public void displayPuzzle() {
-		for(int i = 0; i < 10; i++){
-			for(int j = 0; j < 10; j++){
-				System.out.print(this.puzzleB[j][i].getType());
-			}
-			System.out.println();
-		}
-	}
-	//MapGenerator should return a point that Player.java uses
-//	public Player getPlayer() {
-//		//this.playerLocation.setLocation(1,1);
-////		Player p = new Player(this.playerLocation);		
-//		return p;
+//	public ArrayList<Block> getGoals() {
+//		return goals;
 //	}
-	public Point getStartingPlayerLoc() {
-		return playerLocation;
-	}
-
-
-	public List<Box> getBoxLocs() {
-		// TODO Auto-generated method stub
-		return this.boxLocs;
-	}
-
-
-	public int[][] getGrid() {
-		int[][] grid = new int[10][10];
-		for(int i = 0; i < this.puzzleB.length; i++){
-			for(int j = 0; j < this.puzzleB[0].length; j++){
-				if(this.puzzleB[i][j].getType() != 9){
-					grid[i][j] = this.puzzleB[i][j].getType();
-				} else {
-					grid[i][j] = 0;
-				}
-			}
-		}
-		return grid;
-	}
-
-
 	public List<Point> getGoalLocs() {
-		return this.goalLocs;
+		return goalLocs;
 	}
-
 }
-
