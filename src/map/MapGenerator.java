@@ -68,7 +68,7 @@ public class MapGenerator {
 		//create a template with this number
 		//add this template to ts
 		//total of 4 templates
-		for (int i = 0; i < 4; i++) {
+		for (int i = 0; i < 6; i++) {
 			Random rand = new Random();
 			int randNum = rand.nextInt(11)+1;
 			System.out.println(randNum);
@@ -84,43 +84,57 @@ public class MapGenerator {
 		//https://puu.sh/vQsmF/7faa808af9.png
 		//can we work on this tgr tomorrow? @ christine
 		//add template to each corner
+		int x = 1;
+		int y = 1;
 		for(int s = 0; s < this.ts.size(); s++){
 			Template currT = this.ts.get(s);
 			int h = currT.getBlockTemp().length;
 			int w = currT.getBlockTemp()[0].length;
-//			Random randomGenerator = new Random();
-			int x=0;
-			int y=0;
-			if(s == 0){
-//				int x = randomGenerator.nextInt(this.puzzleB.length-2-h)+1;
-//				int y = randomGenerator.nextInt(this.puzzleB[0].length-2-w)+1;
+			Random randomGenerator = new Random();
+//			System.out.println(x + " " + y);
+//			System.out.println(h+ " " + w);
+			if (x >= this.puzzleB.length-4) {
 				x = 1;
-				y = 1;
-//				System.out.println(x+" "+y);
-			} else if (s == 1) {
-//				int x = randomGenerator.nextInt(this.puzzleB.length-2-h)+1;
-//				int y = randomGenerator.nextInt(this.puzzleB[0].length-2-w)+1;
-				x = this.puzzleB.length-h-1;
-				y = 1;
-//				System.out.println(x+" "+y);
-			} else if (s == 2) {
-//				int x = randomGenerator.nextInt(this.puzzleB.length-2-h)+1;
-//				int y = randomGenerator.nextInt(this.puzzleB[0].length-2-w)+1;
-				x = this.puzzleB.length-h-1;
-				y = this.puzzleB[0].length-w-1;
-//				System.out.println(x+" "+y);
-			} else if (s == 3){
-//				int x = randomGenerator.nextInt(this.puzzleB.length-2-h)+1;
-//				int y = randomGenerator.nextInt(this.puzzleB[0].length-2-w)+1;
-				x = 1;
-				y = this.puzzleB[0].length-w-1;
-//				System.out.println(x+" "+y);
+				y+=4;
 			}
+			if (y >= this.puzzleB[0].length-4) {
+				break;
+			}
+//			System.out.println(x + " " + y + "\n");
+//			int x=1;
+//			int y=1;
+//			if(s == 0){
+////				x = randomGenerator.nextInt(this.puzzleB.length-2-h)+1;
+////				y = randomGenerator.nextInt(this.puzzleB[0].length-2-w)+1;
+////				x = 1;
+////				y = 1;
+////				System.out.println(x+" "+y);
+//			} else if (s == 1) {
+////				x = randomGenerator.nextInt(this.puzzleB.length-2-h)+1;
+////				y = randomGenerator.nextInt(this.puzzleB[0].length-2-w)+1;
+////				x = this.puzzleB.length-h-1;
+////				y = 1;
+////				System.out.println(x+" "+y);
+//			} else if (s == 2) {
+////				x = randomGenerator.nextInt(this.puzzleB.length-2-h)+1;
+////				y = randomGenerator.nextInt(this.puzzleB[0].length-2-w)+1;
+////				x = this.puzzleB.length-h-1;
+////				y = this.puzzleB[0].length-w-1;
+////				System.out.println(x+" "+y);
+//			} else if (s == 3){
+////				x = randomGenerator.nextInt(this.puzzleB.length-2-h)+1;
+////				y = randomGenerator.nextInt(this.puzzleB[0].length-2-w)+1;
+////				x = 1;
+////				y = this.puzzleB[0].length-w-1;
+////				System.out.println(x+" "+y);
+//			} else if (s == 4) 
 			for(int i = 0; i < h; i++){
 				for(int j = 0; j < w; j++){
 					this.puzzleB[x+i][y+j].setType(currT.getBlockTemp()[i][j].getType());
 				}
 			}
+			x += h;
+//			y += w;
 		}
 		
 	}

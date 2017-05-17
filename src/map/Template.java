@@ -59,7 +59,6 @@ public class Template {
 		b[0][3] = new Block(1, 0, 2);
 		b[1][3] = new Block(1,1,3);
 		b[2][3] = new Block(1,2,3);
-		b[3][3] = new Block(1,3,3);
 	}
 	
 	public void template3(){
@@ -93,12 +92,15 @@ public class Template {
 	 * 1 0 0
 	 */
 	public void template5() {
-		b = new Block[4][4];
-		for (int i = 0; i < 4; i++) {
-			for(int j = 0; j < 4; j++) {
+		b = new Block[5][5];
+		for (int i = 0; i < 5; i++) {
+			for(int j = 0; j < 5; j++) {
 				b[i][j] = new Block(0,i,j);
 			}
 		}
+		b[0][0] = new Block(1,0,0);
+		b[0][1] = new Block(1,0,1);
+		b[0][2] = new Block(1,0,2);
 		b[2][0] = new Block(1,0,0);
 		b[0][1] = new Block(1,0,1);
 		b[0][2] = new Block(1,0,2);
@@ -187,7 +189,7 @@ public class Template {
 	
 	/*
 	 * 0 0 0 0
-	 * 0 0 0 0
+	 * 0 1 0 0
 	 * 0 1 1 0
 	 * 0 0 0 0
 	 */
