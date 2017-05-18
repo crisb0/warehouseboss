@@ -1,7 +1,8 @@
 package entity;
 import java.awt.Point;
 
-import map.Map;
+
+import map.MapGenerator;
 
 public class Box extends Entity {
 	private static final int FREE_SPACE = 0;
@@ -15,7 +16,7 @@ public class Box extends Entity {
 	}
 
 	// let the box update the map when it moves
-	public boolean move(Move m, Map map) {
+	public boolean move(Move m, MapGenerator map) {
 		Point newBoxLoc = m.getNewPoint(this.loc);
 		map.updateMap(BOX, (int) newBoxLoc.getX(), (int) newBoxLoc.getY());
 		if (map.getGoalLocs().contains(this.loc)) 

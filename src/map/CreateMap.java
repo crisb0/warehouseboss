@@ -38,27 +38,30 @@ public class CreateMap {
 	
 	// add templates to prototype
 	public void addTemplate(){
-		//lil problem we should make templates that when integrated, will not create something like that
-		//https://puu.sh/vQsmF/7faa808af9.png
-		//can we work on this tgr tomorrow? @ christine
-		//add template to each corner
 		int x = 1;
 		int y = 1;
+		int prevW = 0;
 		for(int s = 0; s < this.ts.size(); s++){
 			Template currT = this.ts.get(s);
 			int h = currT.getBlockTemp().length;
 			int w = currT.getBlockTemp()[0].length;
-			Random randomGenerator = new Random();
+//			Random randomGenerator = new Random();
 			System.out.println(x + " " + y);
 			System.out.println(h+ " " + w);
-			if (x >= this.puzzle.length-3) {
-				x = 1;
-				y+=3;
-				
+			//if x-axis index out of bounds
+			if (x >= this.puzzle.length) {
+				x=1;
+				//if y-axis will be out of bounds
+				if (y+prevW >= this.puzzle[0].length) {
+					
+				} else {
+					y+=prevW;
+				}
 			}
-			if ((y >= (this.puzzle[0].length-3)) && (x >= (this.puzzle.length-4))) {
-				System.out.println("break");
-				continue;
+			//if both x and y out of bounds at same time
+			if (y >= this.puzzle[0].length && x >= this.puzzle.length) {
+				x =1;
+				y = 1;
 			}
 			System.out.println(x + " " + y + "\n");
 			for(int i = 0; i < h; i++){
@@ -66,13 +69,14 @@ public class CreateMap {
 					break;
 				}
 				for(int j = 0; j < w; j++){
-					if ((y+j) == this.puzzle[0].length-1) {
+					if (((y+j) == this.puzzle[0].length-1)) {
 						break;
 					}
 					this.puzzle[x+i][y+j].setType(currT.getBlockTemp()[i][j].getType());
 				}
 			}
 			x += h;
+			prevW = w;
 		}
 	}
 	

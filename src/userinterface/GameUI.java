@@ -34,8 +34,8 @@ public class GameUI {
 	@FXML
 	public void initialize(){
 		MapGenerator mp = new MapGenerator();
-		Map nm = new Map(mp);
-		this.game = new Game(nm);
+//		Map nm = new Map(mp);
+		this.game = new Game(mp);
 		this.tileSize = 48;
 		
 		this.loadResources();
