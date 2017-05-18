@@ -57,6 +57,10 @@ public class MapGenerator {
 		return grid;
 	}
 	
+	public void addBox(int x, int y){
+		this.boxLocs.add(new Box(new Point(x,y)));
+	}
+	
 	/**
 	 * updates Map[x][y] to equal CODE(0,1,2,3,4)
 	 */
