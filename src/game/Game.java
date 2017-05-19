@@ -10,6 +10,7 @@ import entity.Move;
 import entity.Player;
 import map.Map;
 import map.MapGenerator;
+import map.TutorialMap;
 
 // generates puzzle map, reads user input to play game and processes
 public class Game {
@@ -32,12 +33,25 @@ public class Game {
 //		this.map = m;
 //		this.prevMoves = new ArrayDeque<Move>();
 //	}
-	public Game(MapGenerator m) {
+	
+	public Game (TutorialMap m) {
+		System.out.println("hello");
 		this.p = m.getPlayer();
+		System.out.println(p.getLoc().getX() + " " + p.getLoc().getY());
 		this.map = m;
 		this.prevMoves = new ArrayDeque<Move>();
 		this.findMaxLengths();
 	}
+	
+	public Game(MapGenerator m) {
+		System.out.println("hello1");
+		this.p = m.getPlayer();
+		System.out.println(p.getLoc().getX() + " " + p.getLoc().getY());
+		this.map = m;
+		this.prevMoves = new ArrayDeque<Move>();
+		this.findMaxLengths();
+	}
+	
 	
 	/**
 	 * We go through the whole grid to calculate the maximum

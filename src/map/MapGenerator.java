@@ -37,7 +37,7 @@ public class MapGenerator {
 	public void displayPuzzle() {
 		for(int i = 0; i < 10; i++){
 			for(int j = 0; j < 10; j++){
-				System.out.print(this.puzzle[j][i].getType());
+				System.out.print(this.puzzle[j][i].getType() + " ");
 			}
 			System.out.println();
 		}
@@ -137,6 +137,15 @@ public class MapGenerator {
 
 	public Player getPlayer() {
 		return player;
+	}
+
+	public boolean isPlayer(Point p) {
+		try {
+		if (this.getGrid()[(int) p.getX()][(int) p.getY()] == PLAYER)
+			return true;
+		}
+		catch (ArrayIndexOutOfBoundsException e) {}
+		return false;
 	}
 
 }

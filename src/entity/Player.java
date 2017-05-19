@@ -48,6 +48,12 @@ public class Player extends Entity {
 					map.updateMap(GOAL, this.loc.x, this.loc.y);
 				else 
 					map.updateMap(FREE_SPACE, this.loc.x, this.loc.y);
+//				System.out.println(this.loc.getX() + " " + this.loc.getY());
+				map.displayPuzzle();
+//				System.out.println();
+//				if (map.isPlayer(this.loc)) {
+//					map.displayPuzzle();
+//				}
 				map.updateMap(PLAYER, newLoc.x, newLoc.y);
 				this.loc = newLoc;
 				return true;

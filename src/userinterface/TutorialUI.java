@@ -96,7 +96,9 @@ public class TutorialUI extends GameUI{
 		 */
 		TutorialMap mp = new TutorialMap();
 //		Map nm = new Map(mp);
+		System.out.println(mp.getPlayer().getLoc().getX() + " " + mp.getPlayer().getLoc().getY());
 		this.game = new Game(mp);
+		System.out.println(this.game.getPlayer().getLoc().getX() + " " + this.game.getPlayer().getLoc().getY());
 		this.animating = false;
 		this.xAnimOffset = 0;
 		this.yAnimOffset = 0;

@@ -6,8 +6,9 @@ import java.util.List;
 import java.util.Scanner;
 
 import entity.Box;
+import entity.Player;
 
-public class TutorialMap extends MapGenerator{
+public class TutorialMap extends MapGenerator {
 	
 	private String preDefMap;
 	
@@ -47,6 +48,11 @@ public class TutorialMap extends MapGenerator{
 	@Override
 	public Point getStartingPlayerLoc() {
 		return new Point(2, 7);
+	}
+	
+	@Override
+	public Player getPlayer() {
+		return new Player(new Point(2, 7));
 	}
 	
 	@Override
