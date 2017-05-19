@@ -34,15 +34,6 @@ public class Game {
 //		this.prevMoves = new ArrayDeque<Move>();
 //	}
 	
-	public Game (TutorialMap m) {
-		System.out.println("hello");
-		this.p = m.getPlayer();
-		System.out.println(p.getLoc().getX() + " " + p.getLoc().getY());
-		this.map = m;
-		this.prevMoves = new ArrayDeque<Move>();
-		this.findMaxLengths();
-	}
-	
 	public Game(MapGenerator m) {
 		System.out.println("hello1");
 		this.p = m.getPlayer();

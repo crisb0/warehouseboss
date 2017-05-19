@@ -95,10 +95,7 @@ public class TutorialUI extends GameUI{
 		 * redefined in this function.
 		 */
 		TutorialMap mp = new TutorialMap();
-//		Map nm = new Map(mp);
-		System.out.println(mp.getPlayer().getLoc().getX() + " " + mp.getPlayer().getLoc().getY());
 		this.game = new Game(mp);
-		System.out.println(this.game.getPlayer().getLoc().getX() + " " + this.game.getPlayer().getLoc().getY());
 		this.animating = false;
 		this.xAnimOffset = 0;
 		this.yAnimOffset = 0;
@@ -106,7 +103,7 @@ public class TutorialUI extends GameUI{
 		this.animStepsY = 0;
 		this.animCounter = 0;
 		this.animDir = 0;
-		this.maxAnimCounter = 20;
+		this.maxAnimCounter = 8;
 		this.tutorialStage = TutorialStage.S0_OPENING_MSG;
 		this.canMove = false;
 		
@@ -253,7 +250,7 @@ public class TutorialUI extends GameUI{
 			 * to the animation process. We just need to revert it back to the
 			 * original value.
 			 */
-			this.maxAnimCounter = 20;
+			this.maxAnimCounter = 8;
 			this.showPopUp(true, new Image("/Images/pop-up/tut5.png"));
 			
 		} else if (this.tutorialStage == TutorialStage.S9_MOVE_OUT){
