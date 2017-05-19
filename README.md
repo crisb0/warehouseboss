@@ -12,7 +12,7 @@
   - Alan - State.java
   - Charley - MapGeneration.java
   - Christine - Entity.java
-  - Shyam - where the f r ya!??!?!?!
+  - Shyam - MapGeneration.java
 
 ### Contact details ###
 Charley: 
