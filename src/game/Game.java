@@ -35,9 +35,9 @@ public class Game {
 //	}
 	
 	public Game(MapGenerator m) {
-		System.out.println("hello1");
+//		System.out.println("hello1");
 		this.p = m.getPlayer();
-		System.out.println(p.getLoc().getX() + " " + p.getLoc().getY());
+//		System.out.println(p.getLoc().getX() + " " + p.getLoc().getY());
 		this.map = m;
 		this.prevMoves = new ArrayDeque<Move>();
 		this.findMaxLengths();

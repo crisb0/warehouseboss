@@ -28,7 +28,7 @@ public class CreateMap {
 		//create a template with this number
 		//add this template to ts
 		//total of 4 templates
-		for (int i = 0; i < 6; i++) {
+		for (int i = 0; i < 8; i++) {
 			Random rand = new Random();
 			int randNum = rand.nextInt(11)+1;
 			Template t = new Template(randNum);
@@ -49,10 +49,10 @@ public class CreateMap {
 			System.out.println(x + " " + y);
 			System.out.println(h+ " " + w);
 			//if x-axis index out of bounds
-			if (x >= this.puzzle.length) {
+			if (x+1 >= this.puzzle.length) {
 				x=1;
 				//if y-axis will be out of bounds
-				if (y+prevW >= this.puzzle[0].length) {
+				if (y+prevW+1 >= this.puzzle[0].length) {
 					
 				} else {
 					y+=prevW;
