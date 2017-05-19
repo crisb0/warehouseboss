@@ -1,4 +1,5 @@
 package entity;
+import java.awt.Point;
 import java.util.ArrayList;
 
 public class State implements Comparable<State> {
@@ -6,10 +7,10 @@ public class State implements Comparable<State> {
 	private int f;
 	private int g;
 	private int h;
-	private Block end;
+	private Point end;
 	ArrayList<Block> path = new ArrayList<Block>();
 	
-	public State(Block end) {
+	public State(Point end) {
 		this.end = end;
 	}
 
@@ -30,7 +31,10 @@ public class State implements Comparable<State> {
 
 
 	public boolean isEndState() {
-		return this.path.contains(end);
+		if(this.path.get(this.path.size()-1).getI() == (int) this.end.getX() && this.path.get(this.path.size()-1).getJ() == (int) this.end.getY()){
+			return true;
+		}
+		return false;
 	}
 
 
@@ -74,7 +78,7 @@ public class State implements Comparable<State> {
 
 	private int calculateH() {
 		Block last = this.path.get(this.path.size()-1);
-		this.h = Math.abs(last.getI() - this.end.getI())+ Math.abs(last.getJ() - this.end.getJ());
+		this.h = (int) (Math.abs(last.getI() - this.end.getX())+ Math.abs(last.getJ() - this.end.getY()));
 		return this.h;
 	}
 
@@ -88,8 +92,7 @@ public class State implements Comparable<State> {
 
 
 	public void printState() {
-		//for(int i = 0; i < this.path.size(); i++){
-			this.path.get(0).print();
-		//}
+		this.path.get(0).print();
 	}	
 }
+

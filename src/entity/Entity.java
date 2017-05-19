@@ -1,7 +1,9 @@
 package entity;
 import java.awt.Point;
 
-import map.Map;
+
+import map.MapGenerator;
+
 
 public abstract class Entity {
 	protected Point loc;
@@ -10,7 +12,7 @@ public abstract class Entity {
 		this.loc = startingLoc;
 	}
 	
-	public abstract boolean move(Move m, Map map);
+	public abstract boolean move(Move m, MapGenerator map);
 	
 	//public abstract int getType();
 	

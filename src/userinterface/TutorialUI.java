@@ -95,8 +95,8 @@ public class TutorialUI extends GameUI{
 		 * redefined in this function.
 		 */
 		TutorialMap mp = new TutorialMap();
-		Map nm = new Map(mp);
-		this.game = new Game(nm);
+//		Map nm = new Map(mp);
+		this.game = new Game(mp);
 		this.animating = false;
 		this.xAnimOffset = 0;
 		this.yAnimOffset = 0;

@@ -109,8 +109,9 @@ public class GameUI extends AnimationTimer{
 		this.lblDiff.setText(diff.toString());
 		
 		MapGenerator mp = new MapGenerator();
-		Map nm = new Map(mp);
-		this.game = new Game(nm);
+//		Map nm = new Map(mp);
+		this.game = new Game(mp);
+		this.tileSize = 48;
 		
 		this.displayMap();
 	}

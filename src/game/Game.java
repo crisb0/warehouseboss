@@ -9,11 +9,13 @@ import entity.Box;
 import entity.Move;
 import entity.Player;
 import map.Map;
+import map.MapGenerator;
 
 // generates puzzle map, reads user input to play game and processes
 public class Game {
 	private Player p;
-	private Map map;
+	private MapGenerator map;
+//	private boxLocs
 	private Deque<Move> prevMoves;
 	
 	private int width;
@@ -25,7 +27,12 @@ public class Game {
 	public static final int GOAL = 3;
 	public static final int PLAYER = 4;
 
-	public Game(Map m) {
+//	public Game(Map m) {
+//		this.p = m.getPlayer();
+//		this.map = m;
+//		this.prevMoves = new ArrayDeque<Move>();
+//	}
+	public Game(MapGenerator m) {
 		this.p = m.getPlayer();
 		this.map = m;
 		this.prevMoves = new ArrayDeque<Move>();
@@ -61,10 +68,10 @@ public class Game {
 	}
 	
 	public int[][] getGrid(){
-		return this.map.getMap();
+		return this.map.getGrid();
 	}
 	
-	public Map getMap(){
+	public MapGenerator getMap(){
 		return this.map;
 	}
 	

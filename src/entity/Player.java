@@ -2,6 +2,7 @@ package entity;
 import java.awt.Point;
 
 import map.Map;
+import map.MapGenerator;
 
 public class Player extends Entity {
 
@@ -21,7 +22,8 @@ public class Player extends Entity {
 	 * @param map
 	 * @return
 	 */
-	public boolean move(Move m, Map map) {
+	public boolean move(Move m, MapGenerator map) {
+		Point newLoc = m.getNewPoint(this.loc); // new player location
 		// undo move
 		if (m.isUndo()) {
 			Point savedLoc = m.getSavedPoint();
@@ -38,10 +40,8 @@ public class Player extends Entity {
 			return true;
 		// normal move
 		} else {
-			m.setSavedPoint(new Point(this.loc));
-			Point newLoc = m.getNewPoint(this.loc); // new player location
-			if (!this.isBetween(0, map.getMap().length, newLoc.x) ||
-					!this.isBetween(0, map.getMap().length, newLoc.y)) return false;
+			if (!this.isBetween(0, map.getGrid().length, (int) newLoc.getX()) ||
+					!this.isBetween(0, map.getGrid().length, (int)newLoc.getY())) return false;
 			
 			if (map.isFreeSpace(newLoc) || map.isGoal(newLoc)) { // if free space, player moves there
 				if (map.getGoalLocs().contains(this.loc))	
@@ -54,8 +54,8 @@ public class Player extends Entity {
 				
 			} else if (map.isBox(newLoc)) { //if box, check if point next to box is free or goal then move there
 				Point newBoxLoc = m.getNewPoint(newLoc);
-				if (!this.isBetween(0, map.getMap().length, newBoxLoc.x) ||
-						!this.isBetween(0, map.getMap().length, newBoxLoc.y)) 
+				if (!this.isBetween(0, map.getGrid().length, (int) newBoxLoc.getX()) ||
+						!this.isBetween(0, map.getGrid().length, (int) newBoxLoc.getY())) 
 					return false;
 				
 				if (map.isFreeSpace(newBoxLoc) || map.isGoal(newBoxLoc)) {
