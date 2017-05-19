@@ -86,7 +86,7 @@ public class GameUI extends AnimationTimer{
 		this.animStepsY = 0;
 		this.animCounter = 0;
 		this.animDir = 0;
-		this.maxAnimCounter = 20;
+		this.maxAnimCounter = 8;
 		
 		this.tileSize = 48;
 		/*
@@ -217,7 +217,7 @@ public class GameUI extends AnimationTimer{
 			 */
 			gc.drawImage(this.imgPlayer, 
 					this.spriteSize * this.animDir, 
-					this.spriteSize * ((this.animCounter / 5) % 4),
+					this.spriteSize * ((this.animCounter / 2) % 4),
 					this.spriteSize, this.spriteSize, 
 					pPost.getX() * this.tileSize + this.xAnimOffset,
 					pPost.getY() * this.tileSize + this.yAnimOffset, 

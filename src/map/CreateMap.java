@@ -124,7 +124,7 @@ public class CreateMap {
 				if(this.puzzle[i][j].getType() == 0){
 					this.puzzle[i][j].setType(3);
 					Point p = new Point(i,j);
-					p.setLocation(i, j);
+//					p.setLocation(i, j);
 					this.goalLocs.add(p);
 					accepted = 1;
 				}		
