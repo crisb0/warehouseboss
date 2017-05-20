@@ -44,7 +44,7 @@ public class GameState {
 		}
 		calculateID();
 	}
-
+	//are you just assigning each state a unique id?
 	private void calculateID() {
 		String strID = "";
 		int Px = (int) this.player.getX();
@@ -68,6 +68,7 @@ public class GameState {
 	}
 	
 	private void setBoxes() {
+		//why is this adding the points from goals to a list of boxes?
 		for(Point p : this.goals){
 			Box b = new Box(p);
 			this.boxes.add(b);
