@@ -9,7 +9,7 @@ import java.util.Scanner;
 import entity.Block;
 
 public class CreateMap {
-	private static final int DIMENSIONS = 10;
+	private static final int DIMENSIONS = 8;
 	private Block[][] puzzle = new Block[DIMENSIONS][DIMENSIONS];
 	private StartingMap s = new StartingMap();
 	private ArrayList<Template> ts = new ArrayList<Template>();
@@ -25,11 +25,11 @@ public class CreateMap {
 		addGoal();
 	}
 	public void createTemplates(){
-		//randomly generate a number between 1 and 10
+		//randomly generate a number between 1 and 8
 		//create a template with this number
 		//add this template to ts
 		//total of 4 templates
-		for (int i = 0; i < 6; i++) {
+		for (int i = 0; i < 8; i++) {
 			Random rand = new Random();
 			int randNum = rand.nextInt(11)+1;
 			Template t = new Template(randNum);
@@ -47,8 +47,8 @@ public class CreateMap {
 			int h = currT.getBlockTemp().length;
 			int w = currT.getBlockTemp()[0].length;
 //			Random randomGenerator = new Random();
-			System.out.println(x + " " + y);
-			System.out.println(h+ " " + w);
+//			System.out.println(x + " " + y);
+//			System.out.println(h+ " " + w);
 			//if x-axis index out of bounds
 			if (x >= this.puzzle.length) {
 				x=1;
@@ -64,7 +64,7 @@ public class CreateMap {
 				x =1;
 				y = 1;
 			}
-			System.out.println(x + " " + y + "\n");
+//			System.out.println(x + " " + y + "\n");
 			for(int i = 0; i < h; i++){
 				if ((x+i) == this.puzzle.length-1) {
 					break;
@@ -120,8 +120,8 @@ public class CreateMap {
 			int accepted = 0;
 			while(accepted == 0){
 				Random randomGenerator = new Random();
-				int i = randomGenerator.nextInt(10);
-				int j = randomGenerator.nextInt(10);
+				int i = randomGenerator.nextInt(8);
+				int j = randomGenerator.nextInt(8);
 				if(this.puzzle[i][j].getType() == 0){
 					this.puzzle[i][j].setType(3);
 					Point p = new Point(i,j);
@@ -149,22 +149,25 @@ public class CreateMap {
 					 "1 0 0 1 1 0 0 1\n" +
 					 "1 0 0 0 0 0 0 1\n" +
 					 "1 0 0 1 0 0 0 1\n" +
-					 "1 1 0 9 0 1 0 1\n" +
+					 "1 0 0 9 0 1 0 1\n" +
 					 "1 1 1 1 0 9 0 1\n" +
 					 "1 1 1 1 1 1 1 1\n" +
-					 "1 1 1 1 1 1 1 1\n";
+					 "1 1 1 1 1 1 1 1";
 		
 		Block[][] grid = new Block[DIMENSIONS][DIMENSIONS];
+		int x = 0;
 		int y = 0;
 		Scanner scanner = new Scanner(map);
 		while (scanner.hasNextLine()) {
 			String[] mapCode = scanner.nextLine().split("\\s+");
-			for(int x = 0; x < mapCode.length; x++){
+			for(x = 0; x < mapCode.length; x++){
 				grid[x][y] = new Block(Integer.parseInt(mapCode[x]), x, y);
 			}
 			
 			y++;
 		}
+		System.out.println(x + " " + y);
+//		System.out.println(grid[0].length);
 		scanner.close();
 		for(int t = 0; t < 3; t++){
 			int valid = 0;
@@ -172,6 +175,7 @@ public class CreateMap {
 				Random rand = new Random();
 				int i = rand.nextInt(grid.length);
 				int j = rand.nextInt(grid[0].length);
+//				System.out.println(i + " " + j);
 				if(grid[i][j].getType() == 0){
 					valid = 1;
 					Point g1 = new Point(i, j);

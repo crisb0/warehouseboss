@@ -17,7 +17,7 @@ public class MapGenerator {
 	private static final int GOAL = 3;
 	private static final int PLAYER = 4;
 	
-	private static final int DIMENSIONS = 10;
+	private static final int DIMENSIONS = 8;
 	private Block[][] puzzle = new Block[DIMENSIONS][DIMENSIONS];
 	private Point playerLocation;
 	private Player player;
@@ -43,8 +43,8 @@ public class MapGenerator {
 	}
 
 	public void displayPuzzle() {
-		for(int i = 0; i < 10; i++){
-			for(int j = 0; j < 10; j++){
+		for(int i = 0; i < 8; i++){
+			for(int j = 0; j < 8; j++){
 				System.out.print(this.puzzle[j][i].getType());
 			}
 			System.out.println();
@@ -52,7 +52,7 @@ public class MapGenerator {
 	}
 
 	public int[][] getGrid() {
-		int[][] grid = new int[10][10];
+		int[][] grid = new int[8][8];
 		for(int i = 0; i < this.puzzle.length; i++){
 			for(int j = 0; j < this.puzzle[0].length; j++){
 				if(this.puzzle[i][j].getType() != 9){

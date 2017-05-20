@@ -38,7 +38,7 @@ public class CreateSolution {
 	    for(Integer key: keys){
 	    	System.out.println("Value of "+key+" is: "+states.get(key));
 	    }*/
-		System.out.println(this.hicost + " " + this.stateID);
+//		System.out.println(this.hicost + " " + this.stateID);
 		createState();
 		
 	}
@@ -120,24 +120,29 @@ public class CreateSolution {
 
 
 	private void createInitialStates() {
+		//for every possible starting point for player create a new state
 		for(Block b: this.starting){
 			GameState newState = new GameState(b);
 			newState.setInitialState(this.map, this.goals);
+			//why  add this twice?
 			this.states.put(newState.getID(), newState.getCost());
 			this.queue.add(newState);
 			this.states.put(newState.getID(), newState.getCost());
 		}
 	}
-
+	//find starting point for player
 	private void findStartingPoints() {
 		blankMap();
 		for(Point p : this.goals){
 			int x = (int) p.getX();
 			int y = (int) p.getY();
+//			System.out.println(x + " " + y);
 			ArrayList<Block> startingBlocks = startingPointsForGoal(this.map[x][y]);
 			for(Block b: startingBlocks){
 				this.starting.add(b);
+//				System.out.println(b.getI() + " " + b.getJ());
 			}
+//			System.out.println(starting.size());
 		}
 	}
 	
@@ -156,6 +161,7 @@ public class CreateSolution {
 		ArrayList<Block> s = new ArrayList<Block>();
 		int i = block.getI();
 		int j = block.getJ();
+//		System.out.println(i +  " " + j + "\n");
 		if(j-1 >= 1 && this.map[i][j-1].getType() != 1 && this.map[i][j-2].getType() != 1){
 			s.add(this.map[i][j-1]);
 		} 

@@ -63,8 +63,8 @@ public class GameUI {
 	private void drawMap(GraphicsContext gc){
 		int[][] grid = this.game.getGrid();
 		
-		for(int x = 0; x < 10; x++){
-			for(int y = 0; y < 10; y++){
+		for(int x = 0; x < 8; x++){
+			for(int y = 0; y < 8; y++){
 				if(grid[x][y] == Game.OBSTACLE){
 					gc.drawImage(this.imgWall, x * this.tileSize, y * this.tileSize, this.tileSize, this.tileSize);
 				} else if (grid[x][y] == Game.BOX){
