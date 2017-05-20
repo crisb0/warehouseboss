@@ -36,6 +36,10 @@ public class Map {
 //		}
 //	}
 	
+	public void addBox(int x, int y){
+		this.boxLocs.add(new Box(new Point(x,y)));
+	}
+	
 	public int[][] getMap() {
 		return this.map;
 	}

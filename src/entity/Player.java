@@ -26,16 +26,17 @@ public class Player extends Entity {
 		Point newLoc = m.getNewPoint(this.loc); // new player location
 		// undo move
 		if (m.isUndo()) {
-			map.updateMap(PLAYER,(int) newLoc.getX(), (int) newLoc.getY());
+			Point savedLoc = m.getSavedPoint();
+			map.updateMap(PLAYER, savedLoc.x, savedLoc.y);
 			if (map.getGoalLocs().contains(this.loc))	
-				map.updateMap(GOAL, (int) this.loc.getX(), (int) this.loc.getY());
+				map.updateMap(GOAL, this.loc.x, this.loc.y);
 			else 
-				map.updateMap(FREE_SPACE, (int) this.loc.getX(), (int) this.loc.getY());
+				map.updateMap(FREE_SPACE, this.loc.x, this.loc.y);
 			Entity e = m.getEntityMoved(); 
 			if (e != null && e instanceof Box) { // if a box was pushed with this move
 				e.move(m, map);
 			}
-			this.loc = newLoc;
+			this.loc = savedLoc;
 			return true;
 		// normal move
 		} else {
@@ -44,10 +45,10 @@ public class Player extends Entity {
 			
 			if (map.isFreeSpace(newLoc) || map.isGoal(newLoc)) { // if free space, player moves there
 				if (map.getGoalLocs().contains(this.loc))	
-					map.updateMap(GOAL, (int) this.loc.getX(), (int) this.loc.getY());
+					map.updateMap(GOAL, this.loc.x, this.loc.y);
 				else 
-					map.updateMap(FREE_SPACE, (int) this.loc.getX(), (int) this.loc.getY());
-				map.updateMap(PLAYER,(int) newLoc.getX(), (int)newLoc.getY());
+					map.updateMap(FREE_SPACE, this.loc.x, this.loc.y);
+				map.updateMap(PLAYER, newLoc.x, newLoc.y);
 				this.loc = newLoc;
 				return true;
 				
@@ -61,10 +62,10 @@ public class Player extends Entity {
 					Box b = map.getBox(newLoc);
 					b.move(m, map);
 					if (map.getGoalLocs().contains(this.loc))	
-						map.updateMap(GOAL, (int) this.loc.getX(), (int) this.loc.getY());
+						map.updateMap(GOAL, this.loc.x, this.loc.y);
 					else 
-						map.updateMap(FREE_SPACE, (int) this.loc.getX(), (int) this.loc.getY());
-					map.updateMap(PLAYER, (int) newLoc.getX(), (int) newLoc.getY());
+						map.updateMap(FREE_SPACE, this.loc.x, this.loc.y);
+					map.updateMap(PLAYER, newLoc.x, newLoc.y);
 					this.loc = newLoc;
 					return true;
 				}

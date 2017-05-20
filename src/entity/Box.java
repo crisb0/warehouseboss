@@ -20,11 +20,10 @@ public class Box extends Entity {
 		Point newBoxLoc = m.getNewPoint(this.loc);
 		map.updateMap(BOX, (int) newBoxLoc.getX(), (int) newBoxLoc.getY());
 		if (map.getGoalLocs().contains(this.loc)) 
-			map.updateMap(GOAL, (int) this.loc.getX(), (int) this.loc.getY());
+			map.updateMap(GOAL, this.loc.x, this.loc.y);
 		else
-			map.updateMap(FREE_SPACE, (int) this.loc.getX(), (int) this.loc.getY());
+			map.updateMap(FREE_SPACE, this.loc.x, this.loc.y);
 		this.loc.setLocation(newBoxLoc);
-		m.setEntityMoved(this);
 	return true;
 	}
 	

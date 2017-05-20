@@ -50,10 +50,10 @@ public class CreateMap {
 //			System.out.println(x + " " + y);
 //			System.out.println(h+ " " + w);
 			//if x-axis index out of bounds
-			if (x >= this.puzzle.length) {
+			if (x+1 >= this.puzzle.length) {
 				x=1;
 				//if y-axis will be out of bounds
-				if (y+prevW >= this.puzzle[0].length) {
+				if (y+prevW+1 >= this.puzzle[0].length) {
 					
 				} else {
 					y+=prevW;
@@ -125,7 +125,7 @@ public class CreateMap {
 				if(this.puzzle[i][j].getType() == 0){
 					this.puzzle[i][j].setType(3);
 					Point p = new Point(i,j);
-					p.setLocation(i, j);
+//					p.setLocation(i, j);
 					this.goalLocs.add(p);
 					accepted = 1;
 				}		

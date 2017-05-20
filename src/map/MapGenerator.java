@@ -11,11 +11,11 @@ import entity.Player;
 
 public class MapGenerator {
 	
-	private static final int FREE_SPACE = 0;
-	private static final int OBSTACLE = 1;
-	private static final int BOX = 2;
-	private static final int GOAL = 3;
-	private static final int PLAYER = 4;
+	protected static final int FREE_SPACE = 0;
+	protected static final int OBSTACLE = 1;
+	protected static final int BOX = 2;
+	protected static final int GOAL = 3;
+	protected static final int PLAYER = 4;
 	
 	private static final int DIMENSIONS = 8;
 	private Block[][] puzzle = new Block[DIMENSIONS][DIMENSIONS];
@@ -55,14 +55,18 @@ public class MapGenerator {
 		int[][] grid = new int[8][8];
 		for(int i = 0; i < this.puzzle.length; i++){
 			for(int j = 0; j < this.puzzle[0].length; j++){
-				if(this.puzzle[i][j].getType() != 9){
-					grid[i][j] = this.puzzle[i][j].getType();
+				if(this.puzzle[j][i].getType() != 9){
+					grid[j][i] = this.puzzle[j][i].getType();
 				} else {
-					grid[i][j] = 0;
+					grid[j][i] = 0;
 				}
 			}
 		}
 		return grid;
+	}
+	
+	public void addBox(int x, int y){
+		this.boxLocs.add(new Box(new Point(x,y)));
 	}
 	
 	/**
@@ -141,6 +145,15 @@ public class MapGenerator {
 
 	public Player getPlayer() {
 		return player;
+	}
+
+	public boolean isPlayer(Point p) {
+		try {
+		if (this.getGrid()[(int) p.getX()][(int) p.getY()] == PLAYER)
+			return true;
+		}
+		catch (ArrayIndexOutOfBoundsException e) {}
+		return false;
 	}
 
 }

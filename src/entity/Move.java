@@ -4,12 +4,16 @@ import java.awt.Point;
 public class Move {
 	private char dir;
 	private boolean undo;
+	private Point savedPoint;
+	private Point savedEntityPoint;
 	private Entity entityMoved;
 	
 	public Move(char dir) {
 		this.dir = dir;
 		undo = false;
 		entityMoved = null;
+		savedPoint = null;
+		savedEntityPoint = null;
 	}
 	
 	public boolean isUndo() {
@@ -23,6 +27,24 @@ public class Move {
 	
 	public void setEntityMoved(Entity e) {
 		entityMoved = e;
+	}
+	
+	public Point getSavedPoint() {
+		return savedPoint;
+	}
+	
+	
+	public void setSavedPoint(Point p) {
+		savedPoint = p;
+	}
+	
+	public Point getSavedEntityPoint() {
+		return savedEntityPoint;
+	}
+	
+	
+	public void setSavedEntityPoint(Point p) {
+		savedEntityPoint = p;
 	}
 	
 	public void setUndo() {
