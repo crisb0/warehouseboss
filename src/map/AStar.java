@@ -58,7 +58,9 @@ public class AStar {
 
 	private void createInitialStates(){
 		State newState = new State(this.player);
-		newState.addBlock(this.end);
+		int Ex = this.end.getI();
+		int Ey = this.end.getJ();
+		newState.addBlock(this.currMap[Ex][Ey]);
 		this.queue.add(newState);
 	}
 	
@@ -69,7 +71,9 @@ public class AStar {
 				if(this.currMap[i][j].getType() != 1){
 					canGoToV(i, j);
 					canGoToH(i, j);
+					//System.out.println(i + ", " + j + " " + this.currMap[i][j].connectingBlocks().size());
 				}
+				
 			}
 		}
 	}
@@ -115,6 +119,7 @@ public class AStar {
 			int By = (int) p.getY();
 			this.currMap[Bx][By].setType(1);
 		}	
+		
 	}
 
 }
