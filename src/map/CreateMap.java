@@ -141,4 +141,55 @@ public class CreateMap {
 	public List<Point> getGoalLocs() {
 		return goalLocs;
 	}
+	
+	public Block[][] preDefMap(){
+		this.goalLocs = new ArrayList<>();
+		String map = "1 1 1 1 1 1 1 1\n" +
+					 "1 0 0 1 1 0 0 1\n" +
+					 "1 0 0 0 0 0 0 1\n" +
+					 "1 0 0 1 0 0 0 1\n" +
+					 "1 1 0 9 0 1 0 1\n" +
+					 "1 1 1 1 0 9 0 1\n" +
+					 "1 1 1 1 1 1 1 1\n" +
+					 "1 1 1 1 1 1 1 1\n";
+		
+		Block[][] grid = new Block[DIMENSIONS][DIMENSIONS];
+		int y = 0;
+		Scanner scanner = new Scanner(map);
+		while (scanner.hasNextLine()) {
+			String[] mapCode = scanner.nextLine().split("\\s+");
+			for(int x = 0; x < mapCode.length; x++){
+				grid[x][y] = new Block(Integer.parseInt(mapCode[x]), x, y);
+			}
+			
+			y++;
+		}
+		scanner.close();
+		for(int t = 0; t < 3; t++){
+			int valid = 0;
+			while(valid == 0){
+				Random rand = new Random();
+				int i = rand.nextInt(grid.length);
+				int j = rand.nextInt(grid[0].length);
+				if(grid[i][j].getType() == 0){
+					valid = 1;
+					Point g1 = new Point(i, j);
+					g1.setLocation(i, j);
+					this.goalLocs.add(g1);
+					grid[i][j].setType(3);
+				}
+			}
+		}
+		
+		/*
+		Point g2 = new Point(6, 3);
+		g2.setLocation(6, 3);
+		this.goalLocs.add(g2);
+		
+		Point g3 = new Point(2, 4);
+		g3.setLocation(2, 4);
+		this.goalLocs.add(g3);
+		*/
+		return grid;
+	}
 }
