@@ -17,12 +17,12 @@ public class MapGenerator {
 	protected static final int GOAL = 3;
 	protected static final int PLAYER = 4;
 	
-	private static final int DIMENSIONS = 8;
-	private Block[][] puzzle = new Block[DIMENSIONS][DIMENSIONS];
-	private Point playerLocation;
-	private Player player;
-	private List<Box> boxLocs;
-	private List<Point> goalLocs;
+	protected static final int DIMENSIONS = 8;
+	protected Block[][] puzzle = new Block[DIMENSIONS][DIMENSIONS];
+	protected Point playerLocation;
+	protected Player player;
+	protected List<Box> boxLocs;
+	protected List<Point> goalLocs;
 	
 	public MapGenerator(){
 		CreateMap cm  = new CreateMap();
