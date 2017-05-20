@@ -26,12 +26,19 @@ public class MapGenerator {
 	
 	public MapGenerator(){
 		CreateMap cm  = new CreateMap();
-		FindSolution fs = new FindSolution(cm.getPuzzle(), cm.getGoalLocs());
+		//CreateSolution cs = new CreateSolution(cm.getPuzzle(), cm.getGoalLocs());
+		// OR
+		CreateSolution cs = new CreateSolution(cm.preDefMap(), cm.getGoalLocs());
+		this.puzzle = cs.getPuzzle();
+		this.playerLocation = cs.getPlayer();
+		this.boxLocs = cs.getBoxLocs();
+		this.goalLocs = cs.getGoalLocs();
+		/*FindSolution fs = new FindSolution(cm.getPuzzle(), cm.getGoalLocs());
 		this.puzzle = fs.getPuzzle();
 		this.playerLocation = fs.getPlayerLocation();
 		this.boxLocs = fs.getBoxLocs();
 		this.goalLocs = fs.getGoalLocs();
-		this.player = new Player(playerLocation);
+		this.player = new Player(playerLocation);*/
 	}
 
 	public void displayPuzzle() {
