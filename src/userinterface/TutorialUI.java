@@ -231,7 +231,7 @@ public class TutorialUI extends GameUI{
 			
 			if(pLoc.getX() == this.stage2Goal.getX() && pLoc.getY() == this.stage2Goal.getY()){
 				this.tutorialStage = TutorialStage.S3_PUSH_MSG;
-				this.showPopUp(true, new Image("/Images/pop-up/tut2.png"));
+				this.showPopUp(true, new Image("/Images/pop-up/tut02.png"));
 			}
 			
 		} else if (this.tutorialStage == TutorialStage.S4_PUSH_TUT){
@@ -240,7 +240,7 @@ public class TutorialUI extends GameUI{
 			for(Point pt : boxPts){
 				if(pt.getX() == this.stage4Goal.getX() && pt.getY() == this.stage2Goal.getY()){
 					this.tutorialStage = TutorialStage.S5_BLOCK_MSG;
-					this.showPopUp(true, new Image("/Images/pop-up/tut3.png"));
+					this.showPopUp(true, new Image("/Images/pop-up/tut03.png"));
 					break;
 				}
 			}
@@ -251,14 +251,15 @@ public class TutorialUI extends GameUI{
 			 * original value.
 			 */
 			this.maxAnimCounter = 8;
-			this.showPopUp(true, new Image("/Images/pop-up/tut5.png"));
+			this.showPopUp(true, new Image("/Images/pop-up/tut05.png"));
 			
 		} else if (this.tutorialStage == TutorialStage.S9_MOVE_OUT){
 			Point pLoc = this.game.getPlayer().getLoc();
 			
 			if(pLoc.getX() == this.stage9Goal.getX() && pLoc.getY() == this.stage9Goal.getY()){
 				this.tutorialStage = TutorialStage.S10_VICTORY_MSG;
-				this.showPopUp(true, new Image("/Images/pop-up/tut6.png"));
+//				this.showPopUp(true, new Image("/Images/pop-up/tut6.png"));
+				this.showPopUp(true, new Image("/Images/pop-up/tut05.png"));
 			}
 			
 		} else if (this.tutorialStage == TutorialStage.S11_VICTORY_TUT){
@@ -282,7 +283,7 @@ public class TutorialUI extends GameUI{
 				Media sound = new Media(new File("test.mp3").toURI().toString());
 				MediaPlayer mediaPlayer = new MediaPlayer(sound);
 				mediaPlayer.play();
-				this.showPopUp(true, new Image("/Images/pop-up/tut7.png"));
+				this.showPopUp(true, new Image("/Images/pop-up/win/win_11.png"));
 			}
 		}
 	}
@@ -378,7 +379,7 @@ public class TutorialUI extends GameUI{
 		switch(this.tutorialStage){
 		case S0_OPENING_MSG:
 			this.tutorialStage = TutorialStage.S1_MOVEMENT_MSG;
-			this.popUp.setImage(new Image("/Images/pop-up/tut1.png"));
+			this.popUp.setImage(new Image("/Images/pop-up/tut01.png"));
 			break;
 			
 		case S1_MOVEMENT_MSG:
@@ -393,7 +394,7 @@ public class TutorialUI extends GameUI{
 		
 		case S5_BLOCK_MSG:
 			this.tutorialStage = TutorialStage.S6_UNDO_MSG;
-			this.popUp.setImage(new Image("/Images/pop-up/tut4.png"));
+			this.popUp.setImage(new Image("/Images/pop-up/tut04.png"));
 			break;
 		
 		case S6_UNDO_MSG:
