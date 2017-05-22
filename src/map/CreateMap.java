@@ -35,7 +35,7 @@ public class CreateMap {
 //			Template t = new Template(i);
 //			this.ts.add(t);
 //		}
-		for (int i = 0; i < 6; i++) {
+		for (int i = 0; i < 4; i++) {
 			Random rand = new Random();
 			int randNum = rand.nextInt(12)+1;
 			Template t = new Template(randNum);
@@ -73,16 +73,26 @@ public class CreateMap {
 			}
 //			System.out.println(x + " " + y + "\n");
 			for(int i = 0; i < h; i++){
+				int flag = 1;
 				if ((x+i) == this.puzzle.length-1) {
-					break;
-//					x = 1;
+//					break;
+					flag = 0;
+					x = 1;
 				}
 				for(int j = 0; j < w; j++){
 					if (((y+j) == this.puzzle[0].length-1)) {
-						break;
+						y = y-j-1;
+//						break;
 //						y = 1;
+					} 
+					if (flag==0) {
+						if (this.puzzle[x+i][y+j].getType() == 0) {
+							this.puzzle[x+i][y+j].setType(currT.getBlockTemp()[i][j].getType());
+							continue;
+						}
 					}
 					this.puzzle[x+i][y+j].setType(currT.getBlockTemp()[i][j].getType());
+					
 				}
 			}
 			x += h;
