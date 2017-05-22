@@ -29,12 +29,19 @@ public class CreateMap {
 		//create a template with this number
 		//add this template to ts
 		//total of 4 templates
-		for (int i = 0; i < 8; i++) {
+//		for (int i = 1; i < 4; i++) {
+//			Random rand = new Random();
+//			int randNum = rand.nextInt(11)+1;
+//			Template t = new Template(i);
+//			this.ts.add(t);
+//		}
+		for (int i = 0; i < 6; i++) {
 			Random rand = new Random();
-			int randNum = rand.nextInt(11)+1;
+			int randNum = rand.nextInt(12)+1;
 			Template t = new Template(randNum);
 			this.ts.add(t);
 		}
+		System.out.println();
 	}
 	
 	// add templates to prototype
@@ -68,10 +75,12 @@ public class CreateMap {
 			for(int i = 0; i < h; i++){
 				if ((x+i) == this.puzzle.length-1) {
 					break;
+//					x = 1;
 				}
 				for(int j = 0; j < w; j++){
 					if (((y+j) == this.puzzle[0].length-1)) {
 						break;
+//						y = 1;
 					}
 					this.puzzle[x+i][y+j].setType(currT.getBlockTemp()[i][j].getType());
 				}

@@ -7,6 +7,7 @@ public class Template {
 	
 	public Template(int i){
 		//find better way of doing this instead of a whole lot of else ifs
+		System.out.println(i);
 		if(i == 1){
 			template1();
 		} else if (i == 2){
@@ -29,11 +30,11 @@ public class Template {
 			template10();
 		} else if (i == 11){
 			template11();
-		} else if (i == 12){
-			template4();
-		} 
+		} else if (i == 12) {
+			template12();
+		}
 	}
-	
+
 	public void template1(){
 		b = new Block[4][4];
 		for(int i = 0; i < 4; i++){
@@ -121,6 +122,9 @@ public class Template {
 		}
 		b[0][0] = new Block(1,0,0);
 		b[1][0] = new Block(1,1,0);
+		b[0][1] = new Block(1,0,1);
+		b[1][1] = new Block(1,1,1);
+		b[3][3] = new Block(1,3,3);
 	}
 	
 	/*
@@ -178,6 +182,7 @@ public class Template {
 			}
 		}
 		b[0][2] = new Block(1,0,2);
+		b[3][0] = new Block(1,3,0);
 		b[1][2] = new Block(1,1,2);
 	}
 	
@@ -215,8 +220,16 @@ public class Template {
 		b[0][1] = new Block (1,0,1);
 		b[1][1] = new Block(1,1,1);
 		b[2][2] = new Block(1,2,2);
+		b[2][1] = new Block(1,2,1);
 	}
-	
+	public void template12(){
+		b = new Block[2][2];
+		for(int i = 0; i < 2; i++){
+			for(int j = 0; j < 2; j++){
+				b[i][j] = new Block(0, i, j);
+			}
+		}
+	}
 	public Block[][] getBlockTemp(){
 		return this.b;
 	}

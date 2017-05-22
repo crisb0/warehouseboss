@@ -31,7 +31,7 @@ public class CreateSolution {
 		while(!this.queue.isEmpty() && i < 999){
 			expandState();
 			i++;
-			System.out.println(i);
+//			System.out.println(i);
 		}	
 		
 		/*Set<Integer> keys = states.keySet();
