@@ -15,6 +15,7 @@ public class GameState {
 	private Point player;
 	private int ID;
 	private int cost = 0;
+	private double stateCode;
 	
 	public GameState(Block b) {
 		int x = b.getI();
@@ -35,6 +36,7 @@ public class GameState {
 		setGoals(goals);
 		setBoxes();
 		calculateID();
+		//printState();
 	}
 	
 	public void setState(Block[][] map, List<Box> boxes){
@@ -44,7 +46,7 @@ public class GameState {
 		}
 		calculateID();
 	}
-	//are you just assigning each state a unique id?
+
 	private void calculateID() {
 		String strID = "";
 		int Px = (int) this.player.getX();
@@ -56,6 +58,35 @@ public class GameState {
 			strID = strID+Bx+By;
 		}
 		this.ID = Integer.parseInt(strID);
+		calculateStateCode();
+	}
+	
+	private void calculateStateCode() {
+		int playerCode = (int) this.player.getX();
+		playerCode = playerCode * 10;
+		playerCode = playerCode + (int) this.player.getY();
+		ArrayList<Integer> boxCodes = new ArrayList<Integer>();
+		for(Box b: this.boxes){
+			int boxCode = (int) b.getLoc().getX();
+			boxCode = boxCode * 10;
+			boxCode = boxCode + (int) b.getLoc().getY();
+			boxCodes.add(boxCode);
+		}
+		
+		int product = 1;
+		int sum = 0;
+		for(int code: boxCodes){
+			product = product*code;
+			sum = sum + code;
+		}
+		
+		String strCode = "";
+		strCode = strCode + playerCode + product + sum;
+		this.stateCode = Double.parseDouble(strCode);
+	}
+
+	public double getStateCode(){
+		return this.stateCode;
 	}
 
 
@@ -68,7 +99,6 @@ public class GameState {
 	}
 	
 	private void setBoxes() {
-		//why is this adding the points from goals to a list of boxes?
 		for(Point p : this.goals){
 			Box b = new Box(p);
 			this.boxes.add(b);
@@ -98,9 +128,12 @@ public class GameState {
 	
 	
 	public void expandState() {
+		//printState();
 		Box b = findBox();
 		pullBox(b);
 		calculateID();
+		//printState();
+		//System.out.println();
 		this.cost++;
 	}
 
@@ -189,10 +222,12 @@ public class GameState {
 
 	public ArrayList<GameState> getPossibleStates() {
 		ArrayList<Block> starting = findStartingPoints();
+		//System.out.println("Starting " + starting.size());
 		ArrayList<GameState> newStates = new ArrayList<GameState>();
 		for(Block b: starting){
 			AStar search = new AStar(this.map, this.boxes, this.player, b);
 			if(search.aStarSearch()){
+				//System.out.println(this.player.x + " " + this.player.y + " " + b.getI() + " " + b.getJ());
 				//create new state and add it to starting;
 				GameState newState = new GameState(b);
 				newState.setState(this.map, this.boxes);
@@ -200,6 +235,7 @@ public class GameState {
 				newStates.add(newState);
 			}
 		}
+		//System.out.println("New States: " + newStates.size());
 		return newStates;
 	}	
 	

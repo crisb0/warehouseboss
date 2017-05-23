@@ -18,7 +18,7 @@ public class CreateSolution {
 	private Point player;
 	private ArrayList<Block> starting = new ArrayList<Block>();
 	private Queue<GameState> queue = new LinkedList<GameState>();
-	private Hashtable<Integer, Integer> states = new Hashtable<Integer, Integer>();
+	private Hashtable<Double, Integer> states = new Hashtable<Double, Integer>();
 	private int hicost = 0;
 	private int stateID = 0;
 	
@@ -31,20 +31,26 @@ public class CreateSolution {
 		while(!this.queue.isEmpty() && i < 999){
 			expandState();
 			i++;
-//			System.out.println(i);
+			System.out.println(i);
 		}	
 		
 		/*Set<Integer> keys = states.keySet();
 	    for(Integer key: keys){
 	    	System.out.println("Value of "+key+" is: "+states.get(key));
 	    }*/
-//		System.out.println(this.hicost + " " + this.stateID);
+		System.out.println(this.hicost + " " + this.stateID);
 		createState();
 		
 	}
 
+	public int getCost(){
+		return this.hicost;
+	}
 
 	private void createState() {
+		if(stateID == 0){
+			return;
+		}
 		String stringID = ""+this.stateID;
 		String[] split = stringID.split("");
 		int Px = Integer.parseInt(split[0]);
@@ -92,57 +98,52 @@ public class CreateSolution {
 		GameState currState = this.queue.poll();
 		currState.expandState();
 		ArrayList<GameState> possibleStates = currState.getPossibleStates();
-		if(!this.states.containsKey(currState.getID())){
-			this.states.put(currState.getID(), currState.getCost());
+		if(!this.states.containsKey(currState.getStateCode())){
+			this.states.put(currState.getStateCode(), currState.getCost());
 			this.queue.add(currState);
 			if(currState.getCost() > this.hicost){
 				this.hicost = currState.getCost();
 				this.stateID = currState.getID();
 			}
-		} else {
-			//System.out.println("I workkkk");
-		}
+		} 
 		
 		for(GameState gs : possibleStates){
-			if(!this.states.containsKey(gs.getID())){
+			if(!this.states.containsKey(gs.getStateCode())){
 				this.queue.add(gs);
-				this.states.put(gs.getID(), gs.getCost());
+				this.states.put(gs.getStateCode(), gs.getCost());
 				
 				if(gs.getCost() > this.hicost){
 					this.hicost = gs.getCost();
 					this.stateID = gs.getID();
 				}
-			} else {
-				//System.out.println("I workkkk222");
-			}
+			} 
 		}
 	}
 
 
 	private void createInitialStates() {
-		//for every possible starting point for player create a new state
 		for(Block b: this.starting){
 			GameState newState = new GameState(b);
 			newState.setInitialState(this.map, this.goals);
-			//why  add this twice?
-			this.states.put(newState.getID(), newState.getCost());
+			this.states.put(newState.getStateCode(), newState.getCost());
 			this.queue.add(newState);
-			this.states.put(newState.getID(), newState.getCost());
+			this.states.put(newState.getStateCode(), newState.getCost());
+			if(newState.getCost() > this.hicost){
+				this.hicost = newState.getCost();
+				this.stateID = newState.getID();
+			}
 		}
 	}
-	//find starting point for player
+
 	private void findStartingPoints() {
 		blankMap();
 		for(Point p : this.goals){
 			int x = (int) p.getX();
 			int y = (int) p.getY();
-//			System.out.println(x + " " + y);
 			ArrayList<Block> startingBlocks = startingPointsForGoal(this.map[x][y]);
 			for(Block b: startingBlocks){
 				this.starting.add(b);
-//				System.out.println(b.getI() + " " + b.getJ());
 			}
-//			System.out.println(starting.size());
 		}
 	}
 	
@@ -161,7 +162,6 @@ public class CreateSolution {
 		ArrayList<Block> s = new ArrayList<Block>();
 		int i = block.getI();
 		int j = block.getJ();
-//		System.out.println(i +  " " + j + "\n");
 		if(j-1 >= 1 && this.map[i][j-1].getType() != 1 && this.map[i][j-2].getType() != 1){
 			s.add(this.map[i][j-1]);
 		} 
