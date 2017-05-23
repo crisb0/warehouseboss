@@ -53,6 +53,7 @@ public class GameUI extends AnimationTimer{
 	protected Image imgBox;
 	protected Image imgBoxOnGoal;
 	protected Image imgGoal;
+	protected Image imgFree;
 	
 	protected boolean animating;
 	protected double xAnimOffset;
@@ -125,6 +126,7 @@ public class GameUI extends AnimationTimer{
 		this.imgBox = new Image("/Images/crate.png");
 		this.imgBoxOnGoal = new Image("/Images/crate-on-goal.png");
 		this.imgGoal = new Image("/Images/goal.png");
+		this.imgFree = new Image("/Images/whboss_floor-1.png");
 	}
 	
 	/**
@@ -158,8 +160,17 @@ public class GameUI extends AnimationTimer{
 	protected void drawMap(GraphicsContext gc){
 		int[][] grid = this.game.getGrid();
 		
-		for(int x = 0; x < 8; x++){
-			for(int y = 0; y < 8; y++){
+		for(int i = 0; i < grid.length; i++) {
+			for (int j = 0; j < grid[i].length; j++ ) {
+				gc.drawImage(this.imgFree,
+						i * this.tileSize, j * this.tileSize,
+						this.tileSize, this.tileSize);
+			}
+		}
+		
+		
+		for(int x = 0; x < grid.length; x++){
+			for(int y = 0; y < grid[x].length; y++){
 				if(grid[x][y] == Game.OBSTACLE){
 					gc.drawImage(this.imgWall, 
 							x * this.tileSize, y * this.tileSize, 
@@ -197,6 +208,7 @@ public class GameUI extends AnimationTimer{
 							this.tileSize, this.tileSize);
 					continue;
 				}
+				
 			}
 		}
 	}

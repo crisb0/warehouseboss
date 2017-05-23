@@ -40,6 +40,7 @@ public class Player extends Entity {
 			return true;
 		// normal move
 		} else {
+			m.setSavedPoint(new Point(this.loc));
 			if (!this.isBetween(0, map.getGrid().length, (int) newLoc.getX()) ||
 					!this.isBetween(0, map.getGrid().length, (int)newLoc.getY())) return false;
 			
@@ -59,8 +60,10 @@ public class Player extends Entity {
 					return false;
 				
 				if (map.isFreeSpace(newBoxLoc) || map.isGoal(newBoxLoc)) {
+					System.out.println("BOX IS HERE");
 					Box b = map.getBox(newLoc);
 					b.move(m, map);
+					System.out.println("ENTITY MOVED=" + m.getEntityMoved().toString());
 					if (map.getGoalLocs().contains(this.loc))	
 						map.updateMap(GOAL, this.loc.x, this.loc.y);
 					else 

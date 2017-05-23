@@ -102,8 +102,9 @@ public class Game {
 	public boolean move(char dir) {
 		Move newMove = new Move(dir);
 		if (p.move(newMove, map)) {
-			if (newMove.getEntityMoved() != null)
+			if (newMove.getEntityMoved() != null) {
 				prevMoves.push(newMove);
+			}
 			return true;
 		}
 		return false;

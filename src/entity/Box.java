@@ -17,8 +17,15 @@ public class Box extends Entity {
 
 	// let the box update the map when it moves
 	public boolean move(Move m, MapGenerator map) {
-		Point newBoxLoc = m.getNewPoint(this.loc);
-		map.updateMap(BOX, (int) newBoxLoc.getX(), (int) newBoxLoc.getY());
+		Point newBoxLoc = null;
+		if (m.isUndo()) {
+			newBoxLoc = m.getSavedEntityPoint();
+		} else {
+			m.setEntityMoved(this);
+			m.setSavedEntityPoint(new Point(this.loc));
+			newBoxLoc = m.getNewPoint(this.loc);
+		}
+		map.updateMap(BOX, newBoxLoc.x, newBoxLoc.y);
 		if (map.getGoalLocs().contains(this.loc)) 
 			map.updateMap(GOAL, this.loc.x, this.loc.y);
 		else
