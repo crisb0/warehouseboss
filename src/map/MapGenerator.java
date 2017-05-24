@@ -17,40 +17,71 @@ public class MapGenerator {
 	protected static final int GOAL = 3;
 	protected static final int PLAYER = 4;
 	
-	protected static final int DIMENSIONS = 10;
+	private static final int DIMENSIONS = 8;
 	protected Block[][] puzzle = new Block[DIMENSIONS][DIMENSIONS];
 	protected Point playerLocation;
-	protected Player player;
 	protected List<Box> boxLocs;
 	protected List<Point> goalLocs;
+	protected Player player;
 	
+	public MapGenerator(String diff){
+		int cost = 0;
+		int i =0;
+		int intDiff = getIntDiff(diff);
+		while(cost <= intDiff){
+			CreateMap cm  = new CreateMap();
+			//FindSolution fs = new FindSolution(cm.getPuzzle(), cm.getGoalLocs());
+			//FindSolution fs = new FindSolution(cm.preDefMap(), cm.getGoalLocs());
+			CreateSolution cs = new CreateSolution(cm.getPuzzle(), cm.getGoalLocs());
+			this.puzzle = cs.getPuzzle();
+			this.setPlayerLocation(cs.getPlayer());
+			this.boxLocs = cs.getBoxLocs();
+			this.goalLocs = cs.getGoalLocs();
+			this.player = new Player((getPlayerLocation()));
+			cost = cs.getCost();
+			System.out.println(i);
+			i++;
+		}	
+	}
 	public MapGenerator(){
 		CreateMap cm  = new CreateMap();
-		FindSolution fs = new FindSolution(cm.getPuzzle(), cm.getGoalLocs());
-		this.puzzle = fs.getPuzzle();
-		this.playerLocation = fs.getPlayerLocation();
-		this.boxLocs = fs.getBoxLocs();
-		this.goalLocs = fs.getGoalLocs();
-		this.player = new Player(playerLocation);
+		//FindSolution fs = new FindSolution(cm.getPuzzle(), cm.getGoalLocs());
+		//FindSolution fs = new FindSolution(cm.preDefMap(), cm.getGoalLocs());
+		CreateSolution cs = new CreateSolution(cm.getPuzzle(), cm.getGoalLocs());
+		this.puzzle = cs.getPuzzle();
+		this.setPlayerLocation(cs.getPlayer());
+		this.boxLocs = cs.getBoxLocs();
+		this.goalLocs = cs.getGoalLocs();
+		this.player = new Player((getPlayerLocation()));
+	}
+
+	private int getIntDiff(String diff) {
+		if(diff.equals("EASY")){
+			return 5;
+		} else if(diff.equals("HARD")){
+			return 15;
+		} else {
+			return 10;
+		}
 	}
 
 	public void displayPuzzle() {
-		for(int i = 0; i < 10; i++){
-			for(int j = 0; j < 10; j++){
-				System.out.print(this.puzzle[j][i].getType() + " ");
+		for(int i = 0; i < DIMENSIONS; i++){
+			for(int j = 0; j < DIMENSIONS; j++){
+				System.out.print(this.puzzle[j][i].getType());
 			}
 			System.out.println();
 		}
 	}
 
 	public int[][] getGrid() {
-		int[][] grid = new int[10][10];
-		for(int i = 0; i < this.puzzle.length; i++){
-			for(int j = 0; j < this.puzzle[0].length; j++){
-				if(this.puzzle[j][i].getType() != 9){
-					grid[j][i] = this.puzzle[j][i].getType();
+		int[][] grid = new int[DIMENSIONS][DIMENSIONS];
+		for(int i = 0; i < grid.length; i++){
+			for(int j = 0; j < grid[0].length; j++){
+				if(this.puzzle[i][j].getType() != 9){
+					grid[i][j] = this.puzzle[i][j].getType();
 				} else {
-					grid[j][i] = 0;
+					grid[i][j] = 0;
 				}
 			}
 		}
@@ -108,7 +139,7 @@ public class MapGenerator {
 		catch (ArrayIndexOutOfBoundsException e) {}
 		return false;
 	}
-
+	
 	/**
 	 * 
 	 * @param p
@@ -124,7 +155,7 @@ public class MapGenerator {
 	}
 
 	public Point getStartingPlayerLoc() {
-		return this.playerLocation;
+		return this.getPlayerLocation();
 	}
 
 	public List<Box> getBoxLocs() {
@@ -147,5 +178,10 @@ public class MapGenerator {
 		catch (ArrayIndexOutOfBoundsException e) {}
 		return false;
 	}
-
+	public Point getPlayerLocation() {
+		return playerLocation;
+	}
+	public void setPlayerLocation(Point playerLocation) {
+		this.playerLocation = playerLocation;
+	}
 }
