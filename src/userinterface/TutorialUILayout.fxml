@@ -25,7 +25,7 @@
       <Button id="backbtn" fx:id="backBtn" layoutX="350.0" layoutY="546.0" mnemonicParsing="false" onAction="#onButtonClick" prefHeight="40.0" prefWidth="200.0" />
       <ImageView fx:id="popUp" fitHeight="259.0" fitWidth="800.0" layoutX="50.0" layoutY="382.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../Images/pop-up/tut0.png" />
+            <Image url="@../Images/pop-up/tut00.png" />
          </image>
       </ImageView>
       <Button id="contbtn" fx:id="contBtn" layoutX="787.0" layoutY="441.0" mnemonicParsing="false" onAction="#continueTutorial" prefHeight="32.0" prefWidth="32.0" />

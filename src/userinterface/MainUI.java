@@ -39,7 +39,6 @@ public class MainUI {
 	@FXML private Button easyBtn;
 	@FXML private Button normalBtn;
 	@FXML private Button hardBtn;
-	@FXML private Button nightmareBtn;
 	@FXML private Button returnBtn;
 	@FXML private GridPane mainMenu;
 	@FXML private GridPane diffMenu;
@@ -181,9 +180,6 @@ public class MainUI {
 			gameUIController.setDifficulty(Game.Difficulty.NORMAL);
 		else if(event.getSource() == this.hardBtn)
 			gameUIController.setDifficulty(Game.Difficulty.HARD);
-		else if(event.getSource() == this.nightmareBtn)
-			gameUIController.setDifficulty(Game.Difficulty.NIGHTMARE);
-		
 		Stage stage = (Stage) this.startBtn.getScene().getWindow();
 		stage.setScene(gameUIScene);
 		stage.show();

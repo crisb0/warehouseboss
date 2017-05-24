@@ -53,8 +53,7 @@
             <Button id="easybtn" fx:id="easyBtn" mnemonicParsing="false" onAction="#onDiffBtnClick" prefHeight="40.0" prefWidth="200.0" />
             <Button id="hardbtn" fx:id="hardBtn" mnemonicParsing="false" onAction="#onDiffBtnClick" prefHeight="40.0" prefWidth="200.0" GridPane.rowIndex="2" />
             <Button id="normalbtn" fx:id="normalBtn" mnemonicParsing="false" onAction="#onDiffBtnClick" prefHeight="40.0" prefWidth="200.0" GridPane.rowIndex="1" />
-            <Button id="nightmarebtn" fx:id="nightmareBtn" mnemonicParsing="false" onAction="#onDiffBtnClick" prefHeight="40.0" prefWidth="200.0" GridPane.rowIndex="3" />
-            <Button id="returnbtn" fx:id="returnBtn" mnemonicParsing="false" onAction="#onStandardBtnClick" prefHeight="40.0" prefWidth="200.0" GridPane.rowIndex="4" />
+            <Button id="returnbtn" fx:id="returnBtn" mnemonicParsing="false" onAction="#onStandardBtnClick" prefHeight="40.0" prefWidth="200.0" GridPane.rowIndex="3" />
          </children>
       </GridPane>
    </children>
