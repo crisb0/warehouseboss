@@ -171,7 +171,7 @@ public class MainUI {
 		this.backgroundAnim = null;
 		
 		FXMLLoader gameUILoader = new FXMLLoader(getClass().getResource("GameUILayout.fxml"));
-		Scene gameUIScene = new Scene(gameUILoader.load(), MainApplication.WIDTH, MainApplication.HEIGHT);
+		Scene gameUIScene = new Scene((Parent) gameUILoader.load(), MainApplication.WIDTH, MainApplication.HEIGHT);
 		GameUI gameUIController = gameUILoader.getController();
 		
 		if(event.getSource() == this.easyBtn)

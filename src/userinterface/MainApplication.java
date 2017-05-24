@@ -14,8 +14,8 @@ public class MainApplication extends Application{
 	/*
 	 * Hard coded values, may need to be changed in the future
 	 */
-	public static final int WIDTH = 900;
-	public static final int HEIGHT = 600;
+	public static final int WIDTH = 614;
+	public static final int HEIGHT = 404;
 	
 	/**
 	 * The function that handles the loading of the initial menu
