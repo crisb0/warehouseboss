@@ -16,8 +16,8 @@
             <Font name="Baskerville Old Face" size="18.0" />
          </font>
       </Label>
-      <ImageView fx:id="backgroundImg" fitHeight="430" fitWidth="430" layoutX="250.0" layoutY="-8.0" pickOnBounds="true" preserveRatio="true" />
-      <GridPane fx:id="mainMenu" layoutX="150" layoutY="350" prefHeight="180.0" prefWidth="600">
+      <ImageView fx:id="backgroundImg" fitHeight="430" fitWidth="430" layoutX="250.0" layoutY="-18.0" pickOnBounds="true" preserveRatio="true" />
+      <GridPane fx:id="mainMenu" layoutX="165.0" layoutY="351.0" prefHeight="180.0" prefWidth="600">
         <columnConstraints>
           <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
         </columnConstraints>
@@ -32,7 +32,7 @@
             <Button id="tutbtn" fx:id="tutBtn" mnemonicParsing="false" onAction="#onStandardBtnClick" prefHeight="40.0" prefWidth="200.0" GridPane.rowIndex="1" />
          </children>
       </GridPane>
-      <GridPane fx:id="diffMenu" disable="true" layoutX="150" layoutY="320" prefHeight="280" prefWidth="600" visible="false">
+      <GridPane fx:id="diffMenu" disable="true" layoutX="165.0" layoutY="320.0" prefHeight="280" prefWidth="600" visible="false">
          <columnConstraints>
             <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
          </columnConstraints>

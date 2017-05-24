@@ -93,6 +93,7 @@ public class TutorialUI extends GameUI{
 		TutorialMap mp = new TutorialMap();
 		this.game = new Game(mp);
 		this.tutorialStage = TutorialStage.S0_OPENING_MSG;
+		this.tileSize = 56;
 		
 		/*
 		 * Initially, we are going to hide the undo button and then

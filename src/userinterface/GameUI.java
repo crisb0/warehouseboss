@@ -96,7 +96,7 @@ public class GameUI extends AnimationTimer{
 		this.undoCount = 0;
 		this.undoLeft = 0;
 		
-		this.tileSize = 56;
+		this.tileSize = 70;
 		// The sprite size refers to the size of the sprites draw in
 		// the player's sprite sheet.
 		this.spriteSize = 48;

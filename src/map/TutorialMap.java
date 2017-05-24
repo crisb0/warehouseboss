@@ -1,14 +1,10 @@
 package map;
 
 import java.awt.Point;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
-import entity.Block;
 import entity.Box;
 import entity.Player;
-import game.Game;
 
 public class TutorialMap extends MapGenerator {
 	

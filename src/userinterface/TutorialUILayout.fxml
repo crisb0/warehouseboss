@@ -25,7 +25,7 @@
             <Image url="@../Images/scorebg.png" />
          </image>
       </ImageView>
-      <GridPane layoutX="625.0" layoutY="54.0" prefHeight="254.0" prefWidth="232.0">
+      <GridPane layoutX="625.0" layoutY="143.0" prefHeight="254.0" prefWidth="232.0">
          <columnConstraints>
             <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
          </columnConstraints>
@@ -38,7 +38,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Label fx:id="lblDiff" text="Label" textFill="WHITE">
+            <Label fx:id="lblDiff" text="Label" textFill="#ac9647">
                <font>
                   <Font name="Courier New Bold" size="30.0" />
                </font>
@@ -66,8 +66,13 @@
          </children>
       </GridPane>
       <Button id="backbtn" fx:id="backBtn" layoutX="641.0" layoutY="512.0" mnemonicParsing="false" onAction="#onButtonClick" prefHeight="40.0" prefWidth="200.0" />
-      <Button id="undobtn" fx:id="undoBtn" layoutX="725.0" layoutY="470.0" mnemonicParsing="false" onAction="#onUndoClick" prefHeight="32.0" prefWidth="32.0" />
-      <ImageView fx:id="flashingArrow" fitHeight="150.0" fitWidth="214.0" layoutX="498.0" layoutY="465.0" pickOnBounds="true" preserveRatio="true" rotate="-180.0" visible="false">
+      <Button id="undobtn" fx:id="undoBtn" layoutX="641.0" layoutY="465.0" mnemonicParsing="false" onAction="#onUndoClick" prefHeight="40.0" prefWidth="200.0" />
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="641.0" layoutY="41.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Images/logo.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="flashingArrow" fitHeight="150.0" fitWidth="214.0" layoutX="427.0" layoutY="464.0" pickOnBounds="true" preserveRatio="true" rotate="-180.0" visible="false">
          <image>
             <Image url="@../Images/btn-ui/flash-arrow/flash-arrow-0.png" />
          </image>
