@@ -31,6 +31,8 @@ public class TutorialMap extends MapGenerator {
 		
 		this.setUpTutorial();
 		
+		
+		
 		this.boxLocs.add(new Box(new Point(2, 2)));
 		this.boxLocs.add(new Box(new Point(8, 7)));
 		this.goalLocs.clear();

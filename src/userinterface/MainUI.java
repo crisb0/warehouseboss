@@ -39,7 +39,6 @@ public class MainUI {
 	@FXML private Button easyBtn;
 	@FXML private Button normalBtn;
 	@FXML private Button hardBtn;
-	@FXML private Button nightmareBtn;
 	@FXML private Button returnBtn;
 	@FXML private GridPane mainMenu;
 	@FXML private GridPane diffMenu;
@@ -89,17 +88,23 @@ public class MainUI {
 		 */
 		this.backgroundAnim = new Timeline(
                 new KeyFrame(Duration.ZERO, new KeyValue(this.backgroundImg.imageProperty(), 
-                		new Image("/Images/s_whboss0.png"))),
+//                		new Image("/Images/s_whboss0.png"))),
+                		new Image("/Images/whb1.png"))),
                 new KeyFrame(Duration.millis(200), new KeyValue(this.backgroundImg.imageProperty(), 
-                		new Image("/Images/s_whboss1.png"))),
+//                		new Image("/Images/s_whboss1.png"))),
+                		new Image("/Images/whb2.png"))),
                 new KeyFrame(Duration.millis(400), new KeyValue(this.backgroundImg.imageProperty(), 
-                		new Image("/Images/s_whboss2.png"))),
+//                		new Image("/Images/s_whboss2.png"))),
+                		new Image("/Images/whb3.png"))),
                 new KeyFrame(Duration.millis(600), new KeyValue(this.backgroundImg.imageProperty(), 
-                		new Image("/Images/s_whboss3.png"))),
+//                		new Image("/Images/s_whboss3.png"))),
+                		new Image("/Images/whb4.png"))),
                 new KeyFrame(Duration.millis(800), new KeyValue(this.backgroundImg.imageProperty(), 
-                		new Image("/Images/s_whboss4.png"))),
+//                		new Image("/Images/s_whboss4.png"))),
+                		new Image("/Images/whb5.png"))),
                 new KeyFrame(Duration.millis(1000), new KeyValue(this.backgroundImg.imageProperty(), 
-                		new Image("/Images/s_whboss0.png")))
+//                		new Image("/Images/s_whboss0.png")))
+                		new Image("/Images/whb3.png")))
                 );
 		this.backgroundAnim.setCycleCount(Timeline.INDEFINITE);
 		this.backgroundAnim.play();
@@ -172,7 +177,7 @@ public class MainUI {
 		this.backgroundAnim = null;
 		
 		FXMLLoader gameUILoader = new FXMLLoader(getClass().getResource("GameUILayout.fxml"));
-		Scene gameUIScene = new Scene(gameUILoader.load(), MainApplication.WIDTH, MainApplication.HEIGHT);
+		Scene gameUIScene = new Scene((Parent) gameUILoader.load(), MainApplication.WIDTH, MainApplication.HEIGHT);
 		GameUI gameUIController = gameUILoader.getController();
 		
 		if(event.getSource() == this.easyBtn)
@@ -181,9 +186,6 @@ public class MainUI {
 			gameUIController.setDifficulty(Game.Difficulty.NORMAL);
 		else if(event.getSource() == this.hardBtn)
 			gameUIController.setDifficulty(Game.Difficulty.HARD);
-		else if(event.getSource() == this.nightmareBtn)
-			gameUIController.setDifficulty(Game.Difficulty.NIGHTMARE);
-		
 		Stage stage = (Stage) this.startBtn.getScene().getWindow();
 		stage.setScene(gameUIScene);
 		stage.show();
