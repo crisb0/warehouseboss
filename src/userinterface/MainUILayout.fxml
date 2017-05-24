@@ -12,11 +12,6 @@
 
 <AnchorPane id="mainbg" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" stylesheets="@mainui.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="userinterface.MainUI">
    <children>
-      <ImageView fitHeight="450" layoutX="-23.0" layoutY="-11.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../Images/bg.png" />
-         </image>
-      </ImageView>
       <Label layoutX="14.0" layoutY="575.0" text="Version 0.5.1">
          <font>
             <Font name="Baskerville Old Face" size="18.0" />
@@ -38,7 +33,7 @@
             <Button id="tutbtn" fx:id="tutBtn" mnemonicParsing="false" onAction="#onStandardBtnClick" prefHeight="30.0" prefWidth="150.0" GridPane.rowIndex="1" />
          </children>
       </GridPane>
-      <GridPane fx:id="diffMenu" disable="true" layoutX="318.0" layoutY="287.0" prefHeight="310.0" prefWidth="264.0" visible="false">
+      <GridPane fx:id="diffMenu" disable="true" layoutX="10" layoutY="250" prefHeight="180" prefWidth="600" visible="false">
          <columnConstraints>
             <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
          </columnConstraints>
