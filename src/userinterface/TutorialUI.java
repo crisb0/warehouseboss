@@ -22,6 +22,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
+import map.Map;
 import map.MapGenerator;
 import map.TutorialMap;
 
@@ -148,6 +149,17 @@ public class TutorialUI extends GameUI{
 		this.drawTutGoal(gc);
 		this.drawMap(gc);
 		this.drawPlayer(gc);
+	}
+	
+	/**
+	 * This function is not meant to be called in TutorialUI. This
+	 * override to prevent an error from occurring if setDifficulty
+	 * is called.
+	 */
+	@Override
+	public void setDifficulty(Game.Difficulty diff){
+		System.err.println("Difficulty is not meant to be called in TutorialUI");
+		return;
 	}
 	
 	/**
