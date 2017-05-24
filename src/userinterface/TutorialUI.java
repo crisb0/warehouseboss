@@ -22,7 +22,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
-import map.Map;
+import map.MapGenerator;
 import map.TutorialMap;
 
 /**
