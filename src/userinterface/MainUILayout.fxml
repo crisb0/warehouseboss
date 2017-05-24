@@ -17,8 +17,8 @@
             <Font name="Baskerville Old Face" size="18.0" />
          </font>
       </Label>
-      <ImageView fx:id="backgroundImg" fitHeight="350" fitWidth="350" layoutX="130.0" layoutY="-8.0" pickOnBounds="true" preserveRatio="true" />
-      <GridPane fx:id="mainMenu" layoutX="10" layoutY="250" prefHeight="120.0" prefWidth="600">
+      <ImageView fx:id="backgroundImg" fitHeight="430" fitWidth="430" layoutX="250.0" layoutY="-8.0" pickOnBounds="true" preserveRatio="true" />
+      <GridPane fx:id="mainMenu" layoutX="150" layoutY="350" prefHeight="180.0" prefWidth="600">
         <columnConstraints>
           <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
         </columnConstraints>
@@ -28,12 +28,12 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button id="startbtn" fx:id="startBtn" mnemonicParsing="false" onAction="#onStandardBtnClick" prefHeight="30.0" prefWidth="150" />
-            <Button id="exitbtn" fx:id="exitBtn" mnemonicParsing="false" onAction="#onStandardBtnClick" prefHeight="30.0" prefWidth="150.0" GridPane.rowIndex="2" />
-            <Button id="tutbtn" fx:id="tutBtn" mnemonicParsing="false" onAction="#onStandardBtnClick" prefHeight="30.0" prefWidth="150.0" GridPane.rowIndex="1" />
+            <Button id="startbtn" fx:id="startBtn" mnemonicParsing="false" onAction="#onStandardBtnClick" prefHeight="40.0" prefWidth="200" />
+            <Button id="exitbtn" fx:id="exitBtn" mnemonicParsing="false" onAction="#onStandardBtnClick" prefHeight="40.0" prefWidth="200.0" GridPane.rowIndex="2" />
+            <Button id="tutbtn" fx:id="tutBtn" mnemonicParsing="false" onAction="#onStandardBtnClick" prefHeight="40.0" prefWidth="200.0" GridPane.rowIndex="1" />
          </children>
       </GridPane>
-      <GridPane fx:id="diffMenu" disable="true" layoutX="10" layoutY="250" prefHeight="180" prefWidth="600" visible="false">
+      <GridPane fx:id="diffMenu" disable="true" layoutX="150" layoutY="320" prefHeight="280" prefWidth="600" visible="false">
          <columnConstraints>
             <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
          </columnConstraints>
