@@ -18,11 +18,11 @@ public class MapGenerator {
 	protected static final int PLAYER = 4;
 	
 	private static final int DIMENSIONS = 8;
-	private Block[][] puzzle = new Block[DIMENSIONS][DIMENSIONS];
-	private Point playerLocation;
-	private List<Box> boxLocs;
-	private List<Point> goalLocs;
-	private Player player;
+	protected Block[][] puzzle = new Block[DIMENSIONS][DIMENSIONS];
+	protected Point playerLocation;
+	protected List<Box> boxLocs;
+	protected List<Point> goalLocs;
+	protected Player player;
 	
 	public MapGenerator(String diff){
 		int cost = 0;
@@ -34,15 +34,25 @@ public class MapGenerator {
 			//FindSolution fs = new FindSolution(cm.preDefMap(), cm.getGoalLocs());
 			CreateSolution cs = new CreateSolution(cm.getPuzzle(), cm.getGoalLocs());
 			this.puzzle = cs.getPuzzle();
-			this.playerLocation = cs.getPlayer();
+			this.setPlayerLocation(cs.getPlayer());
 			this.boxLocs = cs.getBoxLocs();
 			this.goalLocs = cs.getGoalLocs();
-			this.player = new Player((playerLocation));
+			this.player = new Player((getPlayerLocation()));
 			cost = cs.getCost();
 			System.out.println(i);
 			i++;
-		}
-			
+		}	
+	}
+	public MapGenerator(){
+		CreateMap cm  = new CreateMap();
+		//FindSolution fs = new FindSolution(cm.getPuzzle(), cm.getGoalLocs());
+		//FindSolution fs = new FindSolution(cm.preDefMap(), cm.getGoalLocs());
+		CreateSolution cs = new CreateSolution(cm.getPuzzle(), cm.getGoalLocs());
+		this.puzzle = cs.getPuzzle();
+		this.setPlayerLocation(cs.getPlayer());
+		this.boxLocs = cs.getBoxLocs();
+		this.goalLocs = cs.getGoalLocs();
+		this.player = new Player((getPlayerLocation()));
 	}
 
 	private int getIntDiff(String diff) {
@@ -145,7 +155,7 @@ public class MapGenerator {
 	}
 
 	public Point getStartingPlayerLoc() {
-		return this.playerLocation;
+		return this.getPlayerLocation();
 	}
 
 	public List<Box> getBoxLocs() {
@@ -167,5 +177,11 @@ public class MapGenerator {
 		}
 		catch (ArrayIndexOutOfBoundsException e) {}
 		return false;
+	}
+	public Point getPlayerLocation() {
+		return playerLocation;
+	}
+	public void setPlayerLocation(Point playerLocation) {
+		this.playerLocation = playerLocation;
 	}
 }
