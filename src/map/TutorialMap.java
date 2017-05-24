@@ -8,6 +8,7 @@ import java.util.Scanner;
 import entity.Block;
 import entity.Box;
 import entity.Player;
+import game.Game;
 
 public class TutorialMap extends MapGenerator {
 	
@@ -15,26 +16,27 @@ public class TutorialMap extends MapGenerator {
 	private int[][] grid;
 	
 	public TutorialMap(){
-		this.preDefMap = "1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1\n" + 
-						 "1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 1\n" + 
-						 "1 0 2 0 1 0 0 0 0 0 0 0 0 0 0 0 0 1\n" + 
-						 "1 0 1 1 1 0 0 1 1 1 1 1 1 1 0 0 0 1\n" +
-						 "1 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0 1\n" +
-						 "1 0 0 0 1 0 0 0 3 0 1 0 3 0 0 0 0 1\n" +
-						 "1 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0 1\n" +
-						 "1 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 1\n" +
-						 "1 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 1\n" +
-						 "1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1\n";
+		this.preDefMap = "1 1 1 1 1 1 1 1 1 1\n" + 
+						 "1 1 1 1 1 0 0 0 0 1\n" + 
+						 "1 0 2 0 1 0 0 1 0 1\n" + 
+						 "1 0 1 1 1 1 0 0 3 1\n" +
+						 "1 0 0 0 1 0 0 1 0 1\n" +
+						 "1 0 0 0 1 0 0 1 0 1\n" +
+						 "1 0 0 0 1 0 0 1 0 1\n" +
+						 "1 1 1 1 1 0 0 1 2 1\n" +
+						 "1 0 3 0 0 0 0 0 0 1\n" +
+						 "1 1 1 1 1 1 1 1 1 1\n";
 		
-		this.grid = new int[18][10];
+		this.grid = new int[10][10];
 		
 		this.setUpTutorial();
 		
 		this.boxLocs.add(new Box(new Point(2, 2)));
+		this.boxLocs.add(new Box(new Point(8, 7)));
 		this.goalLocs.clear();
-		this.goalLocs.add(new Point(12, 5));
-		this.goalLocs.add(new Point(8, 5));
-		this.playerLocation = new Point(2, 7);
+		this.goalLocs.add(new Point(8, 3));
+		this.goalLocs.add(new Point(2, 8));
+		this.playerLocation = new Point(2, 5);
 		this.player = new Player(this.playerLocation);
 	}
 	

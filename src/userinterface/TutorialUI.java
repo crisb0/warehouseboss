@@ -1,7 +1,6 @@
 package userinterface;
 
 import java.awt.Point;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -17,13 +16,8 @@ import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
-import map.Map;
-import map.MapGenerator;
 import map.TutorialMap;
 
 /**
@@ -69,7 +63,8 @@ public class TutorialUI extends GameUI{
 	private boolean canMove;
 	
 	private Image imgTutGoal;
-	private Timeline flashingArrowAnim;
+	
+	private Timeline animTimeline;
 	
 	private Point stage2Goal;
 	private Point stage4Goal;
@@ -80,6 +75,7 @@ public class TutorialUI extends GameUI{
 	@FXML private ImageView flashingArrow;
 	@FXML private Button contBtn;
 	@FXML private Button undoBtn;
+	@FXML private Button backBtnPopUp;
 	
 	/**
 	 * This function is called after all of the FXML elements are loaded into
@@ -89,31 +85,14 @@ public class TutorialUI extends GameUI{
 	 */
 	@FXML
 	public void initialize(){
-		/*
-		 * Super() can not be called as we need to replace the random
-		 * MapGenerator class with a class that generates a predefined
-		 * level to teach the player. Thus, everything needs to be
-		 * redefined in this function.
-		 */
+		// We are going to first initialize the tutorial like a normal game first
+		// before we move on to modify it.
+		super.initialize();
+		
+		// Set up the tutorial map.
 		TutorialMap mp = new TutorialMap();
 		this.game = new Game(mp);
-		this.animating = false;
-		this.xAnimOffset = 0;
-		this.yAnimOffset = 0;
-		this.animStepsX = 0;
-		this.animStepsY = 0;
-		this.animCounter = 0;
-		this.animDir = 0;
-		this.maxAnimCounter = 8;
 		this.tutorialStage = TutorialStage.S0_OPENING_MSG;
-		this.canMove = false;
-		
-		this.tileSize = 48;
-		/*
-		 * The sprite size refers to the size of the sprites draw in
-		 * the player's sprite sheet.
-		 */
-		this.spriteSize = 48;
 		
 		/*
 		 * Initially, we are going to hide the undo button and then
@@ -130,8 +109,15 @@ public class TutorialUI extends GameUI{
 		this.stage4Goal = new Point(3,2);
 		this.stage9Goal = new Point(5,2);
 		
-		this.loadResources();
+		// Set up the undos for the tutorial
+		this.undoLeft = -1;
+		this.lblUndosLeft.setText("Unlimited");
+		this.lblDiff.setText("Tutorial");
+		
+		// Load up additional tutorial resources
 		this.loadTutResources();
+		
+		// Draw up the map's initial state
 		this.displayMap();
 	}
 	
@@ -146,8 +132,10 @@ public class TutorialUI extends GameUI{
 		GraphicsContext gc = mainCanvas.getGraphicsContext2D();
 		
 		this.clearMap(gc);
+		this.drawFloor(gc);
+		this.drawShadows(gc);
 		this.drawTutGoal(gc);
-		this.drawMap(gc);
+		this.drawObjects(gc);
 		this.drawPlayer(gc);
 	}
 	
@@ -203,8 +191,41 @@ public class TutorialUI extends GameUI{
 	 * @param img The image of the pop up
 	 */
 	private void showPopUp(boolean show, Image img){
-		if(img != null)
-			this.popUp.setImage(img);
+		// Here we check if it is the victory pop up to play the animation
+		if(this.tutorialStage == TutorialStage.S12_FINISH){
+			this.animTimeline = new Timeline(
+	                new KeyFrame(Duration.ZERO, new KeyValue(this.popUp.imageProperty(), 
+	                		new Image("/Images/pop-up/win/win_00.png"))),
+	                new KeyFrame(Duration.millis(100), new KeyValue(this.popUp.imageProperty(), 
+	                		new Image("/Images/pop-up/win/win_01.png"))),
+	                new KeyFrame(Duration.millis(200), new KeyValue(this.popUp.imageProperty(), 
+	                		new Image("/Images/pop-up/win/win_02.png"))),
+	                new KeyFrame(Duration.millis(300), new KeyValue(this.popUp.imageProperty(), 
+	                		new Image("/Images/pop-up/win/win_03.png"))),
+	                new KeyFrame(Duration.millis(400), new KeyValue(this.popUp.imageProperty(), 
+	                		new Image("/Images/pop-up/win/win_04.png"))),
+	                new KeyFrame(Duration.millis(500), new KeyValue(this.popUp.imageProperty(), 
+	                		new Image("/Images/pop-up/win/win_05.png"))),
+	                new KeyFrame(Duration.millis(600), new KeyValue(this.popUp.imageProperty(), 
+	                		new Image("/Images/pop-up/win/win_06.png"))),
+	                new KeyFrame(Duration.millis(700), new KeyValue(this.popUp.imageProperty(), 
+	                		new Image("/Images/pop-up/win/win_07.png"))),
+	                new KeyFrame(Duration.millis(800), new KeyValue(this.popUp.imageProperty(), 
+	                		new Image("/Images/pop-up/win/win_08.png"))),
+	                new KeyFrame(Duration.millis(900), new KeyValue(this.popUp.imageProperty(), 
+	                		new Image("/Images/pop-up/win/win_09.png"))),
+	                new KeyFrame(Duration.millis(1000), new KeyValue(this.popUp.imageProperty(), 
+	                		new Image("/Images/pop-up/win/win_10.png"))),
+	                new KeyFrame(Duration.millis(1100), new KeyValue(this.popUp.imageProperty(), 
+	                		new Image("/Images/pop-up/win/win_11.png"))),
+	                new KeyFrame(Duration.millis(1200), new KeyValue(this.popUp.imageProperty(), 
+	                		new Image("/Images/pop-up/win/win_00.png")))
+	                );
+			this.animTimeline.setCycleCount(Timeline.INDEFINITE);
+			this.animTimeline.play();
+		} else {
+			if(img != null) this.popUp.setImage(img);
+		}
 		
 		if(show)
 			this.mainCanvas.setEffect(new GaussianBlur(10));
@@ -213,6 +234,8 @@ public class TutorialUI extends GameUI{
 		
 		this.contBtn.setDisable(!show);
 		this.contBtn.setVisible(show);
+		this.backBtnPopUp.setDisable(!show);
+		this.backBtnPopUp.setVisible(show);
 		this.popUp.setDisable(!show);
 		this.popUp.setVisible(show);
 		this.bgCover.setVisible(show);
@@ -243,7 +266,7 @@ public class TutorialUI extends GameUI{
 			
 			if(pLoc.getX() == this.stage2Goal.getX() && pLoc.getY() == this.stage2Goal.getY()){
 				this.tutorialStage = TutorialStage.S3_PUSH_MSG;
-				this.showPopUp(true, new Image("/Images/pop-up/tut02.png"));
+				this.showPopUp(true, new Image("/Images/pop-up/tut2.png"));
 			}
 			
 		} else if (this.tutorialStage == TutorialStage.S4_PUSH_TUT){
@@ -252,7 +275,7 @@ public class TutorialUI extends GameUI{
 			for(Point pt : boxPts){
 				if(pt.getX() == this.stage4Goal.getX() && pt.getY() == this.stage2Goal.getY()){
 					this.tutorialStage = TutorialStage.S5_BLOCK_MSG;
-					this.showPopUp(true, new Image("/Images/pop-up/tut03.png"));
+					this.showPopUp(true, new Image("/Images/pop-up/tut3.png"));
 					break;
 				}
 			}
@@ -263,15 +286,14 @@ public class TutorialUI extends GameUI{
 			 * original value.
 			 */
 			this.maxAnimCounter = 8;
-			this.showPopUp(true, new Image("/Images/pop-up/tut05.png"));
+			this.showPopUp(true, new Image("/Images/pop-up/tut5.png"));
 			
 		} else if (this.tutorialStage == TutorialStage.S9_MOVE_OUT){
 			Point pLoc = this.game.getPlayer().getLoc();
 			
 			if(pLoc.getX() == this.stage9Goal.getX() && pLoc.getY() == this.stage9Goal.getY()){
 				this.tutorialStage = TutorialStage.S10_VICTORY_MSG;
-//				this.showPopUp(true, new Image("/Images/pop-up/tut6.png"));
-				this.showPopUp(true, new Image("/Images/pop-up/tut05.png"));
+				this.showPopUp(true, new Image("/Images/pop-up/tut6.png"));
 			}
 			
 		} else if (this.tutorialStage == TutorialStage.S11_VICTORY_TUT){
@@ -292,10 +314,7 @@ public class TutorialUI extends GameUI{
 			
 			if(numOnGoal == numOfGoals){
 				this.tutorialStage = TutorialStage.S12_FINISH;
-				Media sound = new Media(new File("test.mp3").toURI().toString());
-				MediaPlayer mediaPlayer = new MediaPlayer(sound);
-				mediaPlayer.play();
-				this.showPopUp(true, new Image("/Images/pop-up/win/win_11.png"));
+				this.showPopUp(true, new Image("/Images/pop-up/tut7.png"));
 			}
 		}
 	}
@@ -311,9 +330,9 @@ public class TutorialUI extends GameUI{
 		 *  The timeline object can cause memory leaks if not stopped before
 		 *  changing menus. Thus, it must be forcibly stopped.
 		 */
-		if(this.flashingArrowAnim != null){
-			this.flashingArrowAnim.stop();
-			this.flashingArrowAnim = null;
+		if(this.animTimeline != null){
+			this.animTimeline.stop();
+			this.animTimeline = null;
 		}
 		
 		super.goBackMain();
@@ -343,8 +362,8 @@ public class TutorialUI extends GameUI{
 			 * Before we move onto modifying the animations, we need to now
 			 * stop the animation timeline.
 			 */
-			this.flashingArrowAnim.stop();
-			this.flashingArrowAnim = null;
+			this.animTimeline.stop();
+			this.animTimeline = null;
 			this.flashingArrow.setVisible(false);
 			
 			/*
@@ -364,8 +383,20 @@ public class TutorialUI extends GameUI{
 			 */
 			this.startAnimation(ANIM_NONE);
 		} else {
-			this.game.undoMove();
-			this.displayMap();
+			this.undoGame();
+		}
+	}
+	
+	/**
+	 * Set the pop up back button to go back to main
+	 * @param event The type of action used to fire this function
+	 */
+	@FXML
+	protected void goBackToMain(ActionEvent event){
+		try {
+			this.goBackMain();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 	
@@ -391,7 +422,7 @@ public class TutorialUI extends GameUI{
 		switch(this.tutorialStage){
 		case S0_OPENING_MSG:
 			this.tutorialStage = TutorialStage.S1_MOVEMENT_MSG;
-			this.popUp.setImage(new Image("/Images/pop-up/tut01.png"));
+			this.popUp.setImage(new Image("/Images/pop-up/tut1.png"));
 			break;
 			
 		case S1_MOVEMENT_MSG:
@@ -406,7 +437,7 @@ public class TutorialUI extends GameUI{
 		
 		case S5_BLOCK_MSG:
 			this.tutorialStage = TutorialStage.S6_UNDO_MSG;
-			this.popUp.setImage(new Image("/Images/pop-up/tut04.png"));
+			this.popUp.setImage(new Image("/Images/pop-up/tut4.png"));
 			break;
 		
 		case S6_UNDO_MSG:
@@ -417,7 +448,7 @@ public class TutorialUI extends GameUI{
 			
 			// Show the flashing arrow
 			this.flashingArrow.setVisible(true);
-			this.flashingArrowAnim = new Timeline(
+			this.animTimeline = new Timeline(
 	                new KeyFrame(Duration.ZERO, new KeyValue(this.flashingArrow.imageProperty(), 
 	                		new Image("/Images/btn-ui/flash-arrow/flash-arrow-0.png"))),
 	                new KeyFrame(Duration.millis(200), new KeyValue(this.flashingArrow.imageProperty(), 
@@ -431,14 +462,17 @@ public class TutorialUI extends GameUI{
 	                new KeyFrame(Duration.millis(1000), new KeyValue(this.flashingArrow.imageProperty(), 
 	                		new Image("/Images/btn-ui/flash-arrow/flash-arrow-0.png")))
 	                );
-			this.flashingArrowAnim.setCycleCount(Timeline.INDEFINITE);
-			this.flashingArrowAnim.play();
+			this.animTimeline.setCycleCount(Timeline.INDEFINITE);
+			this.animTimeline.play();
 			
-			
-			this.canMove = false;
 			break;
 			
 		case S8_CHANGE_MSG:
+			this.tutorialStage = TutorialStage.S8_CHANGE_MSG_2;
+			this.showPopUp(true, new Image("/Images/pop-up/tut5second.png"));
+			break;
+			
+		case S8_CHANGE_MSG_2:
 			this.tutorialStage = TutorialStage.S9_MOVE_OUT;
 			this.game.purgeUndos();
 			this.game.updateMap(Game.FREE_SPACE, 4, 2);
@@ -447,8 +481,6 @@ public class TutorialUI extends GameUI{
 			
 		case S10_VICTORY_MSG:
 			this.tutorialStage = TutorialStage.S11_VICTORY_TUT;
-			this.game.addBox(11, 2);
-			this.game.updateMap(Game.BOX,11, 2);
 			this.showPopUp(false, null);
 			break;
 			
@@ -470,7 +502,7 @@ public class TutorialUI extends GameUI{
 	 */
 	private enum TutorialStage{
 		S0_OPENING_MSG, S1_MOVEMENT_MSG, S2_MOVEMENT_TUT, S3_PUSH_MSG, S4_PUSH_TUT,
-		S5_BLOCK_MSG, S6_UNDO_MSG, S7_UNDO_TUT, S8_CHANGE_MSG, S9_MOVE_OUT,
+		S5_BLOCK_MSG, S6_UNDO_MSG, S7_UNDO_TUT, S8_CHANGE_MSG, S8_CHANGE_MSG_2, S9_MOVE_OUT,
 		S10_VICTORY_MSG, S11_VICTORY_TUT, S12_FINISH
 	}
 }

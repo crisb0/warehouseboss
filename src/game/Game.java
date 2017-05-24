@@ -122,7 +122,11 @@ public class Game {
 			p.move(undoMove, map);
 			return true;
 		}
-	return false;
+		return false;
+	}
+	
+	public boolean canUndoMoves(){
+		return !prevMoves.isEmpty();
 	}
 	
 	public void purgeUndos(){

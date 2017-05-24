@@ -53,7 +53,7 @@
 #contbtn{
     -fx-background-color: none;
     -fx-background-image: url('../Images/btn-ui/cont/whbossButtons-cont.png');
-    -fx-background-size: 32px 32px;
+    -fx-background-size: 200px 40px;
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;   
 }
@@ -61,7 +61,15 @@
 #contbtn:hover{
     -fx-background-color: none;
     -fx-background-image: url('../Images/btn-ui/cont/whbossButtons-cont-hover.png');
-    -fx-background-size: 32px 32px;
+    -fx-background-size: 200px 40px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;   
+}
+
+#contbtn:pressed{
+    -fx-background-color: none;
+    -fx-background-image: url('../Images/btn-ui/cont/whbossButtons-cont1.png');
+    -fx-background-size: 200px 40px;
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;   
 }

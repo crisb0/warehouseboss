@@ -44,15 +44,18 @@ public class GameUI extends AnimationTimer{
 	
 	protected int spriteSize;
 	protected int tileSize;
+	protected int shadowRad;
 	
 	protected Game game;
 	protected Game.Difficulty diff;
+	protected MapGenerator mapGen;
 	
 	protected Image imgWall;
 	protected Image imgPlayer;
 	protected Image imgBox;
 	protected Image imgBoxOnGoal;
 	protected Image imgGoal;
+	protected Image imgShadow;
 	protected Image imgFree;
 	
 	protected boolean animating;
@@ -63,6 +66,8 @@ public class GameUI extends AnimationTimer{
 	protected int maxAnimCounter;
 	protected int animCounter;
 	protected int animDir;
+	protected int undoCount;
+	protected int undoLeft;
 	protected Point prevPPos;
 	
 	@FXML protected Canvas mainCanvas;
@@ -88,13 +93,15 @@ public class GameUI extends AnimationTimer{
 		this.animCounter = 0;
 		this.animDir = 0;
 		this.maxAnimCounter = 8;
+		this.undoCount = 0;
+		this.undoLeft = 0;
 		
-		this.tileSize = 48;
-		/*
-		 * The sprite size refers to the size of the sprites draw in
-		 * the player's sprite sheet.
-		 */
+		this.tileSize = 56;
+		// The sprite size refers to the size of the sprites draw in
+		// the player's sprite sheet.
 		this.spriteSize = 48;
+		// Here, we are going to set the radius of the shadow
+		this.shadowRad = 30;
 		
 		this.loadResources();
 	}
@@ -109,11 +116,38 @@ public class GameUI extends AnimationTimer{
 		this.diff = diff;
 		this.lblDiff.setText(diff.toString());
 		
-		MapGenerator mp = new MapGenerator();
-//		Map nm = new Map(mp);
-		this.game = new Game(mp);
-		this.tileSize = 48;
+		switch(this.diff){
+		case EASY:
+			this.undoLeft = -1;
+			this.lblUndosLeft.setText("Unlimited");
+			break;
+		case NORMAL:
+			this.undoLeft = 7;
+			this.lblUndosLeft.setText(Integer.toString(this.undoLeft));
+			break;
+		case HARD:
+			this.undoLeft = 3;
+			this.lblUndosLeft.setText(Integer.toString(this.undoLeft));
+			break;
+		case NIGHTMARE:
+			this.undoLeft = 0;
+			this.lblUndosLeft.setText(Integer.toString(this.undoLeft));
+			break;
+		}
 		
+		this.mapGen = new MapGenerator();
+		this.game = new Game(this.mapGen);
+		
+		this.displayMap();
+	}
+	
+	public void restart(){
+		if(this.mapGen == null){
+			System.err.println("You can not restart a game that hasn't started!");
+			return;
+		}
+		
+		this.game = new Game(this.mapGen);
 		this.displayMap();
 	}
 	
@@ -126,6 +160,7 @@ public class GameUI extends AnimationTimer{
 		this.imgBox = new Image("/Images/crate.png");
 		this.imgBoxOnGoal = new Image("/Images/crate-on-goal.png");
 		this.imgGoal = new Image("/Images/goal.png");
+		this.imgShadow = new Image("/Images/shadow.png");
 		this.imgFree = new Image("/Images/whboss_floor-1.png");
 	}
 	
@@ -139,7 +174,9 @@ public class GameUI extends AnimationTimer{
 	protected void displayMap(){
 		GraphicsContext gc = mainCanvas.getGraphicsContext2D();
 		this.clearMap(gc);
-		this.drawMap(gc);
+		this.drawFloor(gc);
+		this.drawShadows(gc);
+		this.drawObjects(gc);
 		this.drawPlayer(gc);
 	}
 	
@@ -154,10 +191,10 @@ public class GameUI extends AnimationTimer{
 	}
 	
 	/**
-	 * Draws the whole level to the canvas.
+	 * Draws the whole floor to the canvas.
 	 * @param gc mainCanva's drawing area
 	 */
-	protected void drawMap(GraphicsContext gc){
+	protected void drawFloor(GraphicsContext gc){
 		int[][] grid = this.game.getGrid();
 		
 		for(int i = 0; i < grid.length; i++) {
@@ -167,7 +204,35 @@ public class GameUI extends AnimationTimer{
 						this.tileSize, this.tileSize);
 			}
 		}
+	}
+	
+	/**
+	 * Draws shadows to the objects to add a level of depth to the game.
+	 * @param gc mainCanva's drawing area
+	 */
+	protected void drawShadows(GraphicsContext gc){
+		int[][] grid = this.game.getGrid();
 		
+		for(int x = 0; x < grid.length; x++){
+			for(int y = 0; y < grid[x].length; y++){
+				if(grid[x][y] == Game.OBSTACLE || grid[x][y] == Game.BOX){
+					gc.drawImage(this.imgShadow, 
+							x * this.tileSize - this.shadowRad,
+							y * this.tileSize - this.shadowRad, 
+							this.tileSize + this.shadowRad * 2,
+							this.tileSize + this.shadowRad * 2);
+				}
+				
+			}
+		}
+	}
+	
+	/**
+	 * Draws the objects to the canvas.
+	 * @param gc mainCanva's drawing area
+	 */
+	protected void drawObjects(GraphicsContext gc){
+		int[][] grid = this.game.getGrid();
 		
 		for(int x = 0; x < grid.length; x++){
 			for(int y = 0; y < grid[x].length; y++){
@@ -317,6 +382,23 @@ public class GameUI extends AnimationTimer{
 		this.displayMap();
 	}
 	
+	protected void undoGame(){
+		if(this.game.canUndoMoves()){
+			if(this.undoLeft > 0 || this.undoLeft < 0){
+				if(this.undoLeft > 0){
+					this.undoLeft--;
+					this.lblUndosLeft.setText(Integer.toString(this.undoLeft));
+				}
+				
+				this.undoCount++;
+				this.lblUndos.setText(Integer.toString(this.undoCount));
+				
+				this.game.undoMove();
+				this.displayMap();
+			}
+		}
+	}
+	
 	/**
 	 * Handles both the back button and undo button
 	 * @param event The type of action used to fire this function
@@ -331,8 +413,7 @@ public class GameUI extends AnimationTimer{
 			}
 			
 		} else if (event.getSource() == undoBtn){
-			this.game.undoMove();
-			this.displayMap();
+			this.undoGame();
 		}
 	}
 	
