@@ -134,6 +134,7 @@ public class TutorialUI extends GameUI{
 		this.clearMap(gc);
 		this.drawFloor(gc);
 		this.drawShadows(gc);
+		this.drawGoals(gc);
 		this.drawTutGoal(gc);
 		this.drawObjects(gc);
 		this.drawPlayer(gc);

@@ -178,6 +178,7 @@ public class GameUI extends AnimationTimer{
 		this.clearMap(gc);
 		this.drawFloor(gc);
 		this.drawShadows(gc);
+		this.drawGoals(gc);
 		this.drawObjects(gc);
 		this.drawPlayer(gc);
 	}
@@ -229,6 +230,15 @@ public class GameUI extends AnimationTimer{
 		}
 	}
 	
+	protected void drawGoals(GraphicsContext gc){
+		ArrayList<Point> goalPoints = (ArrayList<Point>) this.game.getGoalLocs();
+		for(Point gPt : goalPoints){
+			gc.drawImage(this.imgGoal, 
+					gPt.getX() * this.tileSize, gPt.getY() * this.tileSize, 
+					this.tileSize, this.tileSize);
+		}
+	}
+	
 	/**
 	 * Draws the objects to the canvas.
 	 * @param gc mainCanva's drawing area
@@ -269,12 +279,15 @@ public class GameUI extends AnimationTimer{
 					continue;
 				}
 				
+				/*
+				 * Old draw goal code, replaced with a much better version
 				if(grid[x][y] == Game.GOAL){
 					gc.drawImage(this.imgGoal, 
 							x * this.tileSize, y * this.tileSize, 
 							this.tileSize, this.tileSize);
 					continue;
 				}
+				*/
 				
 			}
 		}
@@ -337,9 +350,9 @@ public class GameUI extends AnimationTimer{
 	}
 	
 	/**
-	 * This function is used when anything is needed to be done
-	 * after an animation is finished. The tutorialui class
-	 * overrides this class, making it useful.
+	 * When the animation finishes, we are able to check the state of the map.
+	 * If the state of the map is a state with boxes in all of the goals, this
+	 * will result in a victory.
 	 */
 	protected void finishAnimation(){
 		ArrayList<Point> boxPts = (ArrayList<Point>) this.game.getBoxLocs();
@@ -361,7 +374,6 @@ public class GameUI extends AnimationTimer{
 			this.canMove = false;
 			System.out.println("Victory!");
 		}
-		return;
 	}
 	
 	/**
