@@ -60,8 +60,6 @@ public class TutorialUI extends GameUI{
 	 */
 	private TutorialStage tutorialStage;
 	
-	private boolean canMove;
-	
 	private Image imgTutGoal;
 	
 	private Timeline animTimeline;
@@ -94,6 +92,7 @@ public class TutorialUI extends GameUI{
 		this.game = new Game(mp);
 		this.tutorialStage = TutorialStage.S0_OPENING_MSG;
 		this.tileSize = 56;
+		this.canMove = false;
 		
 		/*
 		 * Initially, we are going to hide the undo button and then
@@ -194,6 +193,7 @@ public class TutorialUI extends GameUI{
 	private void showPopUp(boolean show, Image img){
 		// Here we check if it is the victory pop up to play the animation
 		if(this.tutorialStage == TutorialStage.S12_FINISH){
+			this.popUp.setImage(new Image("/Images/pop-up/win/win_00.png"));
 			this.animTimeline = new Timeline(
 	                new KeyFrame(Duration.ZERO, new KeyValue(this.popUp.imageProperty(), 
 	                		new Image("/Images/pop-up/win/win_00.png"))),
@@ -242,18 +242,6 @@ public class TutorialUI extends GameUI{
 		this.bgCover.setVisible(show);
 		this.canMove = !show;
 		this.displayMap();
-	}
-	
-	/**
-	 * Just need to add a more controlled version of the keypress.
-	 * The functionality is never needed in the main game, thus it
-	 * has being implemented here.
-	 * 
-	 * @param event The key used to fire the function
-	 */
-	@FXML
-	private void controlledKeyPress(KeyEvent event){
-		if(this.canMove) super.onKeyPress(event);
 	}
 	
 	/**

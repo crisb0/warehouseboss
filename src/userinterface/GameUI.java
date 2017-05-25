@@ -58,6 +58,7 @@ public class GameUI extends AnimationTimer{
 	protected Image imgShadow;
 	protected Image imgFree;
 	
+	protected boolean canMove;
 	protected boolean animating;
 	protected double xAnimOffset;
 	protected double yAnimOffset;
@@ -85,6 +86,7 @@ public class GameUI extends AnimationTimer{
 	 */
 	@FXML
 	public void initialize(){
+		this.canMove = true;
 		this.animating = false;
 		this.xAnimOffset = 0;
 		this.yAnimOffset = 0;
@@ -340,6 +342,25 @@ public class GameUI extends AnimationTimer{
 	 * overrides this class, making it useful.
 	 */
 	protected void finishAnimation(){
+		ArrayList<Point> boxPts = (ArrayList<Point>) this.game.getBoxLocs();
+		ArrayList<Point> goalPts = (ArrayList<Point>) this.game.getGoalLocs();
+		
+		int numOnGoal = 0;
+		int numOfGoals = goalPts.size();
+		
+		for(Point gPt : goalPts){
+			for(Point bPt : boxPts){
+				if(gPt.getX() == bPt.getX() && gPt.getY() == bPt.getY()){
+					numOnGoal++;
+					break;
+				}
+			}
+		}
+		
+		if(numOnGoal == numOfGoals){
+			this.canMove = false;
+			System.out.println("Victory!");
+		}
 		return;
 	}
 	
@@ -423,7 +444,7 @@ public class GameUI extends AnimationTimer{
 	 */
 	@FXML
 	protected void onKeyPress(KeyEvent event){
-		if(!this.animating){
+		if(!this.animating && this.canMove){
 			this.prevPPos = this.game.getPlayer().getLoc();
 			
 			if(event.getCode() == KeyCode.W){
