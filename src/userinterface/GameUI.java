@@ -15,12 +15,13 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import map.Map;
 import map.MapGenerator;
 
 /**
@@ -71,12 +72,15 @@ public class GameUI extends AnimationTimer{
 	protected int undoLeft;
 	protected Point prevPPos;
 	
+	@FXML protected ImageView victoryScreen;
 	@FXML protected Canvas mainCanvas;
 	@FXML protected Button backBtn;
+	@FXML protected Button backBtnVic;
 	@FXML protected Button undoBtn;
 	@FXML protected Label lblDiff;
 	@FXML protected Label lblUndos;
 	@FXML protected Label lblUndosLeft;
+	@FXML protected Rectangle bgCover;
 	
 	/**
 	 * This function is called after all of the FXML elements are loaded into
@@ -139,6 +143,9 @@ public class GameUI extends AnimationTimer{
 		
 		this.mapGen = new MapGenerator();
 		this.game = new Game(this.mapGen);
+		this.bgCover.setVisible(false);
+		this.victoryScreen.setVisible(false);
+		this.backBtnVic.setVisible(false);
 		
 		this.displayMap();
 	}
@@ -372,6 +379,10 @@ public class GameUI extends AnimationTimer{
 		
 		if(numOnGoal == numOfGoals){
 			this.canMove = false;
+			this.mainCanvas.setEffect(new GaussianBlur(10));
+			this.bgCover.setVisible(true);
+			this.victoryScreen.setVisible(true);
+			this.backBtnVic.setVisible(true);
 			System.out.println("Victory!");
 		}
 	}
@@ -438,14 +449,14 @@ public class GameUI extends AnimationTimer{
 	 */
 	@FXML
 	protected void onButtonClick(ActionEvent event){
-		if(event.getSource() == backBtn){
+		if(event.getSource() == this.backBtn || event.getSource() == this.backBtnVic){
 			try {
 				this.goBackMain();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 			
-		} else if (event.getSource() == undoBtn){
+		} else if (event.getSource() == this.undoBtn){
 			this.undoGame();
 		}
 	}

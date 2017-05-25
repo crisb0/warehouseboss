@@ -15,8 +15,6 @@ import javafx.scene.control.Button;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 import map.TutorialMap;
 
@@ -68,7 +66,6 @@ public class TutorialUI extends GameUI{
 	private Point stage4Goal;
 	private Point stage9Goal;
 	
-	@FXML private Rectangle bgCover;
 	@FXML private ImageView popUp;
 	@FXML private ImageView flashingArrow;
 	@FXML private Button contBtn;

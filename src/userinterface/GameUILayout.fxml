@@ -9,6 +9,7 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#onKeyPress" prefHeight="600.0" prefWidth="900.0" styleClass="bg" stylesheets="@gameui.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="userinterface.GameUI">
@@ -66,5 +67,12 @@
             <Image url="@../Images/logo.png" />
          </image>
       </ImageView>
+      <Rectangle fx:id="bgCover" arcHeight="5.0" arcWidth="5.0" height="719.0" layoutX="-86.0" layoutY="-69.0" opacity="0.76" stroke="BLACK" strokeType="INSIDE" width="1050.0" />
+      <ImageView fx:id="victoryScreen" fitHeight="219.0" fitWidth="798.0" layoutX="51.0" layoutY="346.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Images/pop-up/victory.png" />
+         </image>
+      </ImageView>
+      <Button id="backbtn" fx:id="backBtnVic" layoutX="350.0" layoutY="552.0" mnemonicParsing="false" onAction="#onButtonClick" prefHeight="40.0" prefWidth="200.0" />
    </children>
 </AnchorPane>
