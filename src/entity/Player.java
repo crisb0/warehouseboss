@@ -16,10 +16,12 @@ public class Player extends Entity {
 	}
 
 	/**
-	 * returns true player is moved. Also updates map[][] and box loc
-	 * @param dir
-	 * @param map
-	 * @return
+	 * An action is performed based on the given Move object. If the action specified
+	 * in the Move object is legal, the map is updated accordingly. If the legal action
+	 * involves a box push, the move() method for the corresponding box is called. 
+	 * @param m the move to be made
+	 * @param map the map of the game
+	 * @return true if move is successful, false otherwise
 	 */
 	public boolean move(Move m, MapGenerator map) {
 		Point newLoc = m.getNewPoint(this.loc); // new player location
