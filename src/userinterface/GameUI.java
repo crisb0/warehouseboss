@@ -93,7 +93,7 @@ public class GameUI extends AnimationTimer{
 	public void initialize(){
 		this.canMove = true;
 		this.animating = false;
-		this.shadowsOn = true;
+		this.shadowsOn = false;
 		this.xAnimOffset = 0;
 		this.yAnimOffset = 0;
 		this.animStepsX = 0;
