@@ -10,8 +10,17 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 /**
+ * GROUP 4 (FRIDAY 9AM BONGO LAB)
+ * MEMBERS:
+ * 	- Alen Huang (z5115782)
+ * 	- Alan Nguyen (z3459160)
+ * 	- Christine Bui (z5060473)
+ * 	- Shyam Sudnar Ravishankar (z3460229)
+ * 	- Charley Wong (z5060076)
+ */
+
+/**
  * The main code that handles the javafx windows programming
- * @author z5115782
  */
 public class MainApplication extends Application{
 	/*

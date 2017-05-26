@@ -11,11 +11,21 @@ import entity.Player;
 import map.MapGenerator;
 
 /**
+ * GROUP 4 (FRIDAY 9AM BONGO LAB)
+ * MEMBERS:
+ * 	- Alen Huang (z5115782)
+ * 	- Alan Nguyen (z3459160)
+ * 	- Christine Bui (z5060473)
+ * 	- Shyam Sudnar Ravishankar (z3460229)
+ * 	- Charley Wong (z5060076)
+ */
+
+// generates puzzle map, reads user input to play game and processes
+/**
  * This is the main game. It holds most of the global variables that are to be
  * used. It also acts the bridge between the user interface and backend map
  * generation.
  * 
- * @author <insert zid>
  */
 public class Game {
 	private Player p;

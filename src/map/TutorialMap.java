@@ -7,6 +7,16 @@ import entity.Box;
 import entity.Player;
 
 /**
+ * GROUP 4 (FRIDAY 9AM BONGO LAB)
+ * MEMBERS:
+ * 	- Alen Huang (z5115782)
+ * 	- Alan Nguyen (z3459160)
+ * 	- Christine Bui (z5060473)
+ * 	- Shyam Sudnar Ravishankar (z3460229)
+ * 	- Charley Wong (z5060076)
+ */
+
+/**
  * Creates a predefined map for the tutorial
  *
  */

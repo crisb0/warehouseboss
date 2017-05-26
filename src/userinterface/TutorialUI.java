@@ -19,12 +19,20 @@ import javafx.util.Duration;
 import map.TutorialMap;
 
 /**
+ * GROUP 4 (FRIDAY 9AM BONGO LAB)
+ * MEMBERS:
+ * 	- Alen Huang (z5115782)
+ * 	- Alan Nguyen (z3459160)
+ * 	- Christine Bui (z5060473)
+ * 	- Shyam Sudnar Ravishankar (z3460229)
+ * 	- Charley Wong (z5060076)
+ */
+
+/**
  * This class essentially extends off the GameUI class and as such
  * there is a working gameloop as well as ui management. A lot of
  * scripted elements have being added ontop of this, allowing for
  * a tutorial to take place.
- * 
- * @author z5115782
  *
  */
 public class TutorialUI extends GameUI{

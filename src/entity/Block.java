@@ -2,6 +2,16 @@ package entity;
 import java.util.ArrayList;
 
 /**
+ * GROUP 4 (FRIDAY 9AM BONGO LAB)
+ * MEMBERS:
+ * 	- Alen Huang (z5115782)
+ * 	- Alan Nguyen (z3459160)
+ * 	- Christine Bui (z5060473)
+ * 	- Shyam Sudnar Ravishankar (z3460229)
+ * 	- Charley Wong (z5060076)
+ */
+
+/**
  * Block Class represents a block of type wall (1), path (0),
  * box(3), goal (2) or player (4). If the type is a path then 
  * it also contains a list of block this block is adjacent to.

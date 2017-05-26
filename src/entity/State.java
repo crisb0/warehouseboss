@@ -3,6 +3,16 @@ import java.awt.Point;
 import java.util.ArrayList;
 
 /**
+ * GROUP 4 (FRIDAY 9AM BONGO LAB)
+ * MEMBERS:
+ * 	- Alen Huang (z5115782)
+ * 	- Alan Nguyen (z3459160)
+ * 	- Christine Bui (z5060473)
+ * 	- Shyam Sudnar Ravishankar (z3460229)
+ * 	- Charley Wong (z5060076)
+ */
+
+/**
  * An instance of state contains the path and a goal block
  * It also contains the states f function value calculated from 
  * f() = g() + h()

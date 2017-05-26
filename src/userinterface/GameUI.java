@@ -25,6 +25,16 @@ import javafx.stage.Stage;
 import map.MapGenerator;
 
 /**
+ * GROUP 4 (FRIDAY 9AM BONGO LAB)
+ * MEMBERS:
+ * 	- Alen Huang (z5115782)
+ * 	- Alan Nguyen (z3459160)
+ * 	- Christine Bui (z5060473)
+ * 	- Shyam Sudnar Ravishankar (z3460229)
+ * 	- Charley Wong (z5060076)
+ */
+
+/**
  * This is the main game class. It holds both the game
  * loop (Well technically only for animation) and the
  * handing of UI elements.
@@ -32,8 +42,6 @@ import map.MapGenerator;
  * This class can also be extended to provide other usability
  * such as making a tutorial for the player. This has being
  * done so in the tutorial ui class.
- * 
- * @author z5115782
  *
  */
 public class GameUI extends AnimationTimer{

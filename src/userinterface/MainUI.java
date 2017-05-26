@@ -25,8 +25,17 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 /**
+ * GROUP 4 (FRIDAY 9AM BONGO LAB)
+ * MEMBERS:
+ * 	- Alen Huang (z5115782)
+ * 	- Alan Nguyen (z3459160)
+ * 	- Christine Bui (z5060473)
+ * 	- Shyam Sudnar Ravishankar (z3460229)
+ * 	- Charley Wong (z5060076)
+ */
+
+/**
  * This class handles the main menu and any action needed to make it work.
- * @author RobustProgram
  *
  */
 public class MainUI {
