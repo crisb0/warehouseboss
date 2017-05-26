@@ -1,7 +1,6 @@
 package entity;
 import java.awt.Point;
 
-import map.Map;
 import map.MapGenerator;
 
 public class Player extends Entity {

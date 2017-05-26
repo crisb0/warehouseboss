@@ -38,7 +38,7 @@ public class CreateSolution {
 			i++;
 			//System.out.println(i);
 		}	
-		System.out.println(this.hicost + " " + this.stateID);
+//		System.out.println(this.hicost + " " + this.stateID);
 		createState();
 		
 	}

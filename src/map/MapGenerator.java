@@ -43,7 +43,7 @@ public class MapGenerator {
 			this.goalLocs = cs.getGoalLocs();
 			this.player = new Player((getPlayerLocation()));
 			cost = cs.getCost();
-			System.out.println(i);
+//			System.out.println(i);
 			i++;
 		}	
 	}

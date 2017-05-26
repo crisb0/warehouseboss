@@ -8,7 +8,6 @@ import java.util.List;
 import entity.Box;
 import entity.Move;
 import entity.Player;
-import map.Map;
 import map.MapGenerator;
 import map.TutorialMap;
 
