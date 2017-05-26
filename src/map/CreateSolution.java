@@ -10,6 +10,11 @@ import java.util.Queue;
 import entity.Block;
 import entity.Box;
 
+/**
+ * Given a map and goals create solution creates a solveable state of that map
+ * by moving players and boxes around
+ *
+ */
 public class CreateSolution {
 	
 	private Block[][] map;
@@ -31,22 +36,24 @@ public class CreateSolution {
 		while(!this.queue.isEmpty() && i < 999){
 			expandState();
 			i++;
-			System.out.println(i);
+			//System.out.println(i);
 		}	
-		
-		/*Set<Integer> keys = states.keySet();
-	    for(Integer key: keys){
-	    	System.out.println("Value of "+key+" is: "+states.get(key));
-	    }*/
 		System.out.println(this.hicost + " " + this.stateID);
 		createState();
 		
 	}
 
+	/**
+	 * Gets the cost of the state with highest cost
+	 * @return
+	 */
 	public int getCost(){
 		return this.hicost;
 	}
 
+	/**
+	 * Creates the state by using the StateID
+	 */
 	private void createState() {
 		if(stateID == 0){
 			return;
@@ -78,22 +85,41 @@ public class CreateSolution {
 		this.boxes.add(box3);
 	}
 	
+	/**
+	 * Gets the co-ordinates of player
+	 * @return
+	 */
 	public Point getPlayer(){
 		return this.player;
 	}
 	
+	/**
+	 * Gets the list of boxes
+	 * @return
+	 */
 	public List<Box> getBoxLocs(){
 		return this.boxes;
 	}
 	
+	/**
+	 * Returns the list of goals
+	 * @return
+	 */
 	public List<Point> getGoalLocs(){
 		return this.goals;
 	}
 	
+	/**
+	 * Returns the puzzle
+	 * @return
+	 */
 	public Block[][] getPuzzle(){
 		return this.map;
 	}
-
+	
+	/**
+	 * Polls the top node from the queue and expands it i.e pulls a box in that state
+	 */
 	private void expandState() {
 		GameState currState = this.queue.poll();
 		currState.expandState();
@@ -120,7 +146,9 @@ public class CreateSolution {
 		}
 	}
 
-
+	/**
+	 * Creates initial game state (i.e with boxes on goal)
+	 */
 	private void createInitialStates() {
 		for(Block b: this.starting){
 			GameState newState = new GameState(b);
@@ -135,6 +163,10 @@ public class CreateSolution {
 		}
 	}
 
+	/**
+	 * Finds all the points from which a box could have been pushed from 
+	 * to be placed in its current state
+	 */
 	private void findStartingPoints() {
 		blankMap();
 		for(Point p : this.goals){
@@ -147,6 +179,9 @@ public class CreateSolution {
 		}
 	}
 	
+	/**
+	 * Blanks the map (just removes the 9s placed by CreateMap)
+	 */
 	private void blankMap() {
 		for(int i = 0; i < this.map.length; i++){
 			for(int j = 0; j < this.map[0].length; j++){
@@ -157,11 +192,16 @@ public class CreateSolution {
 		}
 	}
 
-
+	/**
+	 * Given a block it reutrn all possible block the given block could 
+	 * have been pushed from
+	 * @param block
+	 * @return
+	 */
 	private ArrayList<Block> startingPointsForGoal(Block block) {
 		ArrayList<Block> s = new ArrayList<Block>();
-		int i = block.getI();
-		int j = block.getJ();
+		int i = block.getX();
+		int j = block.getY();
 		if(j-1 >= 1 && this.map[i][j-1].getType() != 1 && this.map[i][j-2].getType() != 1){
 			s.add(this.map[i][j-1]);
 		} 

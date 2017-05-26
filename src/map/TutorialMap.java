@@ -6,11 +6,16 @@ import java.util.Scanner;
 import entity.Box;
 import entity.Player;
 
+/**
+ * Creates a predefined map for the tutorial
+ *
+ */
 public class TutorialMap extends MapGenerator {
 	
 	private String preDefMap;
 	private int[][] grid;
 	
+
 	public TutorialMap(){
 		this.preDefMap = "1 1 1 1 1 1 1 1 1 1\n" + 
 						 "1 1 1 1 1 0 0 0 0 1\n" + 
@@ -38,6 +43,9 @@ public class TutorialMap extends MapGenerator {
 		this.player = new Player(this.playerLocation);
 	}
 	
+	/**
+	 * sets up the tutorial
+	 */
 	protected void setUpTutorial(){
 		int y = 0;
 		

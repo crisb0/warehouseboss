@@ -1,14 +1,17 @@
 package map;
 import java.awt.Point;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Random;
 
 import entity.Block;
 import entity.Box;
 import entity.Player;
 
+/**
+ * Generates a map in a state where it can be solved
+ * @author shyam
+ *
+ */
 public class MapGenerator {
 	
 	protected static final int FREE_SPACE = 0;
@@ -24,14 +27,16 @@ public class MapGenerator {
 	protected List<Point> goalLocs;
 	protected Player player;
 	
+	/**
+	 * Taken in difficulty
+	 * @param diff
+	 */
 	public MapGenerator(String diff){
 		int cost = 0;
 		int i =0;
 		int intDiff = getIntDiff(diff);
 		while(cost <= intDiff){
 			CreateMap cm  = new CreateMap();
-			//FindSolution fs = new FindSolution(cm.getPuzzle(), cm.getGoalLocs());
-			//FindSolution fs = new FindSolution(cm.preDefMap(), cm.getGoalLocs());
 			CreateSolution cs = new CreateSolution(cm.getPuzzle(), cm.getGoalLocs());
 			this.puzzle = cs.getPuzzle();
 			this.setPlayerLocation(cs.getPlayer());
@@ -43,28 +48,27 @@ public class MapGenerator {
 			i++;
 		}	
 	}
-	public MapGenerator(){
-		CreateMap cm  = new CreateMap();
-		//FindSolution fs = new FindSolution(cm.getPuzzle(), cm.getGoalLocs());
-		//FindSolution fs = new FindSolution(cm.preDefMap(), cm.getGoalLocs());
-		CreateSolution cs = new CreateSolution(cm.getPuzzle(), cm.getGoalLocs());
-		this.puzzle = cs.getPuzzle();
-		this.setPlayerLocation(cs.getPlayer());
-		this.boxLocs = cs.getBoxLocs();
-		this.goalLocs = cs.getGoalLocs();
-		this.player = new Player((getPlayerLocation()));
-	}
+	
+	public MapGenerator(){}
 
+	/**
+	 * Given difficulty it return the minimum length of solution
+	 * @param diff
+	 * @return
+	 */
 	private int getIntDiff(String diff) {
 		if(diff.equals("EASY")){
-			return 5;
+			return 3;
 		} else if(diff.equals("HARD")){
-			return 15;
-		} else {
 			return 10;
+		} else {
+			return 7;
 		}
 	}
 
+	/**
+	 * Displays the puzzle for the game
+	 */
 	public void displayPuzzle() {
 		for(int i = 0; i < DIMENSIONS; i++){
 			for(int j = 0; j < DIMENSIONS; j++){
@@ -74,6 +78,10 @@ public class MapGenerator {
 		}
 	}
 
+	/**
+	 * Return an int[][] of the game as defined in the fields above
+	 * @return
+	 */
 	public int[][] getGrid() {
 		int[][] grid = new int[DIMENSIONS][DIMENSIONS];
 		for(int i = 0; i < grid.length; i++){
@@ -88,6 +96,11 @@ public class MapGenerator {
 		return grid;
 	}
 	
+	/**
+	 * Adds a box given x and y co-ordinate to the list of boxes
+	 * @param x
+	 * @param y
+	 */
 	public void addBox(int x, int y){
 		this.boxLocs.add(new Box(new Point(x,y)));
 	}
@@ -96,10 +109,15 @@ public class MapGenerator {
 	 * updates Map[x][y] to equal CODE(0,1,2,3,4)
 	 */
 	public void updateMap(int code, int x, int y) {
-//		this.getGrid()[x][y] = code;
 		this.puzzle[x][y] = new Block(code, x, y);
 	}
 
+	/**
+	 * Returns box at point p
+	 * Return null if there is no box
+	 * @param p
+	 * @return
+	 */
 	public Box getBox(Point p) {
 		Box b = null;
 		if (this.getGrid()[(int) p.getX()][(int) p.getY()] == BOX) {
@@ -154,22 +172,43 @@ public class MapGenerator {
 		return false;
 	}
 
+	/**
+	 * 
+	 * @return player location
+	 */
 	public Point getStartingPlayerLoc() {
 		return this.getPlayerLocation();
 	}
-
+	
+	/**
+	 * 
+	 * @return list of boxes 
+	 */
 	public List<Box> getBoxLocs() {
 		return this.boxLocs;
 	}
 
+	/**
+	 * 
+	 * @return list of goals
+	 */
 	public List<Point> getGoalLocs() {
 		return this.goalLocs;
 	}
 
+	/**
+	 * 
+	 * @return player location
+	 */
 	public Player getPlayer() {
 		return player;
 	}
 
+	/**
+	 * 
+	 * @param point 
+	 * @return true if p is player and false if p is not
+	 */
 	public boolean isPlayer(Point p) {
 		try {
 		if (this.getGrid()[(int) p.getX()][(int) p.getY()] == PLAYER)
@@ -178,9 +217,19 @@ public class MapGenerator {
 		catch (ArrayIndexOutOfBoundsException e) {}
 		return false;
 	}
+	
+	/**
+	 * 
+	 * @return player location
+	 */
 	public Point getPlayerLocation() {
 		return playerLocation;
 	}
+	
+	/**
+	 * 
+	 * @param sets playerLocation
+	 */
 	public void setPlayerLocation(Point playerLocation) {
 		this.playerLocation = playerLocation;
 	}
