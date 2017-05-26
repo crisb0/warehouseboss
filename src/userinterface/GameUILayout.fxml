@@ -67,12 +67,12 @@
             <Image url="@../Images/logo.png" />
          </image>
       </ImageView>
-      <Rectangle fx:id="bgCover" arcHeight="5.0" arcWidth="5.0" height="719.0" layoutX="-86.0" layoutY="-69.0" opacity="0.76" stroke="BLACK" strokeType="INSIDE" width="1050.0" />
-      <ImageView fx:id="victoryScreen" fitHeight="219.0" fitWidth="798.0" layoutX="51.0" layoutY="346.0" pickOnBounds="true" preserveRatio="true">
+      <Rectangle fx:id="bgCover" arcHeight="5.0" arcWidth="5.0" height="719.0" layoutX="-86.0" layoutY="-69.0" opacity="0.76" stroke="BLACK" strokeType="INSIDE" visible="false" width="1050.0" />
+      <ImageView fx:id="victoryScreen" fitHeight="219.0" fitWidth="798.0" layoutX="51.0" layoutY="346.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@../Images/pop-up/victory.png" />
          </image>
       </ImageView>
-      <Button id="backbtn" fx:id="backBtnVic" layoutX="350.0" layoutY="552.0" mnemonicParsing="false" onAction="#onButtonClick" prefHeight="40.0" prefWidth="200.0" />
+      <Button id="backbtn" fx:id="backBtnVic" layoutX="350.0" layoutY="552.0" mnemonicParsing="false" onAction="#onButtonClick" prefHeight="40.0" prefWidth="200.0" visible="false" />
    </children>
 </AnchorPane>

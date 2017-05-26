@@ -8,15 +8,19 @@ import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -32,6 +36,15 @@ public class MainUI {
 	private FadeTransition diffMFadeOut;
 	private FadeTransition diffMFadeIn;
 	
+	private Image bgAnimFrame0;
+	private Image bgAnimFrame1;
+	private Image bgAnimFrame2;
+	private Image bgAnimFrame3;
+	private Image bgAnimFrame4;
+	
+	// Last minute addition
+	private Scene gameUIScene;
+	
 	@FXML private ImageView backgroundImg;
 	@FXML private Button startBtn;
 	@FXML private Button tutBtn;
@@ -42,6 +55,10 @@ public class MainUI {
 	@FXML private Button returnBtn;
 	@FXML private GridPane mainMenu;
 	@FXML private GridPane diffMenu;
+	@FXML private ProgressBar progressBar;
+	@FXML private Rectangle progressBG;
+	@FXML private Label lblProgress;
+	@FXML private Button cancelProgress;
 	
 	/**
 	 * This function is called after all of the FXML elements are loaded into
@@ -83,28 +100,28 @@ public class MainUI {
 		this.diffMFadeIn.setCycleCount(1);
 		this.diffMFadeIn.setAutoReverse(false);
 		
+		this.bgAnimFrame0 = new Image("/Images/whb1.png");
+		this.bgAnimFrame1 = new Image("/Images/whb2.png");
+		this.bgAnimFrame2 = new Image("/Images/whb3.png");
+		this.bgAnimFrame3 = new Image("/Images/whb4.png");
+		this.bgAnimFrame4 = new Image("/Images/whb5.png");
+		
 		/*
 		 * We kickstart the animation that is suppose to run in the background
 		 */
 		this.backgroundAnim = new Timeline(
-                new KeyFrame(Duration.ZERO, new KeyValue(this.backgroundImg.imageProperty(), 
-//                		new Image("/Images/s_whboss0.png"))),
-                		new Image("/Images/whb1.png"))),
-                new KeyFrame(Duration.millis(200), new KeyValue(this.backgroundImg.imageProperty(), 
-//                		new Image("/Images/s_whboss1.png"))),
-                		new Image("/Images/whb2.png"))),
-                new KeyFrame(Duration.millis(400), new KeyValue(this.backgroundImg.imageProperty(), 
-//                		new Image("/Images/s_whboss2.png"))),
-                		new Image("/Images/whb3.png"))),
-                new KeyFrame(Duration.millis(600), new KeyValue(this.backgroundImg.imageProperty(), 
-//                		new Image("/Images/s_whboss3.png"))),
-                		new Image("/Images/whb4.png"))),
-                new KeyFrame(Duration.millis(800), new KeyValue(this.backgroundImg.imageProperty(), 
-//                		new Image("/Images/s_whboss4.png"))),
-                		new Image("/Images/whb5.png"))),
-                new KeyFrame(Duration.millis(1000), new KeyValue(this.backgroundImg.imageProperty(), 
-//                		new Image("/Images/s_whboss0.png")))
-                		new Image("/Images/whb3.png")))
+                new KeyFrame(Duration.ZERO, new KeyValue(this.backgroundImg.imageProperty(),
+                		this.bgAnimFrame0)),
+                new KeyFrame(Duration.millis(200), new KeyValue(this.backgroundImg.imageProperty(),
+                		this.bgAnimFrame1)),
+                new KeyFrame(Duration.millis(400), new KeyValue(this.backgroundImg.imageProperty(),
+                		this.bgAnimFrame2)),
+                new KeyFrame(Duration.millis(600), new KeyValue(this.backgroundImg.imageProperty(),
+                		this.bgAnimFrame3)),
+                new KeyFrame(Duration.millis(800), new KeyValue(this.backgroundImg.imageProperty(),
+                		this.bgAnimFrame4)),
+                new KeyFrame(Duration.millis(1000), new KeyValue(this.backgroundImg.imageProperty(),
+                		this.bgAnimFrame2))
                 );
 		this.backgroundAnim.setCycleCount(Timeline.INDEFINITE);
 		this.backgroundAnim.play();
@@ -141,6 +158,7 @@ public class MainUI {
 			this.diffMFadeOut.playFromStart();
 			
 		} else if (event.getSource() == this.tutBtn){
+			if(Game.isLoading) return;
 			/*
 			 * We must always stop the animation for the background or else
 			 * it will cause a memory leak due to the fact that it is set
@@ -154,6 +172,9 @@ public class MainUI {
 			stage.setScene(tutUIScene);
 			stage.show();
 			
+		} else if (event.getSource() == this.cancelProgress){
+			Game.isLoading = false;
+			this.hideLoadingBar();
 		} else if (event.getSource() == this.exitBtn){
 			Platform.exit();
 		}
@@ -168,6 +189,49 @@ public class MainUI {
 	 */
 	@FXML
 	private void onDiffBtnClick(ActionEvent event) throws IOException{
+		if(Game.isLoading) return;
+		Game.isLoading = true;
+		
+		FXMLLoader gameUILoader = new FXMLLoader(getClass().getResource("GameUILayout.fxml"));
+		this.gameUIScene = new Scene((Parent) gameUILoader.load(), MainApplication.WIDTH, MainApplication.HEIGHT);
+		GameUI gameUIController = gameUILoader.getController();
+		
+		this.showLoadingBar();
+		
+		/*
+		 * Here we are going to delegate all of the code generation into a
+		 * different thread.
+		 * 
+		 * We will then set the main UI to show a progress bar with a ETA
+		 * on when this will finish.
+		 */
+		Task<Void> task = new Task<Void>(){
+			@Override
+			protected Void call() throws Exception {
+				
+				if(event.getSource() == easyBtn)
+					gameUIController.setDifficulty(Game.Difficulty.EASY);
+				else if(event.getSource() == normalBtn)
+					gameUIController.setDifficulty(Game.Difficulty.NORMAL);
+				else if(event.getSource() == hardBtn)
+					gameUIController.setDifficulty(Game.Difficulty.HARD);
+				
+				Platform.runLater(() -> switchScene());
+				return null;
+			}
+		};
+		
+		new Thread(task).start();
+	}
+	
+	/**
+	 * Last minute addition for the loading bar.
+	 * 
+	 * @precondition gameUIScene is not a null and has already being set before
+	 * this function has being called.
+	 */
+	private void switchScene(){
+		Game.isLoading = false;
 		/*
 		 * We must always stop the animation for the background or else
 		 * it will cause a memory leak due to the fact that it is set
@@ -176,18 +240,32 @@ public class MainUI {
 		this.backgroundAnim.stop();
 		this.backgroundAnim = null;
 		
-		FXMLLoader gameUILoader = new FXMLLoader(getClass().getResource("GameUILayout.fxml"));
-		Scene gameUIScene = new Scene((Parent) gameUILoader.load(), MainApplication.WIDTH, MainApplication.HEIGHT);
-		GameUI gameUIController = gameUILoader.getController();
-		
-		if(event.getSource() == this.easyBtn)
-			gameUIController.setDifficulty(Game.Difficulty.EASY);
-		else if(event.getSource() == this.normalBtn)
-			gameUIController.setDifficulty(Game.Difficulty.NORMAL);
-		else if(event.getSource() == this.hardBtn)
-			gameUIController.setDifficulty(Game.Difficulty.HARD);
 		Stage stage = (Stage) this.startBtn.getScene().getWindow();
-		stage.setScene(gameUIScene);
+		stage.setScene(this.gameUIScene);
 		stage.show();
+	}
+	
+	/**
+	 * Show the loading bar, black background and back button to the 
+	 * user
+	 */
+	private void showLoadingBar(){
+		this.lblProgress.setVisible(true);
+		this.progressBar.setVisible(true);
+		this.progressBG.setVisible(true);
+		this.cancelProgress.setDisable(false);
+		this.cancelProgress.setVisible(true);
+	}
+	
+	/**
+	 * Hides the loading bar, black background and back button to the 
+	 * user
+	 */
+	private void hideLoadingBar(){
+		this.lblProgress.setVisible(false);
+		this.progressBar.setVisible(false);
+		this.progressBG.setVisible(false);
+		this.cancelProgress.setDisable(true);
+		this.cancelProgress.setVisible(false);
 	}
 }

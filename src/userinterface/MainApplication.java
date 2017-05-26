@@ -1,5 +1,8 @@
 package userinterface;
 
+import java.io.File;
+
+import game.Game;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -37,6 +40,11 @@ public class MainApplication extends Application{
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	@Override
+	public void stop(){
+		Game.isLoading = false;
 	}
 	
 	public static void main(String[] args) {

@@ -9,6 +9,7 @@ import java.util.Queue;
 
 import entity.Block;
 import entity.Box;
+import game.Game;
 
 public class CreateSolution {
 	
@@ -29,10 +30,13 @@ public class CreateSolution {
 		createInitialStates();
 		int i = 0;
 		while(!this.queue.isEmpty() && i < 999){
+			if(!Game.isLoading) break;
+			
 			expandState();
 			i++;
 			System.out.println(i);
-		}	
+		}
+		if(!Game.isLoading) return;
 		
 		/*Set<Integer> keys = states.keySet();
 	    for(Integer key: keys){

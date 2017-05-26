@@ -66,6 +66,25 @@ public class TutorialUI extends GameUI{
 	private Point stage4Goal;
 	private Point stage9Goal;
 	
+	private Image arrowIndFrame0;
+	private Image arrowIndFrame1;
+	private Image arrowIndFrame2;
+	private Image arrowIndFrame3;
+	private Image arrowIndFrame4;
+	
+	private Image vicFrame0;
+	private Image vicFrame1;
+	private Image vicFrame2;
+	private Image vicFrame3;
+	private Image vicFrame4;
+	private Image vicFrame5;
+	private Image vicFrame6;
+	private Image vicFrame7;
+	private Image vicFrame8;
+	private Image vicFrame9;
+	private Image vicFrame10;
+	private Image vicFrame11;
+	
 	@FXML private ImageView popUp;
 	@FXML private ImageView flashingArrow;
 	@FXML private Button contBtn;
@@ -153,6 +172,25 @@ public class TutorialUI extends GameUI{
 	 */
 	private void loadTutResources(){
 		this.imgTutGoal = new Image("/Images/circle-of-life.png");
+		
+		this.arrowIndFrame0 = new Image("/Images/btn-ui/flash-arrow/flash-arrow-0.png");
+		this.arrowIndFrame1 = new Image("/Images/btn-ui/flash-arrow/flash-arrow-1.png");
+		this.arrowIndFrame2 = new Image("/Images/btn-ui/flash-arrow/flash-arrow-2.png");
+		this.arrowIndFrame3 = new Image("/Images/btn-ui/flash-arrow/flash-arrow-3.png");
+		this.arrowIndFrame4 = new Image("/Images/btn-ui/flash-arrow/flash-arrow-4.png");
+		
+		this.vicFrame0 = new Image("/Images/pop-up/win/win_00.png");
+		this.vicFrame1 = new Image("/Images/pop-up/win/win_01.png");
+		this.vicFrame2 = new Image("/Images/pop-up/win/win_02.png");
+		this.vicFrame3 = new Image("/Images/pop-up/win/win_03.png");
+		this.vicFrame4 = new Image("/Images/pop-up/win/win_04.png");
+		this.vicFrame5 = new Image("/Images/pop-up/win/win_05.png");
+		this.vicFrame6 = new Image("/Images/pop-up/win/win_06.png");
+		this.vicFrame7 = new Image("/Images/pop-up/win/win_07.png");
+		this.vicFrame8 = new Image("/Images/pop-up/win/win_08.png");
+		this.vicFrame9 = new Image("/Images/pop-up/win/win_09.png");
+		this.vicFrame10 = new Image("/Images/pop-up/win/win_10.png");
+		this.vicFrame11 = new Image("/Images/pop-up/win/win_11.png");
 	}
 	
 	/**
@@ -191,34 +229,34 @@ public class TutorialUI extends GameUI{
 	private void showPopUp(boolean show, Image img){
 		// Here we check if it is the victory pop up to play the animation
 		if(this.tutorialStage == TutorialStage.S12_FINISH){
-			this.popUp.setImage(new Image("/Images/pop-up/win/win_00.png"));
+			this.popUp.setImage(this.vicFrame0);
 			this.animTimeline = new Timeline(
 	                new KeyFrame(Duration.ZERO, new KeyValue(this.popUp.imageProperty(), 
-	                		new Image("/Images/pop-up/win/win_00.png"))),
+	                		this.vicFrame0)),
 	                new KeyFrame(Duration.millis(100), new KeyValue(this.popUp.imageProperty(), 
-	                		new Image("/Images/pop-up/win/win_01.png"))),
+	                		this.vicFrame1)),
 	                new KeyFrame(Duration.millis(200), new KeyValue(this.popUp.imageProperty(), 
-	                		new Image("/Images/pop-up/win/win_02.png"))),
+	                		this.vicFrame2)),
 	                new KeyFrame(Duration.millis(300), new KeyValue(this.popUp.imageProperty(), 
-	                		new Image("/Images/pop-up/win/win_03.png"))),
+	                		this.vicFrame3)),
 	                new KeyFrame(Duration.millis(400), new KeyValue(this.popUp.imageProperty(), 
-	                		new Image("/Images/pop-up/win/win_04.png"))),
+	                		this.vicFrame4)),
 	                new KeyFrame(Duration.millis(500), new KeyValue(this.popUp.imageProperty(), 
-	                		new Image("/Images/pop-up/win/win_05.png"))),
+	                		this.vicFrame5)),
 	                new KeyFrame(Duration.millis(600), new KeyValue(this.popUp.imageProperty(), 
-	                		new Image("/Images/pop-up/win/win_06.png"))),
+	                		this.vicFrame6)),
 	                new KeyFrame(Duration.millis(700), new KeyValue(this.popUp.imageProperty(), 
-	                		new Image("/Images/pop-up/win/win_07.png"))),
+	                		this.vicFrame7)),
 	                new KeyFrame(Duration.millis(800), new KeyValue(this.popUp.imageProperty(), 
-	                		new Image("/Images/pop-up/win/win_08.png"))),
+	                		this.vicFrame8)),
 	                new KeyFrame(Duration.millis(900), new KeyValue(this.popUp.imageProperty(), 
-	                		new Image("/Images/pop-up/win/win_09.png"))),
+	                		this.vicFrame9)),
 	                new KeyFrame(Duration.millis(1000), new KeyValue(this.popUp.imageProperty(), 
-	                		new Image("/Images/pop-up/win/win_10.png"))),
+	                		this.vicFrame10)),
 	                new KeyFrame(Duration.millis(1100), new KeyValue(this.popUp.imageProperty(), 
-	                		new Image("/Images/pop-up/win/win_11.png"))),
+	                		this.vicFrame11)),
 	                new KeyFrame(Duration.millis(1200), new KeyValue(this.popUp.imageProperty(), 
-	                		new Image("/Images/pop-up/win/win_00.png")))
+	                		this.vicFrame0))
 	                );
 			this.animTimeline.setCycleCount(Timeline.INDEFINITE);
 			this.animTimeline.play();
@@ -437,17 +475,17 @@ public class TutorialUI extends GameUI{
 			this.flashingArrow.setVisible(true);
 			this.animTimeline = new Timeline(
 	                new KeyFrame(Duration.ZERO, new KeyValue(this.flashingArrow.imageProperty(), 
-	                		new Image("/Images/btn-ui/flash-arrow/flash-arrow-0.png"))),
+	                		this.arrowIndFrame0)),
 	                new KeyFrame(Duration.millis(200), new KeyValue(this.flashingArrow.imageProperty(), 
-	                		new Image("/Images/btn-ui/flash-arrow/flash-arrow-1.png"))),
+	                		this.arrowIndFrame1)),
 	                new KeyFrame(Duration.millis(400), new KeyValue(this.flashingArrow.imageProperty(), 
-	                		new Image("/Images/btn-ui/flash-arrow/flash-arrow-2.png"))),
+	                		this.arrowIndFrame2)),
 	                new KeyFrame(Duration.millis(600), new KeyValue(this.flashingArrow.imageProperty(), 
-	                		new Image("/Images/btn-ui/flash-arrow/flash-arrow-3.png"))),
+	                		this.arrowIndFrame3)),
 	                new KeyFrame(Duration.millis(800), new KeyValue(this.flashingArrow.imageProperty(), 
-	                		new Image("/Images/btn-ui/flash-arrow/flash-arrow-4.png"))),
+	                		this.arrowIndFrame4)),
 	                new KeyFrame(Duration.millis(1000), new KeyValue(this.flashingArrow.imageProperty(), 
-	                		new Image("/Images/btn-ui/flash-arrow/flash-arrow-0.png")))
+	                		this.arrowIndFrame0))
 	                );
 			this.animTimeline.setCycleCount(Timeline.INDEFINITE);
 			this.animTimeline.play();

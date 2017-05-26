@@ -151,16 +151,6 @@ public class GameUI extends AnimationTimer{
 		this.displayMap();
 	}
 	
-	public void restart(){
-		if(this.mapGen == null){
-			System.err.println("You can not restart a game that hasn't started!");
-			return;
-		}
-		
-		this.game = new Game(this.mapGen);
-		this.displayMap();
-	}
-	
 	/**
 	 * Loads all of the resources needed to render out the map.
 	 */
@@ -386,7 +376,6 @@ public class GameUI extends AnimationTimer{
 			this.bgCover.setVisible(true);
 			this.victoryScreen.setVisible(true);
 			this.backBtnVic.setVisible(true);
-			System.out.println("Victory!");
 		}
 	}
 	

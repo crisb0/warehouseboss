@@ -8,6 +8,7 @@ import java.util.Random;
 import entity.Block;
 import entity.Box;
 import entity.Player;
+import game.Game;
 
 public class MapGenerator {
 	
@@ -29,6 +30,7 @@ public class MapGenerator {
 		int i =0;
 		int intDiff = getIntDiff(diff);
 		while(cost <= intDiff){
+			if(!Game.isLoading) break;
 			CreateMap cm  = new CreateMap();
 			//FindSolution fs = new FindSolution(cm.getPuzzle(), cm.getGoalLocs());
 			//FindSolution fs = new FindSolution(cm.preDefMap(), cm.getGoalLocs());
@@ -44,15 +46,8 @@ public class MapGenerator {
 		}	
 	}
 	public MapGenerator(){
-		CreateMap cm  = new CreateMap();
-		//FindSolution fs = new FindSolution(cm.getPuzzle(), cm.getGoalLocs());
-		//FindSolution fs = new FindSolution(cm.preDefMap(), cm.getGoalLocs());
-		CreateSolution cs = new CreateSolution(cm.getPuzzle(), cm.getGoalLocs());
-		this.puzzle = cs.getPuzzle();
-		this.setPlayerLocation(cs.getPlayer());
-		this.boxLocs = cs.getBoxLocs();
-		this.goalLocs = cs.getGoalLocs();
-		this.player = new Player((getPlayerLocation()));
+		this.boxLocs = new ArrayList<Box>();
+		this.goalLocs = new ArrayList<Point>();
 	}
 
 	private int getIntDiff(String diff) {
