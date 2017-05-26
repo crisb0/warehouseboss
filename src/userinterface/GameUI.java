@@ -142,7 +142,7 @@ public class GameUI extends AnimationTimer{
 			break;
 		}
 		
-		this.mapGen = new MapGenerator();
+		this.mapGen = new MapGenerator(this.diff.toString());
 		this.game = new Game(this.mapGen);
 		this.bgCover.setVisible(false);
 		this.victoryScreen.setVisible(false);
