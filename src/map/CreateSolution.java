@@ -49,15 +49,11 @@ public class CreateSolution {
 			
 			expandState();
 			i++;
-			System.out.println(i);
+//			System.out.println(i);
 		}
 		if(!Game.isLoading) return;
 		
-		/*Set<Integer> keys = states.keySet();
-	    for(Integer key: keys){
-	    	System.out.println("Value of "+key+" is: "+states.get(key));
-	    }*/
-		System.out.println(this.hicost + " " + this.stateID);
+//		System.out.println(this.hicost + " " + this.stateID);
 
 		createState();
 		
