@@ -1,7 +1,5 @@
 package userinterface;
 
-import java.io.File;
-
 import game.Game;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
