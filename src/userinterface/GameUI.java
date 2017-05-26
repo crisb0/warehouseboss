@@ -61,6 +61,7 @@ public class GameUI extends AnimationTimer{
 	
 	protected boolean canMove;
 	protected boolean animating;
+	protected boolean shadowsOn;
 	protected double xAnimOffset;
 	protected double yAnimOffset;
 	protected double animStepsX;
@@ -92,6 +93,7 @@ public class GameUI extends AnimationTimer{
 	public void initialize(){
 		this.canMove = true;
 		this.animating = false;
+		this.shadowsOn = true;
 		this.xAnimOffset = 0;
 		this.yAnimOffset = 0;
 		this.animStepsX = 0;
@@ -107,8 +109,7 @@ public class GameUI extends AnimationTimer{
 		// the player's sprite sheet.
 		this.spriteSize = 48;
 		// Here, we are going to set the radius of the shadow
-		this.shadowRad = 30;
-		
+		this.shadowRad = 20;
 		this.loadResources();
 	}
 	
@@ -221,6 +222,8 @@ public class GameUI extends AnimationTimer{
 	 * @param gc mainCanva's drawing area
 	 */
 	protected void drawShadows(GraphicsContext gc){
+		if(!this.shadowsOn) return;
+		
 		int[][] grid = this.game.getGrid();
 		
 		for(int x = 0; x < grid.length; x++){
