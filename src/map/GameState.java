@@ -137,7 +137,6 @@ public class GameState {
 		this.cost++;
 	}
 
-
 	private Box findBox() {
 		int Px = (int) this.player.getX();
 		int Py = (int) this.player.getY();
