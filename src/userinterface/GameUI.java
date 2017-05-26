@@ -99,7 +99,7 @@ public class GameUI extends AnimationTimer{
 		this.tileSize = 70;
 		// The sprite size refers to the size of the sprites draw in
 		// the player's sprite sheet.
-		this.spriteSize = 48;
+		this.spriteSize = 80;
 		// Here, we are going to set the radius of the shadow
 		this.shadowRad = 30;
 		
