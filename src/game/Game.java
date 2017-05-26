@@ -8,9 +8,7 @@ import java.util.List;
 import entity.Box;
 import entity.Move;
 import entity.Player;
-import map.Map;
 import map.MapGenerator;
-import map.TutorialMap;
 
 /**
  * This is the main game. It holds most of the global variables that are to be
@@ -72,32 +70,32 @@ public class Game {
 	 * Add a box object to the level
 	 * @precondition x is within the grid
 	 * @precondition y is within the grid
-	 * @param x The x coordinate
-	 * @param y The y coordinate
+	 * @param x The x co-ordinate
+	 * @param y The y co-ordinate
 	 */
 	public void addBox(int x, int y){
 		this.map.addBox(x, y);
 	}
-	
+
 	/**
-	 *
-	 * @return The width of the grid
+	 * returns max width of grid
+	 * @return
 	 */
 	public int getMaxWidth(){
 		return this.width;
 	}
-	
+
 	/**
-	 * 
-	 * @return The maximum height of the grid
+	 * returns max height of grid
+	 * @return
 	 */
 	public int getMaxHeight(){
 		return this.height;
 	}
-	
+
 	/**
-	 * 
-	 * @return The whole grid object
+	 * gets grid
+	 * @return
 	 */
 	public int[][] getGrid(){
 		return this.map.getGrid();
@@ -110,7 +108,7 @@ public class Game {
 	public MapGenerator getMap(){
 		return this.map;
 	}
-	
+
 	/**
 	 * 
 	 * @return The player object
@@ -120,8 +118,8 @@ public class Game {
 	}
 	
 	/**
-	 * 
-	 * @return All of the location of the boxes
+	 * returns a list of points which represent the coordinates of all box locations
+	 * @return
 	 */
 	public List<Point> getBoxLocs() {
 		/*
@@ -138,15 +136,16 @@ public class Game {
 		
 		return points;
 	}
-	
+
 	/**
-	 * 
-	 * @return The location of all of the goals
+	 * returns a list of goal locations
+	 * @return
 	 */
 	public List<Point> getGoalLocs() {
 		return this.map.getGoalLocs();
 	}
-	
+
+
 	/**
 	 * Register the player's move in the map and change the
 	 * map state according to the new player position.
@@ -169,26 +168,26 @@ public class Game {
 		return false;
 		
 	}
-	
+
 	/**
-	 * Change the level by changing a section of the grid
+	 * Updates map to be new entity
 	 * 
 	 * @precondition Code is a valid code
 	 * @precondition x is within the grid
 	 * @precondition y is within the grid
-	 * @param code The type of object to change the section to
-	 * @param x The x coordinate
-	 * @param y The y coordinate
+	 * @param code - integer representation of new entity
+	 * @param x - x co-ordinate
+	 * @param y - y co-ordinate
 	 */
 	public void updateMap(int code, int x, int y) {
 		this.map.updateMap(code, x, y);
 	}
-	
+
 	/**
 	 * Returns the map to the previous state
 	 * 
-	 * @return A flag indicating whether the undo was
-	 * successful or not.
+	 * @return true if undo is carried out
+	 * @return false if undo cannot be done
 	 */
 	public boolean undoMove() {
 		if (!prevMoves.isEmpty()) {
@@ -202,13 +201,13 @@ public class Game {
 	
 	/**
 	 *
-	 * @return A flag indicating whether the player is able
-	 * to undo a move.
+	 * @return true if prevMoves is not empty
+	 * @return false if prevMoves is empty
 	 */
 	public boolean canUndoMoves(){
 		return !prevMoves.isEmpty();
 	}
-	
+
 	/**
 	 * Clear all previous player states from memory
 	 */

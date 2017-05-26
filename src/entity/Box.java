@@ -10,6 +10,10 @@ public class Box extends Entity {
 	}
 
 	// let the box update the map when it moves
+	
+	/**
+	 * Makes a move and updates map accordingly
+	 */
 	public boolean move(Move m, MapGenerator map) {
 		Point newBoxLoc = null;
 		if (m.isUndo()) {

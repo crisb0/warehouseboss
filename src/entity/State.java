@@ -2,6 +2,11 @@ package entity;
 import java.awt.Point;
 import java.util.ArrayList;
 
+/**
+ * An instance of state contains the path and a goal block
+ * It also contains the states f function value calculated from 
+ * f() = g() + h()
+ */
 public class State implements Comparable<State> {
 	
 	private int f;
@@ -14,7 +19,7 @@ public class State implements Comparable<State> {
 		this.end = end;
 	}
 
-	@Override
+	@Override 
 	public int compareTo(State s) {
 		if(this.f > s.getF()){
 			return 1;
@@ -24,20 +29,29 @@ public class State implements Comparable<State> {
 		return 0;
 	}
 	
-
+	/**
+	 * Returns this states f value
+	 * @return
+	 */
 	public int getF() {
 		return this.f;
 	}
 
-
+	/**
+	 * Checks if this state is end state i.e path contains goal
+	 * @return
+	 */
 	public boolean isEndState() {
-		if(this.path.get(this.path.size()-1).getI() == (int) this.end.getX() && this.path.get(this.path.size()-1).getJ() == (int) this.end.getY()){
+		if(this.path.get(this.path.size()-1).getX() == (int) this.end.getX() && this.path.get(this.path.size()-1).getY() == (int) this.end.getY()){
 			return true;
 		}
 		return false;
 	}
 
-
+	/**
+	 * Expands the current state but creating all possible states from current state
+	 * @return
+	 */
 	public ArrayList<State> expandState() {
 		ArrayList<State> newStates = new ArrayList<State>();
 		ArrayList<Block> connectingBlocks = this.path.get(this.path.size()-1).connectingBlocks();
@@ -55,10 +69,18 @@ public class State implements Comparable<State> {
 		return newStates;
 	}
 
+	/**
+	 * Returns the path so far for this state
+	 * @return
+	 */
 	public ArrayList<Block> getPath(){
 		return this.path;
 	}
 
+	/**
+	 * Given a list of blocks it adds it to this states path
+	 * @param path
+	 */
 	private void addBlocks(ArrayList<Block> path) {
 		for(int i = 0; i < path.size(); i++){
 			this.path.add(path.get(i));
@@ -66,33 +88,42 @@ public class State implements Comparable<State> {
 		calculateF();
 	}
 
-
+	/**
+	 * Calculatses the f function value for state
+	 */
 	private void calculateF() {
 		this.f = calculateG() + calculateH();
 	}
 
+	/**
+	 * Calculates the G function value which is the cost of path
+	 * @return
+	 */
 	private int calculateG() {
 		this.g = this.path.size();
 		return this.g;
 	}
 
+	/**
+	 * Calculates heuristic. Heuristic is the manhatten distance from 
+	 * end of path to goal
+	 * @return
+	 */
 	private int calculateH() {
 		Block last = this.path.get(this.path.size()-1);
-		this.h = (int) (Math.abs(last.getI() - this.end.getX())+ Math.abs(last.getJ() - this.end.getY()));
+		this.h = (int) (Math.abs(last.getX() - this.end.getX())+ Math.abs(last.getY() - this.end.getY()));
 		return this.h;
 	}
 
-
+	/**
+	 * Adds a block to the end of path
+	 * @param start
+	 */
 	public void addBlock(Block start) {
 		if(!this.path.contains(start)){
 			this.path.add(start);
 			calculateF();
 		}
 	}
-
-
-	public void printState() {
-		this.path.get(0).print();
-	}	
 }
 

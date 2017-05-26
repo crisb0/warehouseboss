@@ -1,7 +1,6 @@
 package entity;
 import java.awt.Point;
 
-import map.Map;
 import map.MapGenerator;
 
 public class Player extends Entity {
@@ -17,10 +16,12 @@ public class Player extends Entity {
 	}
 
 	/**
-	 * returns true player is moved. Also updates map[][] and box loc
-	 * @param dir
-	 * @param map
-	 * @return
+	 * An action is performed based on the given Move object. If the action specified
+	 * in the Move object is legal, the map is updated accordingly. If the legal action
+	 * involves a box push, the move() method for the corresponding box is called. 
+	 * @param m the move to be made
+	 * @param map the map of the game
+	 * @return true if move is successful, false otherwise
 	 */
 	public boolean move(Move m, MapGenerator map) {
 		Point newLoc = m.getNewPoint(this.loc); // new player location
@@ -60,10 +61,8 @@ public class Player extends Entity {
 					return false;
 				
 				if (map.isFreeSpace(newBoxLoc) || map.isGoal(newBoxLoc)) {
-					System.out.println("BOX IS HERE");
 					Box b = map.getBox(newLoc);
 					b.move(m, map);
-					System.out.println("ENTITY MOVED=" + m.getEntityMoved().toString());
 					if (map.getGoalLocs().contains(this.loc))	
 						map.updateMap(GOAL, this.loc.x, this.loc.y);
 					else 

@@ -1,6 +1,10 @@
 package map;
 import entity.Block;
 
+/**
+ * Creates a map prototype
+ *
+ */
 public class StartingMap {
 	
 	private static final int DIMENSIONS = 8;
@@ -10,6 +14,19 @@ public class StartingMap {
 		createPrototype();
 	}
 	
+	/**
+	 * Creates a starting map prototype 
+	 * The map looks like 
+	 * 
+	 * 11111111
+	 * 11111111
+	 * 11000011
+	 * 11011011
+	 * 11000011
+	 * 11111111
+	 * 11111111
+	 * 11111111
+	 */
 	public void createPrototype(){
 		for(int i = 0; i < DIMENSIONS; i++){
 			for(int j = 0; j < DIMENSIONS; j++){
@@ -28,6 +45,10 @@ public class StartingMap {
 		this.blocks[3][4].setType(1);
 	}
 	
+	/**
+	 * 
+	 * @return map as a Block[][]
+	 */
 	public Block[][] getBlockMap(){
 		return this.blocks;
 	}	
