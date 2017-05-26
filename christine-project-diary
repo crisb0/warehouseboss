@@ -43,6 +43,10 @@ Compile list of things to go through on Tuesday
 
 ______________________________________________________________
 01.05.17______________________________________________________
+>> What did I do yesterday?
+>> What will I do today?
+>> Is anything in my way?
+
 ______________________________________________________________
 02.05.17______________________________________________________
 >> What did I do yesterday?
@@ -98,6 +102,10 @@ Implemented player class
 
 >> What will I do today?
 test entity/player/box
+
+>> Is anything in my way?
+Some uncertainty as to what the entity class needs to take care
+of
 ______________________________________________________________
 09.05.17______________________________________________________
 >> What did I do yesterday?
@@ -118,21 +126,37 @@ Attend group meeting
 Set deadline for sprint #1 (16.05.17)
 
 >> What will I do today?
->> Is anything in my way?
+Begin UML Diagram based on initial design
+Set an agreed upon enum / static final int code for properties
+of the map.
 
+>> Is anything in my way?
+UML design was not finalised as the group was unsure how to
+approach map generation at this point.
 
 ______________________________________________________________
 11.05.17______________________________________________________
 >> What did I do yesterday?
+Create the UML Diagram
+
 >> What will I do today?
+Complete initial UML Diagram
+Design main screen title page and buttons, tutorial
+Clarify/revise how the classes of MapGeneration, Entity, GUI
+interact. Which class takes care of the minutiae that were not
+thought of in the initial UML Diagram/helper functions?
+
 >> Is anything in my way?
 
 
 ______________________________________________________________
 12.05.17______________________________________________________
 >> What did I do yesterday?
+
 >> What will I do today?
-Create main screen title page and buttons
+
+Create main screen title animation and buttons
+
 >> Is anything in my way?
 
 
@@ -140,23 +164,34 @@ ______________________________________________________________
 13.05.17______________________________________________________
 >> What did I do yesterday?
 Created main screen title page and buttons
+
 >> What will I do today?
 Create templates for map generation and test them !
+
 >> Is anything in my way?
+Group was not happy with my title page animation -- what does 
+fire have to do with a warehouse ? "Needs relevance"
 
 ______________________________________________________________
 14.05.17______________________________________________________
 >> What did I do yesterday?
 Created templates
 >> What will I do today?
+
 Test templates !
+
 >> Is anything in my way?
+Difficulties in what makes a template create a good map. What
+is a good map? Need to define !
 
 ______________________________________________________________
 15.05.17______________________________________________________
 >> What did I do yesterday?
-Tested templates
+Tested templates to ensure that the maps generated from them are
+relatively playable and consistent.
+
 >> What will I do today?
+
 >> Is anything in my way?
 
 ______________________________________________________________
@@ -173,21 +208,124 @@ ______________________________________________________________
 >> What did I do yesterday?
 Group meeting, discussed extra features to implement,
 how to implement difficulty?
+
 >> What will I do today?
-Clean up code for whboss
+Clean up code for whboss and work on creating the tutorial map
+
 >> Is anything in my way?
+Dimensions of the grid are not final, unsure of size of tutorial
+map however it can be scaled
 
 ______________________________________________________________
 18.05.17______________________________________________________
 >> What did I do yesterday?
 Cleaned up code for whboss
+
 >> What will I do today?
-Implement extra feature -- difficulty
+Implement extra feature -- difficulty -- solution? As of now,
+thinking of implementing:
+    a radius feature in which the player can only see certain
+    parts of the map
+    number of moves it takes to solve the puzzle -- this is taken
+    care of in map generation
+    Number of undos allowed per difficulty level
+Discuss this with team.
+
 >> Is anything in my way?
 Dont know how to
 ______________________________________________________________
 19.05.17______________________________________________________
 >> What did I do yesterday?
+Agreed on what should be used to differentiate difficulty
+levels.
+Implemented some functions to aid in the differentiation of
+difficulty
+
 >> What will I do today?
-Create buttons for difficulty levels, make pretty the tutorial
+Create buttons for difficulty levels
+Created tutorial classes and created tutorial menu and pop ups
+
 >> Is anything in my way?
+
+______________________________________________________________
+20.05.17______________________________________________________
+>> What did I do yesterday?
+
+>> What will I do today?
+Continue to create templates to account for new changes in
+map generation. 
+
+>> Is anything in my way?
+Still unsure as to how a good template is made? Is it the 
+positioning of the template on the map or is it what the template
+actually consists of?
+
+______________________________________________________________
+21.05.17______________________________________________________
+>> What did I do yesterday?
+Create and test more tetmplates
+
+>> What will I do today?
+>> Is anything in my way?
+______________________________________________________________
+22.05.17______________________________________________________
+>> What did I do yesterday?
+
+>> What will I do today?
+Adjust GUI and tutorial map to get rid of free space on the
+GameUI according to Rob's feedback from week 10.
+
+>> Is anything in my way?
+Tutorial needs to be adjusted to a square grid and resized !
+______________________________________________________________
+23.05.17______________________________________________________
+>> What did I do yesterday?
+Changed GUI and tutorial.
+
+>> What will I do today?
+Revert changes to GUI, screen now again is rather clunky.
+Resized new tutorial map and game maps to fit new screen size.
+
+>> Is anything in my way?
+Scaling up the tutorial map means resolutions of images like
+the player sprite etc are blurry. Need to fix.
+MERGE CONFLICTS WITH GUI
+______________________________________________________________
+24.05.17______________________________________________________
+>> What did I do yesterday?
+Change back GUI to original size. Changed tutorial accordingly
+as well as the images.
+
+>> What will I do today?
+Created and added the victory animation into the tutorial as
+well as the game.
+
+>> Is anything in my way?
+Was extremely confused about where to put some functions and how
+things tie in together.
+MERGE CONFLICTS WITH GUI
+______________________________________________________________
+25.05.17______________________________________________________
+>> What did I do yesterday?
+Created the fireworks victory animation and added it to places
+where necessary.
+
+>> What will I do today?
+Finalise sections of the GUI I was in charge of.
+Work on UML Diagram and finalise that !!!!
+
+>> Is anything in my way?
+
+______________________________________________________________
+26.05.17______________________________________________________
+>> What did I do yesterday?
+Completed the GUI sections I was assigned.
+Made a few adjustments to the UML diagram.
+
+>> What will I do today?
+FINALISE EVERYTHING and CHECK EVERYHTING IS READY TO BE
+SUBMITTED
+
+>> Is anything in my way?
+Uncertain about UML Diagram arrows and what exactly the mean.
+
