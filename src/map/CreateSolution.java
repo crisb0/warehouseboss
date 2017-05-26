@@ -49,11 +49,8 @@ public class CreateSolution {
 			
 			expandState();
 			i++;
-//			System.out.println(i);
 		}
 		if(!Game.isLoading) return;
-		
-//		System.out.println(this.hicost + " " + this.stateID);
 
 		createState();
 		
