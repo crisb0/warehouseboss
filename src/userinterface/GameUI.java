@@ -151,6 +151,10 @@ public class GameUI extends AnimationTimer{
 		this.displayMap();
 	}
 	
+	/**
+	 * resets map
+	 */
+	
 	public void restart(){
 		if(this.mapGen == null){
 			System.err.println("You can not restart a game that hasn't started!");
@@ -240,6 +244,11 @@ public class GameUI extends AnimationTimer{
 		}
 	}
 	
+	/**
+	 * Draws goals on map
+	 * @param gc mainCanva's drawing area
+	 */
+	
 	protected void drawGoals(GraphicsContext gc){
 		ArrayList<Point> goalPoints = (ArrayList<Point>) this.game.getGoalLocs();
 		for(Point gPt : goalPoints){
@@ -288,17 +297,6 @@ public class GameUI extends AnimationTimer{
 					}
 					continue;
 				}
-				
-				/*
-				 * Old draw goal code, replaced with a much better version
-				if(grid[x][y] == Game.GOAL){
-					gc.drawImage(this.imgGoal, 
-							x * this.tileSize, y * this.tileSize, 
-							this.tileSize, this.tileSize);
-					continue;
-				}
-				*/
-				
 			}
 		}
 	}
@@ -428,6 +426,10 @@ public class GameUI extends AnimationTimer{
 		
 		this.displayMap();
 	}
+	
+	/**
+	 * undos move
+	 */
 	
 	protected void undoGame(){
 		if(this.game.canUndoMoves()){

@@ -60,10 +60,8 @@ public class Player extends Entity {
 					return false;
 				
 				if (map.isFreeSpace(newBoxLoc) || map.isGoal(newBoxLoc)) {
-//					System.out.println("BOX IS HERE");
 					Box b = map.getBox(newLoc);
 					b.move(m, map);
-//					System.out.println("ENTITY MOVED=" + m.getEntityMoved().toString());
 					if (map.getGoalLocs().contains(this.loc))	
 						map.updateMap(GOAL, this.loc.x, this.loc.y);
 					else 

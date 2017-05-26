@@ -102,11 +102,22 @@ public class Game {
 		return false;
 		
 	}
-	
+	/**
+	 * Updates map to be new entity
+	 * 
+	 * @param code - integer representation of new entity
+	 * @param x - x co-ordinate
+	 * @param y - y co-ordinate
+	 */
 	public void updateMap(int code, int x, int y) {
 		this.map.updateMap(code, x, y);
 	}
-	
+	/**
+	 * undos a move
+	 * 
+	 * @return true if undo is carried out
+	 * @return false if undo cannot be done
+	 */
 	public boolean undoMove() {
 		if (!prevMoves.isEmpty()) {
 			Move undoMove = prevMoves.pop();
@@ -117,10 +128,17 @@ public class Game {
 		return false;
 	}
 	
+	/**
+	 * checks if we can even undo a move
+	 * @return true if prevMoves is not empty
+	 * @return false if prevMoves is empty
+	 */
 	public boolean canUndoMoves(){
 		return !prevMoves.isEmpty();
 	}
-	
+	/**
+	 * clears moves done before
+	 */
 	public void purgeUndos(){
 		this.prevMoves.clear();
 	}
