@@ -27,17 +27,9 @@ public class Game {
 	public static final int BOX = 2;
 	public static final int GOAL = 3;
 	public static final int PLAYER = 4;
-
-//	public Game(Map m) {
-//		this.p = m.getPlayer();
-//		this.map = m;
-//		this.prevMoves = new ArrayDeque<Move>();
-//	}
 	
 	public Game(MapGenerator m) {
-//		System.out.println("hello1");
 		this.p = m.getPlayer();
-//		System.out.println(p.getLoc().getX() + " " + p.getLoc().getY());
 		this.map = m;
 		this.prevMoves = new ArrayDeque<Move>();
 		this.findMaxLengths();
