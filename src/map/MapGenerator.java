@@ -9,7 +9,6 @@ import entity.Player;
 
 /**
  * Generates a map in a state where it can be solved
- * @author shyam
  *
  */
 public class MapGenerator {

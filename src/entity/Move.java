@@ -15,16 +15,25 @@ public class Move {
 		savedPoint = null;
 		savedEntityPoint = null;
 	}
-	
+	/**
+	 * checks if an undo is requested and returns true or false
+	 * @return
+	 */
 	public boolean isUndo() {
 		return undo;
 	}
-	
+	/**
+	 * returns the entity which has been moved
+	 * @return
+	 */
 	public Entity getEntityMoved() {
 		return entityMoved;
 	}
 	
-	
+	/**
+	 * Assigns entityMoved to be a specific entity
+	 * @param e
+	 */
 	public void setEntityMoved(Entity e) {
 		entityMoved = e;
 	}

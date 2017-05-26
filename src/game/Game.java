@@ -52,30 +52,53 @@ public class Game {
 		}
 	}
 	
+	/**
+	 * adds box to list of boxes
+	 * @param x - x co-ordinate
+	 * @param y - y co-ordinate
+	 */
 	public void addBox(int x, int y){
 		this.map.addBox(x, y);
 	}
-	
+	/**
+	 * returns max height of grid
+	 * @return
+	 */
 	public int getMaxWidth(){
 		return this.width;
 	}
-	
+	/**
+	 * returns max height of grid
+	 * @return
+	 */
 	public int getMaxHeight(){
 		return this.height;
 	}
-	
+	/**
+	 * gets grid
+	 * @return
+	 */
 	public int[][] getGrid(){
 		return this.map.getGrid();
 	}
-	
+	/**
+	 * gets map
+	 * @return
+	 */
 	public MapGenerator getMap(){
 		return this.map;
 	}
-	
+	/**
+	 * returns player
+	 * @return
+	 */
 	public Player getPlayer(){
 		return this.p;
 	}
-	
+	/**
+	 * returns a list of points which represent the coordinates of all box locations
+	 * @return
+	 */
 	public List<Point> getBoxLocs() {
 		ArrayList<Box> boxes = (ArrayList<Box>) this.map.getBoxLocs();
 		ArrayList<Point> points = new ArrayList<>();
@@ -86,11 +109,21 @@ public class Game {
 		
 		return points;
 	}
-	
+	/**
+	 * returns a list of goal locations
+	 * @return
+	 */
 	public List<Point> getGoalLocs() {
 		return this.map.getGoalLocs();
 	}
-	
+	/**
+	 * Takes in direction in which player wants to move in 
+	 * adds this to a list of moves
+	 * returns true if we can move
+	 * returns false if we cannot
+	 * @param dir
+	 * @return
+	 */
 	public boolean move(char dir) {
 		Move newMove = new Move(dir);
 		if (p.move(newMove, map)) {
